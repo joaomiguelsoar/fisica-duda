@@ -3,238 +3,379 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f472b6">
+<meta name="theme-color" content="#f6f3ee">
 <title>Física da Princesinha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fff5fa; --bg2:#fde8f3; --card:#ffffff; --text:#3b2440; --muted:#7a6380;
-  --pink:#ec4899; --pink2:#f9a8d4; --purple:#8b5cf6; --purple2:#c4b5fd;
-  --blue:#3b82f6; --green:#16a34a; --green-bg:#dcfce7; --red:#dc2626; --red-bg:#fee2e2;
-  --yellow-bg:#fef9c3; --yellow-bd:#facc15; --yellow-tx:#713f12;
-  --border:#f3d3e6; --shadow:0 6px 20px rgba(236,72,153,.12);
-  --w1:#8b5cf6; --w2:#f97316;
-  --sim-bg:#fdf2f8; --sim-line:#3b2440; --sim-grid:#f5d0e6;
-  --radius:18px;
+  --bg:#f6f3ee; --bg2:#efebe4; --card:#fbfaf7; --line:#e3ddd3; --line2:#d6cec2;
+  --ink:#23211e; --ink2:#4b4640; --muted:#857d73;
+  --acc:#34507a; --acc-ink:#2a4166; --acc-soft:rgba(52,80,122,.075); --acc-line:rgba(52,80,122,.28);
+  --ok:#4c7856; --ok-soft:rgba(76,120,86,.09); --bad:#a3483e; --bad-soft:rgba(163,72,62,.08);
+  --gold:#b8964f;
+  --w1:#6f8f9c; --w2:#b48365;
+  --sim-bg:#f9f7f3; --sim-line:#3a3631;
+  --shadow:0 1px 2px rgba(35,33,30,.04),0 10px 28px -16px rgba(35,33,30,.16);
+  --ease:cubic-bezier(.22,.61,.36,1); --ease-out:cubic-bezier(.16,1,.3,1);
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --sans:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --radius:16px;
+  color-scheme:light;
 }
 :root[data-theme="dark"]{
-  --bg:#1b1324; --bg2:#251a32; --card:#2a1e38; --text:#f8e9f5; --muted:#c3aecb;
-  --pink:#f472b6; --pink2:#9d174d; --purple:#a78bfa; --purple2:#4c1d95;
-  --blue:#60a5fa; --green:#4ade80; --green-bg:#14532d; --red:#f87171; --red-bg:#7f1d1d;
-  --yellow-bg:#422006; --yellow-bd:#ca8a04; --yellow-tx:#fde68a;
-  --border:#3d2c4f; --shadow:0 6px 20px rgba(0,0,0,.35);
-  --sim-bg:#1f1629; --sim-line:#f8e9f5; --sim-grid:#3a2a4a;
+  --bg:#141518; --bg2:#1b1d21; --card:#1a1c20; --line:#2a2d33; --line2:#363a41;
+  --ink:#ebe7e0; --ink2:#c4bfb7; --muted:#8e897f;
+  --acc:#a3b8dc; --acc-ink:#bccbe6; --acc-soft:rgba(163,184,220,.09); --acc-line:rgba(163,184,220,.32);
+  --ok:#8db896; --ok-soft:rgba(141,184,150,.11); --bad:#d98b7f; --bad-soft:rgba(217,139,127,.11);
+  --gold:#cfb072;
+  --w1:#8fb0bd; --w2:#cf9f80;
+  --sim-bg:#17191c; --sim-line:#d8d4cd;
+  --shadow:0 1px 2px rgba(0,0,0,.25),0 12px 30px -18px rgba(0,0,0,.6);
+  color-scheme:dark;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#1b1324; --bg2:#251a32; --card:#2a1e38; --text:#f8e9f5; --muted:#c3aecb;
-    --pink:#f472b6; --pink2:#9d174d; --purple:#a78bfa; --purple2:#4c1d95;
-    --blue:#60a5fa; --green:#4ade80; --green-bg:#14532d; --red:#f87171; --red-bg:#7f1d1d;
-    --yellow-bg:#422006; --yellow-bd:#ca8a04; --yellow-tx:#fde68a;
-    --border:#3d2c4f; --shadow:0 6px 20px rgba(0,0,0,.35);
-    --sim-bg:#1f1629; --sim-line:#f8e9f5; --sim-grid:#3a2a4a;
+    --bg:#141518; --bg2:#1b1d21; --card:#1a1c20; --line:#2a2d33; --line2:#363a41;
+    --ink:#ebe7e0; --ink2:#c4bfb7; --muted:#8e897f;
+    --acc:#a3b8dc; --acc-ink:#bccbe6; --acc-soft:rgba(163,184,220,.09); --acc-line:rgba(163,184,220,.32);
+    --ok:#8db896; --ok-soft:rgba(141,184,150,.11); --bad:#d98b7f; --bad-soft:rgba(217,139,127,.11);
+    --gold:#cfb072;
+    --w1:#8fb0bd; --w2:#cf9f80;
+    --sim-bg:#17191c; --sim-line:#d8d4cd;
+    --shadow:0 1px 2px rgba(0,0,0,.25),0 12px 30px -18px rgba(0,0,0,.6);
+    color-scheme:dark;
   }
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);font-family:'Nunito',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.55;min-height:100vh;overflow-x:hidden}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background-color .4s var(--ease),color .4s var(--ease)}
 button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
-a{color:var(--pink)}
-.wrap{max-width:780px;margin:0 auto;padding:0 16px 96px}
+a{color:var(--acc)}
+b,strong{font-weight:700}
+.ic{flex:none;display:inline-block;vertical-align:middle}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px 96px}
+.serif{font-family:var(--serif);font-weight:400}
+.num{font-variant-numeric:tabular-nums}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-.topbar-in{max-width:780px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
-.topbar .ttl{flex:1;min-width:0;font-weight:800;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.iconbtn{border:0;background:var(--card);box-shadow:var(--shadow);width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:1.15rem;flex:none}
-.pill{background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:6px 12px;font-weight:800;font-size:.9rem;white-space:nowrap;flex:none}
+/* ---------- barra superior ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.topbar-in{max-width:740px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:10px;min-height:58px}
+.topbar .ttl{flex:1;min-width:0;font-family:var(--serif);font-size:1.3rem;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .25s var(--ease)}
+.iconbtn{border:1px solid var(--line);background:transparent;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none;color:var(--ink2);transition:transform .2s var(--ease),background-color .2s,border-color .2s,opacity .25s}
+.iconbtn:hover{background:var(--card);border-color:var(--line2)}
+.iconbtn:active{transform:scale(.92)}
+.iconbtn{transition:transform .2s var(--ease),background-color .2s,border-color .2s,opacity .25s,width .3s var(--ease),margin .3s var(--ease)}
+.iconbtn.hide{opacity:0;pointer-events:none;width:0;margin-right:-10px;border-width:0}
+.pill{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 10px;font-weight:600;font-size:.85rem;white-space:nowrap;flex:none;color:var(--ink2)}
+.pill .ic{color:var(--gold)}
+.pill.bump{animation:bump .5s var(--ease-out)}
+@keyframes bump{40%{transform:scale(1.08)}}
 
-/* home */
-.hero{margin:18px 0 8px;padding:22px 20px;border-radius:24px;background:linear-gradient(135deg,#f9a8d4,#c4b5fd 60%,#93c5fd);color:#3b0a33;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.hero h1{margin:0 0 6px;font-size:1.6rem;line-height:1.2;font-weight:900}
-.hero p{margin:0;font-weight:600}
-.hero .crown{position:absolute;right:-6px;top:-12px;font-size:5rem;opacity:.25;transform:rotate(14deg)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
-.stat{background:var(--card);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
-.stat b{display:block;font-size:1.35rem;font-weight:900}
-.stat span{font-size:.8rem;color:var(--muted);font-weight:700}
-.bar{height:14px;background:var(--bg2);border-radius:999px;overflow:hidden;border:1px solid var(--border)}
-.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:999px;transition:width .6s}
-.section-title{font-weight:900;font-size:1.2rem;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
-.world{border-radius:22px;padding:16px;margin-bottom:16px;background:var(--card);box-shadow:var(--shadow);border-top:6px solid var(--wc)}
-.world-h{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.world-h .em{font-size:2rem;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--wc) 18%,transparent)}
-.world-h h2{margin:0;font-size:1.15rem;font-weight:900;line-height:1.2}
-.world-h small{color:var(--muted);font-weight:700}
-.lesson-item{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--border);background:var(--bg);border-radius:16px;padding:12px;margin-top:8px;transition:transform .15s}
-.lesson-item:active{transform:scale(.98)}
-.lesson-item .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:color-mix(in srgb,var(--wc) 20%,transparent);flex:none}
-.lesson-item .t{flex:1;min-width:0}
-.lesson-item .t b{display:block;font-weight:800}
-.lesson-item .t small{display:block;color:var(--muted);font-size:.82rem;line-height:1.3}
-.lesson-item .s{font-size:.95rem;white-space:nowrap}
-.minibar{height:6px;background:var(--bg2);border-radius:9px;margin-top:6px;overflow:hidden}
-.minibar>i{display:block;height:100%;background:var(--wc)}
+/* ---------- transições de tela ---------- */
+#app{transition:opacity .16s var(--ease),transform .16s var(--ease)}
+#app.leaving{opacity:0;transform:translateY(-6px)}
+.rise{animation:rise .6s var(--ease-out) both;animation-delay:calc(var(--i,0) * 55ms)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ---------- home ---------- */
+.hero{padding:40px 0 8px}
+.overline{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:3rem;line-height:1.02;letter-spacing:-.015em;margin:10px 0 12px}
+.hero h1 em{color:var(--acc)}
+.hero p{margin:0;color:var(--ink2);max-width:34ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin:30px 0 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:16px 4px;text-align:left}
+.stat+.stat{border-left:1px solid var(--line);padding-left:16px}
+.stat b{display:block;font-family:var(--serif);font-weight:400;font-size:2rem;line-height:1.1}
+.stat>span{font-size:.78rem;color:var(--muted);font-weight:600}
+.bar{height:3px;background:var(--line);border-radius:999px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--acc);border-radius:999px;transition:width 1.1s var(--ease-out)}
+.prog-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:8px}
+.section-title{font-family:var(--serif);font-weight:400;font-size:1.75rem;margin:48px 0 14px;letter-spacing:-.01em}
+.world{margin-bottom:28px}
+.world-h{display:flex;align-items:center;gap:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.world-h .em{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:var(--wc);border:1px solid color-mix(in srgb,var(--wc) 45%,transparent);background:color-mix(in srgb,var(--wc) 8%,transparent)}
+.world-h h2{margin:2px 0 0;font-family:var(--serif);font-weight:400;font-size:1.45rem;line-height:1.15}
+.world-h .overline{color:var(--wc)}
+.lesson-item{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;padding:16px 4px;position:relative;transition:background-color .25s var(--ease)}
+.lesson-item:hover{background:color-mix(in srgb,var(--card) 70%,transparent)}
+.lesson-item:active .t{transform:translateX(3px)}
+.lesson-item .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--ink2);background:var(--bg2);flex:none}
+.lesson-item .t{flex:1;min-width:0;transition:transform .25s var(--ease)}
+.lesson-item .t b{display:block;font-weight:600;line-height:1.35}
+.lesson-item .t small{display:block;color:var(--muted);font-size:.83rem;line-height:1.4;margin-top:2px}
+.lesson-item .s{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
+.lesson-item .chev{color:var(--muted);transition:transform .25s var(--ease)}
+.lesson-item:hover .chev{transform:translateX(3px);color:var(--ink)}
+.minibar{height:2px;background:var(--line);border-radius:9px;margin-top:10px;overflow:hidden;max-width:220px}
+.minibar>i{display:block;height:100%;width:0;background:var(--wc);transition:width 1s var(--ease-out) .2s}
+.stars{display:inline-flex;gap:2px;color:var(--line2)}
+.stars .on{color:var(--gold)}
+.stars .on path{fill:currentColor}
+.done-mark{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:700;color:var(--ok);letter-spacing:.04em;text-transform:uppercase}
 .extras{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.extra{border:0;background:var(--card);box-shadow:var(--shadow);border-radius:18px;padding:16px 12px;text-align:left}
-.extra .e{font-size:1.8rem}
-.extra b{display:block;font-weight:900;margin-top:4px}
-.extra small{color:var(--muted);font-size:.8rem;line-height:1.3;display:block}
+.extra{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px 16px;text-align:left;transition:transform .25s var(--ease),border-color .25s,box-shadow .25s}
+.extra:hover{border-color:var(--line2);box-shadow:var(--shadow);transform:translateY(-2px)}
+.extra:active{transform:scale(.98)}
+.extra .ic{color:var(--acc)}
+.extra b{display:block;font-family:var(--serif);font-weight:400;font-size:1.3rem;margin-top:14px;line-height:1.2}
+.extra small{color:var(--muted);font-size:.8rem;line-height:1.4;display:block;margin-top:2px}
+.footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:44px;font-family:var(--serif);font-style:italic;font-size:1.05rem}
 
-/* buttons */
-.btn{border:0;border-radius:14px;padding:12px 18px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:var(--shadow);transition:transform .12s,opacity .2s}
+/* ---------- botões ---------- */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--acc);border-radius:12px;padding:13px 20px;font-weight:600;font-size:.95rem;background:var(--acc);color:var(--card);transition:transform .2s var(--ease),filter .2s,background-color .2s,box-shadow .25s}
+:root[data-theme="dark"] .btn:not(.sec){color:#141518}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:not(.sec){color:#141518}}
+.btn::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.35),transparent 60%);opacity:0;transition:opacity .4s}
 .btn:active{transform:scale(.97)}
-.btn.sec{background:var(--card);color:var(--text);border:2px solid var(--border)}
-.btn.ok{background:var(--green);color:#fff}
-.btn.block{display:block;width:100%}
-.btn:disabled{opacity:.5}
+.btn:active::after{opacity:1;transition:opacity 0s}
+.btn:hover{filter:brightness(1.06);box-shadow:var(--shadow)}
+.btn.sec{background:transparent;color:var(--ink);border-color:var(--line2)}
+.btn.sec::after{background:radial-gradient(circle at var(--mx,50%) var(--my,50%),var(--acc-soft),transparent 60%)}
+.btn.sec:hover{background:var(--card);filter:none}
+.btn.ok{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.btn.block{display:flex;width:100%}
+.btn.small{padding:8px 12px;font-size:.85rem;border-radius:10px}
+.btn:disabled{opacity:.45}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.next-row{margin-top:14px}
 
-/* lesson */
-.lesson-head{margin:16px 0 4px}
-.lesson-head h1{margin:0;font-size:1.45rem;font-weight:900;line-height:1.2}
-.lesson-head p{margin:2px 0 0;color:var(--muted);font-weight:600}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0;padding:6px 0}
-.tab{border:2px solid var(--border);background:var(--card);border-radius:14px;padding:8px 2px;font-weight:800;font-size:.78rem;line-height:1.15;display:flex;flex-direction:column;align-items:center;gap:2px}
-.tab .ic{font-size:1.25rem}
-.tab.on{border-color:var(--pink);background:color-mix(in srgb,var(--pink) 14%,var(--card))}
-.tab .dn{font-size:.7rem;color:var(--green)}
-.card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
-.card h3{margin:0 0 8px;font-size:1.12rem;font-weight:900}
-.card h4{margin:14px 0 6px;font-size:1rem;font-weight:800}
-.card p{margin:8px 0}
-.card ul,.card ol{padding-left:22px;margin:8px 0}
-.card li{margin:4px 0}
-.warn{background:var(--yellow-bg);border:2px solid var(--yellow-bd);color:var(--yellow-tx);border-radius:16px;padding:12px 14px;margin:12px 0}
-.warn>b:first-child{display:block;margin-bottom:4px}
-.tip{background:color-mix(in srgb,var(--purple) 12%,var(--card));border-left:5px solid var(--purple);border-radius:12px;padding:10px 14px;margin:12px 0}
-.formula{background:var(--bg2);border:2px dashed var(--pink2);border-radius:14px;padding:12px;margin:10px 0;text-align:center;font-size:1.12rem;font-weight:700;overflow-x:auto}
-.formula small{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:4px}
-.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em;line-height:1.15}
-.frac>span:first-child{border-bottom:2px solid currentColor;padding:0 .2em}
-.frac>span:last-child{padding:0 .2em}
+/* ---------- lição ---------- */
+.lesson-head{margin:32px 0 6px}
+.lesson-head h1{margin:8px 0 0;font-family:var(--serif);font-weight:400;font-size:2.4rem;line-height:1.05;letter-spacing:-.015em}
+.lesson-head p{margin:10px 0 0;color:var(--ink2)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:22px 0 20px;padding:4px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;position:relative}
+.tab{border:0;background:transparent;border-radius:10px;padding:8px 2px;font-weight:600;font-size:.78rem;line-height:1.15;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--muted);position:relative;z-index:1;transition:color .25s var(--ease)}
+.tab.on{color:var(--ink)}
+.tab .dn{position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.tab-ind{position:absolute;top:4px;bottom:4px;left:4px;border-radius:10px;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.06),0 0 0 1px var(--line);transition:transform .45s var(--ease-out),width .45s var(--ease-out)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;margin-bottom:14px}
+.card h3{margin:0 0 12px;font-family:var(--serif);font-weight:400;font-size:1.6rem;line-height:1.15;letter-spacing:-.01em}
+.card h4{margin:22px 0 6px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.card p{margin:10px 0}
+.card ul,.card ol{padding-left:20px;margin:10px 0}
+.card li{margin:6px 0}
+.card li::marker{color:var(--muted)}
+.warn{background:var(--acc-soft);border-left:2px solid var(--acc);border-radius:2px 12px 12px 2px;padding:14px 16px;margin:16px 0;color:var(--ink)}
+.warn-h{display:flex;align-items:center;gap:8px;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc-ink);margin-bottom:4px}
+.warn ul{margin:6px 0 0}
+.warn p{margin:4px 0 0}
+.tip{display:flex;gap:10px;align-items:flex-start;color:var(--ink2);font-size:.95rem;border-top:1px solid var(--line);padding:14px 2px 2px;margin:16px 0 4px}
+.tip>.ic{color:var(--gold);margin-top:2px}
+.tip.box{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px;margin:0 0 14px}
+.formula{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 12px;margin:14px 0;text-align:center;font-family:var(--serif);font-size:1.55rem;line-height:1.3;overflow-x:auto}
+.formula small{display:block;font-family:var(--sans);font-size:.8rem;color:var(--muted);margin-top:8px;line-height:1.45}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .12em;line-height:1.1}
+.frac>span:first-child{border-bottom:1px solid currentColor;padding:0 .2em .05em}
+.frac>span:last-child{padding:.05em .2em 0}
 .sqrt{white-space:nowrap}
-.sqrt>span{border-top:2px solid currentColor;padding:0 .15em}
-table.t{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
-table.t th,table.t td{border:1px solid var(--border);padding:7px 8px;text-align:left;vertical-align:top}
-table.t th{background:var(--bg2)}
+.sqrt>span{border-top:1px solid currentColor;padding:0 .15em}
+table.t{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9rem}
+table.t th,table.t td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+table.t th{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+table.t tr:last-child td{border-bottom:0}
 .tablewrap{overflow-x:auto}
-.mini-svg{display:block;margin:10px auto;max-width:100%;height:auto}
-.done-box{text-align:center;margin:18px 0}
+.mini-svg{display:block;margin:16px auto;max-width:100%;height:auto;color:var(--ink2)}
+.sv-water{fill:var(--acc);opacity:.1}
+.sv-acc-s{stroke:var(--w2)}.sv-acc-f{fill:var(--w2)}
+.sv-v-s{stroke:var(--acc)}.sv-v-f{fill:var(--acc)}
+.sv-a-s{stroke:var(--ok)}.sv-a-f{fill:var(--ok)}
+.done-box{margin:22px 0 0}
 
-/* sim */
-.sim{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;margin-bottom:14px}
-.sim canvas{display:block;width:100%;border-radius:12px;background:var(--sim-bg);touch-action:none}
-.ctrls{display:grid;gap:10px;margin-top:12px}
-.ctrl label{display:flex;justify-content:space-between;font-weight:800;font-size:.9rem}
-.ctrl label span{color:var(--pink)}
-input[type=range]{width:100%;accent-color:var(--pink);height:28px}
+/* ---------- simulações ---------- */
+.sim{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:14px}
+.sim canvas{display:block;width:100%;border-radius:10px;background:var(--sim-bg);touch-action:none;border:1px solid var(--line)}
+.sim canvas.flash{animation:flash .45s var(--ease)}
+@keyframes flash{from{opacity:.35}to{opacity:1}}
+.ctrls{display:grid;gap:14px;margin-top:16px;padding:0 4px}
+.ctrl>label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:.85rem;margin-bottom:6px;color:var(--ink2)}
+.ctrl label span{color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(var(--acc),var(--acc)) 0/var(--p,50%) 100% no-repeat,var(--line2);border-radius:2px}
+input[type=range]::-moz-range-track{height:2px;background:var(--line2);border-radius:2px}
+input[type=range]::-moz-range-progress{height:2px;background:var(--acc)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:var(--card);border:1.5px solid var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.12);transition:transform .2s var(--ease)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--card);border:1.5px solid var(--acc)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
 .seg{display:flex;flex-wrap:wrap;gap:6px}
-.seg button{border:2px solid var(--border);background:var(--bg);border-radius:12px;padding:7px 10px;font-weight:800;font-size:.85rem}
-.seg button.on{border-color:var(--pink);background:color-mix(in srgb,var(--pink) 16%,var(--card))}
-.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
-.readout div{background:var(--bg2);border-radius:12px;padding:8px 10px;font-size:.88rem}
-.readout b{display:block;font-size:1.02rem}
-.alert{border-radius:14px;padding:10px 14px;margin-top:10px;font-weight:800;text-align:center}
-.alert.ok{background:var(--green-bg);color:var(--green)}
-.alert.bad{background:var(--red-bg);color:var(--red);animation:shake .4s}
-.alert.info{background:color-mix(in srgb,var(--blue) 15%,var(--card));color:var(--text)}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-.chk{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem}
-.chk input{width:20px;height:20px;accent-color:var(--pink)}
+.seg button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 13px;font-weight:600;font-size:.82rem;color:var(--ink2);transition:all .25s var(--ease)}
+.seg button:active{transform:scale(.95)}
+.seg button.on{border-color:var(--acc-line);background:var(--acc-soft);color:var(--acc-ink)}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.readout div{background:var(--card);box-shadow:0 0 0 1px var(--line);padding:9px 12px;font-size:.78rem;color:var(--muted);font-weight:500}
+.readout b{display:block;font-size:.98rem;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;margin-top:1px}
+.alert{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:11px 14px;margin-top:12px;font-weight:500;font-size:.9rem;line-height:1.5;animation:fadein .35s var(--ease)}
+.alert .ic{margin-top:1px}
+.alert.ok{background:var(--ok-soft);color:var(--ink)}.alert.ok .ic{color:var(--ok)}
+.alert.bad{background:var(--bad-soft);color:var(--ink);animation:fadein .3s var(--ease),shake .45s var(--ease)}.alert.bad .ic{color:var(--bad)}
+.alert.info{background:var(--bg2);color:var(--ink2)}.alert.info .ic{color:var(--acc)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}45%{transform:translateX(4px)}70%{transform:translateX(-2px)}}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.chk{display:flex;align-items:center;gap:10px;font-weight:600;font-size:.88rem;color:var(--ink2);cursor:pointer}
+input[type=checkbox]{-webkit-appearance:none;appearance:none;width:20px;height:20px;border:1.5px solid var(--line2);border-radius:6px;background:var(--card);display:grid;place-items:center;flex:none;margin:0;cursor:pointer;transition:background-color .2s,border-color .2s}
+input[type=checkbox]::after{content:"";width:10px;height:6px;border-left:1.6px solid var(--card);border-bottom:1.6px solid var(--card);transform:translateY(-1px) rotate(-45deg) scale(0);transition:transform .25s var(--ease-out)}
+input[type=checkbox]:checked{background:var(--acc);border-color:var(--acc)}
+input[type=checkbox]:checked::after{transform:translateY(-1px) rotate(-45deg) scale(1)}
+input[type=checkbox]:disabled{opacity:.4}
 
-/* examples */
-.step{border-left:4px solid var(--purple2);padding:6px 0 6px 12px;margin:8px 0;animation:fadein .35s}
-.answer{background:var(--green-bg);color:var(--text);border-radius:12px;padding:10px 12px;font-weight:800;margin-top:8px;animation:fadein .35s}
-@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* ---------- exemplos ---------- */
+.step{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);animation:fadein .4s var(--ease)}
+.step .k{flex:none;width:24px;height:24px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font-size:.75rem;font-weight:700;color:var(--muted);margin-top:1px}
+.answer{display:flex;gap:10px;align-items:flex-start;background:var(--ok-soft);border-radius:12px;padding:12px 14px;font-weight:600;margin-top:10px;animation:fadein .4s var(--ease)}
+.answer .ic{color:var(--ok);margin-top:2px}
+.q-ex{font-weight:600}
 
-/* quiz */
-.qprog{display:flex;justify-content:space-between;font-weight:800;color:var(--muted);font-size:.9rem;margin-bottom:6px}
-.qtext{font-size:1.08rem;font-weight:800;margin:10px 0 12px}
-.opt{display:block;width:100%;text-align:left;border:2px solid var(--border);background:var(--bg);border-radius:14px;padding:12px 14px;margin:8px 0;font-weight:700;transition:transform .1s}
-.opt:active{transform:scale(.99)}
-.opt.right{border-color:var(--green);background:var(--green-bg)}
-.opt.wrong{border-color:var(--red);background:var(--red-bg)}
-.opt:disabled{cursor:default}
-.fb{border-radius:14px;padding:12px 14px;margin-top:10px;animation:fadein .3s}
-.fb.r{background:var(--green-bg)}
-.fb.w{background:var(--red-bg)}
-.big-emoji{font-size:3.5rem;text-align:center}
-.stars{font-size:2rem;text-align:center;letter-spacing:4px}
+/* ---------- quiz ---------- */
+.qprog{display:flex;justify-content:space-between;font-weight:600;color:var(--muted);font-size:.8rem;margin-bottom:10px;letter-spacing:.02em}
+.qtext{font-family:var(--serif);font-size:1.55rem;line-height:1.25;margin:20px 0 16px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line);background:transparent;border-radius:12px;padding:13px 14px;margin:8px 0;font-weight:500;line-height:1.4;transition:transform .2s var(--ease),border-color .25s,background-color .25s}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--muted);transition:all .25s var(--ease)}
+.opt .tx{flex:1}
+.opt .mk{flex:none;width:22px;height:22px}
+.opt:not(:disabled):hover{border-color:var(--acc-line);background:var(--acc-soft)}
+.opt:not(:disabled):active{transform:scale(.985)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .L{background:var(--ok);border-color:var(--ok);color:var(--card)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft);animation:shake .45s var(--ease)}
+.opt.wrong .L{background:var(--bad);border-color:var(--bad);color:var(--card)}
+.opt.dim{opacity:.5}
+.opt:disabled{cursor:default;color:inherit}
+.draw path{stroke-dasharray:30;stroke-dashoffset:30;animation:draw .5s var(--ease-out) .05s forwards}
+.opt.right .draw{color:var(--ok)}.opt.wrong .draw{color:var(--bad)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.fb{border-radius:12px;padding:14px 16px;margin-top:12px;animation:fadein .35s var(--ease);font-size:.95rem;color:var(--ink2)}
+.fb b{display:block;color:var(--ink);font-family:var(--serif);font-weight:400;font-size:1.25rem;margin-bottom:2px}
+.fb.r{background:var(--ok-soft)}
+.fb.w{background:var(--bad-soft)}
+.result{text-align:center;padding:36px 22px}
+.result .score{font-family:var(--serif);font-size:4.2rem;line-height:1;margin:8px 0 4px}
+.result .score small{font-size:2rem;color:var(--muted)}
+.result .stars{gap:8px;margin:14px 0 6px}
+.result .stars svg{animation:pop .5s var(--ease-out) both}
+.result .stars svg:nth-child(2){animation-delay:.12s}.result .stars svg:nth-child(3){animation-delay:.24s}
+@keyframes pop{from{opacity:0;transform:scale(.4) rotate(-20deg)}to{opacity:1;transform:none}}
+.result p{color:var(--ink2);max-width:36ch;margin:12px auto 0}
 
-/* flashcards */
-.fc-wrap{perspective:1000px;margin:10px 0}
-.fc{position:relative;height:260px;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+/* ---------- flashcards ---------- */
+.fc-wrap{perspective:1400px;margin:14px 0}
+.fc{position:relative;height:280px;transition:transform .75s var(--ease-out);transform-style:preserve-3d;cursor:pointer;outline:none}
 .fc.flip{transform:rotateY(180deg)}
-.fc>div{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
-.fc .front{background:linear-gradient(135deg,#f9a8d4,#c4b5fd);color:#3b0a33;font-weight:900;font-size:1.3rem}
-.fc .back{background:var(--card);transform:rotateY(180deg);font-size:1.1rem;font-weight:700;overflow:auto}
-.fc .tag{font-size:.75rem;font-weight:800;opacity:.75;margin-bottom:8px}
+.fc:active:not(.flip){transform:scale(.985)}
+.fc>div{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.fc .front{background:var(--card);font-family:var(--serif);font-size:2rem;line-height:1.2;box-shadow:var(--shadow)}
+.fc .back{background:var(--card);transform:rotateY(180deg);font-size:1.15rem;font-weight:500;overflow:auto;box-shadow:var(--shadow)}
+.fc .back .frac,.fc .back .sqrt{font-family:var(--serif);font-size:1.3em}
+.fc .tag{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.fc .hint{position:absolute;bottom:16px;left:0;right:0;font-family:var(--sans);font-size:.75rem;color:var(--muted);display:flex;gap:6px;align-items:center;justify-content:center}
+.fc-n{text-align:center;font-weight:600;color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
 
-/* resumo */
-.rs h3{color:var(--pink)}
-.rs .formula{font-size:1rem}
+/* ---------- checklist ---------- */
+.cl-item{display:flex;align-items:flex-start;gap:12px;padding:12px 2px;border-bottom:1px solid var(--line);cursor:pointer}
+.cl-item:last-child{border-bottom:0}
+.cl-item input{margin-top:2px}
+.cl-item span{flex:1;transition:color .3s}
+.cl-item.done span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line2)}
+.cl-item button{border:0;background:none;color:var(--muted);padding:2px;border-radius:6px}
+.cl-item button:hover{color:var(--bad)}
+.inp{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:11px 12px;font-family:inherit;font-size:1rem;transition:border-color .2s}
+.inp:focus{outline:none;border-color:var(--acc-line);box-shadow:0 0 0 3px var(--acc-soft)}
 
-/* checklist */
-.cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border)}
-.cl-item input[type=checkbox]{width:22px;height:22px;accent-color:var(--pink);flex:none;margin-top:2px}
-.cl-item span{flex:1}
-.cl-item.done span{text-decoration:line-through;color:var(--muted)}
-.cl-item button{border:0;background:none;font-size:1rem;opacity:.6}
-.inp{width:100%;border:2px solid var(--border);background:var(--bg);color:var(--text);border-radius:12px;padding:10px 12px;font-family:inherit;font-size:1rem}
-
-/* toast & confetti */
-#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120px);background:var(--card);color:var(--text);border:2px solid var(--pink2);box-shadow:var(--shadow);border-radius:18px;padding:12px 18px;font-weight:800;z-index:60;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden;transition:transform .35s cubic-bezier(.2,1.4,.4,1),opacity .25s,visibility .25s}
+/* ---------- toast e brilho ---------- */
+#toast{position:fixed;left:50%;bottom:22px;display:flex;align-items:center;gap:10px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:var(--bg);border-radius:14px;padding:11px 16px;font-weight:600;font-size:.9rem;z-index:60;max-width:calc(100% - 32px);box-shadow:0 12px 30px -12px rgba(0,0,0,.35);opacity:0;visibility:hidden;transition:transform .45s var(--ease-out),opacity .3s,visibility .3s}
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
-#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
-.footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px}
+#toast .ic{color:var(--gold)}
+#toast.show .draw path{animation:draw .5s var(--ease-out) .15s forwards}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
 @media (min-width:700px){
-  .topbar .ttl{font-size:1.1rem}
-  .tabs{position:sticky;top:61px;z-index:10;background:var(--bg)}
-  .hero h1{font-size:2rem}
+  .hero{padding-top:64px}
+  .hero h1{font-size:4rem}
   .extras{grid-template-columns:repeat(4,1fr)}
-  .tab{font-size:.9rem;flex-direction:row;justify-content:center;gap:6px}
+  .tab{font-size:.85rem;flex-direction:row;justify-content:center;gap:8px;padding:9px 2px}
+  .tab .dn{top:50%;right:10px;margin-top:-3px}
+  .lesson-head h1{font-size:3rem}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
 <header class="topbar"><div class="topbar-in">
-  <button class="iconbtn" id="backBtn" aria-label="Voltar" style="visibility:hidden">←</button>
-  <div class="ttl" id="topTitle">Física da Princesinha 👑</div>
-  <div class="pill" id="xpPill">⭐ 0 XP</div>
-  <button class="iconbtn" id="themeBtn" aria-label="Alternar modo escuro">🌙</button>
+  <button class="iconbtn hide" id="backBtn" aria-label="Voltar"></button>
+  <div class="ttl" id="topTitle">Física</div>
+  <div class="pill num" id="xpPill"></div>
+  <button class="iconbtn" id="themeBtn" aria-label="Alternar modo escuro"></button>
 </div></header>
 <main class="wrap" id="app"></main>
 <div id="toast" role="status" aria-live="polite"></div>
-<canvas id="confetti"></canvas>
+<canvas id="fx"></canvas>
 <script>
 'use strict';
+/* ===== Ícones (traço 1.5px) ===== */
+const ICONS = {
+  back: '<path d="M15 18l-6-6 6-6"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.8v2M12 19.2v2M2.8 12h2M19.2 12h2M5.5 5.5l1.4 1.4M17.1 17.1l1.4 1.4M5.5 18.5l1.4-1.4M17.1 6.9l1.4-1.4"/>',
+  moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+  spark: '<path d="M12 3.5l1.7 5.1 5.3 1.9-5.3 1.9L12 17.5l-1.7-5.1L5 10.5l5.3-1.9z"/><path d="M19 16.5l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z"/>',
+  star: '<path d="M12 3.6l2.5 5.1 5.6.8-4 3.9 1 5.6-5.1-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  x: '<path d="M7 7l10 10M17 7L7 17"/>',
+  alert: '<path d="M12 4.2l8.6 15H3.4z"/><path d="M12 10v4M12 16.9v.01"/>',
+  bulb: '<path d="M9.5 18.5h5M10.5 21h3M12 3.5a5.8 5.8 0 0 0-3.4 10.5c.6.5.9 1.1.9 1.8v.2h5v-.2c0-.7.3-1.3.9-1.8A5.8 5.8 0 0 0 12 3.5z"/>',
+  info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 7.9v.01"/>',
+  book: '<path d="M12 6.5C10.5 5 8 4.5 4 4.5v14c4 0 6.5.5 8 2M12 6.5c1.5-1.5 4-2 8-2v14c-4 0-6.5.5-8 2M12 6.5v14"/>',
+  sim: '<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  pen: '<path d="M14.5 5.5l4 4L8.5 19.5H4.5v-4z"/><path d="M12.5 7.5l4 4"/>',
+  quiz: '<circle cx="12" cy="12" r="8.5"/><path d="M9.7 9.6a2.4 2.4 0 1 1 3.3 2.2c-.6.3-1 .8-1 1.4v.4M12 16.6v.01"/>',
+  arrow: '<path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/>',
+  chev: '<path d="M9.5 6l6 6-6 6"/>',
+  cards: '<rect x="3.5" y="7" width="12.5" height="13" rx="2"/><path d="M8 4h10.5a2 2 0 0 1 2 2v11"/>',
+  doc: '<path d="M6.5 3.5h7.5l4 4v13h-11.5z"/><path d="M14 3.5v4h4M9.5 12h5M9.5 15.5h5"/>',
+  target: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".6"/>',
+  list: '<path d="M10 6.5h10M10 12h10M10 17.5h10"/><path d="M3.8 6.5l1.3 1.3 2.4-2.5M3.8 12l1.3 1.3 2.4-2.5M3.8 17.5l1.3 1.3 2.4-2.5"/>',
+  shuffle: '<path d="M4 7h3c4 0 5.5 10 9.5 10H20M4 17h3c1.4 0 2.4-1.2 3.2-2.8M13.3 9.8C14.1 8.2 15.1 7 16.5 7H20M17.5 4.5L20 7l-2.5 2.5M17.5 14.5L20 17l-2.5 2.5"/>',
+  redo: '<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/>',
+  trash: '<path d="M5 7h14M10 7V5h4v2M7 7l.9 13h8.2L17 7"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  pause: '<path d="M9 6v12M15 6v12"/>',
+  play: '<path d="M8 5.5v13l10-6.5z"/>',
+  w1: '<circle cx="12" cy="12" r="3.8"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/>',
+  w2: '<circle cx="12" cy="12" r="8.5"/><path d="M12 12l4.5-4.5"/><circle cx="16.8" cy="7.2" r="1.3"/><circle cx="12" cy="12" r=".8"/>',
+  l1: '<path d="M3 12h18" opacity=".45"/><path d="M5.5 4l6.5 8 3.5 8"/>',
+  l2: '<path d="M12 3c2.4 3 2.4 15 0 18-2.4-3-2.4-15 0-18z"/><path d="M3 12h4M17 12h4" opacity=".45"/>',
+  l3: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
+  l4: '<circle cx="12" cy="12" r="7.5"/><circle cx="19.5" cy="12" r="1.5"/><circle cx="12" cy="12" r=".6"/>',
+  l5: '<circle cx="8.5" cy="13" r="5"/><circle cx="17.5" cy="8.5" r="3.2"/><circle cx="8.5" cy="13" r=".6"/><circle cx="17.5" cy="8.5" r=".6"/>',
+  l6: '<path d="M3 19.5c7 0 5-13 11-13a3.5 3.5 0 0 1 0 7c-3 0-3.5-4-1.5-6.5"/><path d="M14 19.5h7" opacity=".45"/>',
+};
+const icon = (n, size = 20, cls = '') =>
+  `<svg class="ic ${cls}" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;
+
 /* ===== Helpers de fórmula ===== */
 const fr = (a, b) => `<span class="frac"><span>${a}</span><span>${b}</span></span>`;
 const rt = x => `<span class="sqrt">√<span>${x}</span></span>`;
 const F = (html, note) => `<div class="formula">${html}${note ? `<small>${note}</small>` : ''}</div>`;
-const W = (title, html) => `<div class="warn"><b>⚠️ ${title}</b>${html}</div>`;
-const TIP = html => `<div class="tip">💡 ${html}</div>`;
+const W = (title, html) => `<div class="warn"><div class="warn-h">${icon('alert', 16)}<span>${title}</span></div>${html}</div>`;
+const TIP = html => `<div class="tip">${icon('bulb', 18)}<div>${html}</div></div>`;
 
 const WORLDS = [
-  { id: 1, name: 'Óptica', prof: 'prof. Luiz', emoji: '🔭', color: 'var(--w1)', lessons: [1, 2, 3] },
-  { id: 2, name: 'Movimento Circular', prof: 'prof. Héric', emoji: '🎡', color: 'var(--w2)', lessons: [4, 5, 6] },
+  { id: 1, name: 'Óptica', prof: 'prof. Luiz', emoji: '', color: 'var(--w1)', lessons: [1, 2, 3] },
+  { id: 2, name: 'Movimento Circular', prof: 'prof. Héric', emoji: '', color: 'var(--w2)', lessons: [4, 5, 6] },
 ];
 
 const LESSONS = {};
 
 /* ================= LIÇÃO 1 — REFRAÇÃO ================= */
 LESSONS[1] = {
-  id: 1, world: 1, emoji: '🌈', title: 'Refração da Luz',
+  id: 1, world: 1, emoji: '', title: 'Refração da Luz',
   sub: 'Lei de Snell, ângulo limite, reflexão total e dispersão',
   theory: `
 <div class="card">
-  <h3>🌈 O que é refração?</h3>
+  <h3>O que é refração?</h3>
   <p><b>Refração</b> é quando a luz <b>passa de um meio para outro</b> (ar → água, ar → vidro…) e <b>muda de velocidade</b>. Se ela chega inclinada, também <b>muda de direção</b> (“entorta”).</p>
-  <p>É por isso que um canudo parece “quebrado” dentro do copo d'água 🥤.</p>
+  <p>É por isso que um canudo parece “quebrado” dentro do copo d'água.</p>
   <h4>Índice de refração (n)</h4>
   <p>Diz o quanto a luz fica mais lenta naquele meio:</p>
   ${F(`n = ${fr('c', 'v')}`, 'c = 3×10⁸ m/s (velocidade da luz no vácuo) · v = velocidade no meio')}
@@ -245,14 +386,14 @@ LESSONS[1] = {
   </ul>
 </div>
 <div class="card">
-  <h3>📐 Lei de Snell-Descartes</h3>
+  <h3>Lei de Snell-Descartes</h3>
   ${F(`n<sub>1</sub> · sen θ<sub>1</sub> = n<sub>2</sub> · sen θ<sub>2</sub>`, 'θ₁ = ângulo de incidência · θ₂ = ângulo de refração')}
   <svg class="mini-svg" viewBox="0 0 260 170" width="260" aria-label="Raio de luz refratando ao passar do ar para a água">
-    <rect x="0" y="85" width="260" height="85" fill="#93c5fd" opacity=".35"/>
+    <rect x="0" y="85" width="260" height="85" class="sv-water"/>
     <line x1="0" y1="85" x2="260" y2="85" stroke="currentColor" stroke-width="2"/>
     <line x1="130" y1="5" x2="130" y2="165" stroke="currentColor" stroke-dasharray="5 4" opacity=".6"/>
-    <line x1="60" y1="15" x2="130" y2="85" stroke="#ec4899" stroke-width="3"/>
-    <line x1="130" y1="85" x2="170" y2="160" stroke="#ec4899" stroke-width="3"/>
+    <line x1="60" y1="15" x2="130" y2="85" class="sv-acc-s" stroke-width="3"/>
+    <line x1="130" y1="85" x2="170" y2="160" class="sv-acc-s" stroke-width="3"/>
     <text x="10" y="30" font-size="12" fill="currentColor">meio 1 (ar)</text>
     <text x="10" y="160" font-size="12" fill="currentColor">meio 2 (água)</text>
     <text x="105" y="50" font-size="12" fill="currentColor">θ₁</text>
@@ -267,7 +408,7 @@ LESSONS[1] = {
   ${TIP('Macete: <b>n maior ↔ ângulo menor</b>. O produto n·sen θ é o mesmo dos dois lados.')}
 </div>
 <div class="card">
-  <h3>🔁 O que muda e o que NÃO muda</h3>
+  <h3>O que muda e o que NÃO muda</h3>
   <table class="t">
     <tr><th>Grandeza</th><th>Na refração</th></tr>
     <tr><td>Frequência (f) e cor</td><td><b>NÃO muda</b> (depende só da fonte)</td></tr>
@@ -277,7 +418,7 @@ LESSONS[1] = {
   ${F(`${fr('n<sub>1</sub>', 'n<sub>2</sub>')} = ${fr('v<sub>2</sub>', 'v<sub>1</sub>')} = ${fr('λ<sub>2</sub>', 'λ<sub>1</sub>')}`)}
 </div>
 <div class="card">
-  <h3>🚫 Ângulo limite e reflexão total</h3>
+  <h3>Ângulo limite e reflexão total</h3>
   <p>Quando a luz vai do meio <b>mais refringente</b> para o <b>menos refringente</b> (ex.: água → ar), ela se afasta da normal. Aumentando θ₁, chega um ponto em que θ₂ = 90°: esse θ₁ é o <b>ângulo limite (L)</b>.</p>
   ${F(`sen L = ${fr('n<sub>menor</sub>', 'n<sub>maior</sub>')}`)}
   <p>Se θ₁ &gt; L, <b>não há refração</b>: a luz volta inteira para o mesmo meio → <b>reflexão total</b>.</p>
@@ -289,12 +430,12 @@ LESSONS[1] = {
   </ul>`)}
 </div>
 <div class="card">
-  <h3>🏊 Dioptro plano (profundidade aparente)</h3>
+  <h3>Dioptro plano (profundidade aparente)</h3>
   <p>Um objeto dentro da água, visto de fora, parece <b>mais perto da superfície</b> (a piscina parece mais rasa!).</p>
   ${F(`${fr("h'", 'h')} = ${fr('n<sub>observador</sub>', 'n<sub>objeto</sub>')}`, "h = profundidade real · h' = profundidade aparente (olhando quase na vertical)")}
 </div>
 <div class="card">
-  <h3>🌈 Dispersão da luz</h3>
+  <h3>Dispersão da luz</h3>
   <p>O índice de refração <b>depende da cor</b>. A luz branca é uma mistura de cores; ao refratar (num prisma ou numa gota de chuva), cada cor desvia de um jeito → aparece o <b>arco-íris</b>.</p>
   <ul>
     <li><b>Violeta</b>: maior n → <b>mais desvia</b> e é a <b>mais lenta</b> no vidro.</li>
@@ -303,7 +444,7 @@ LESSONS[1] = {
   ${TIP('Ordem das cores: <b>Vermelho, Laranja, Amarelo, Verde, Azul, Anil, Violeta</b> — n aumenta nesse sentido.')}
   ${W('Pegadinha', '<p>No <b>vácuo</b> todas as cores têm a mesma velocidade (c). A diferença só aparece dentro de meios materiais.</p>')}
 </div>`,
-  simIntro: 'Arraste o raio no desenho (ou use os controles) e veja a luz entortar! Tente fazer a <b>reflexão total</b> acontecer 😉',
+  simIntro: 'Arraste o raio no desenho (ou use os controles) e veja a luz entortar! Tente fazer a <b>reflexão total</b> acontecer',
   examples: [
     {
       q: 'Um raio de luz passa do ar (n = 1) para um vidro de índice n = √3, com ângulo de incidência de 60°. Qual o ângulo de refração?',
@@ -321,7 +462,7 @@ LESSONS[1] = {
         '(a) n = c / v → v = c / n',
         'v = 3×10⁸ / 2,4 = <b>1,25×10⁸ m/s</b>',
         '(b) sen L = n<sub>menor</sub> / n<sub>maior</sub> = 1 / 2,4 ≈ <b>0,42</b> → L ≈ 25°',
-        'Como L é pequeno, quase toda luz que bate por dentro sofre reflexão total → por isso o diamante brilha tanto 💎',
+        'Como L é pequeno, quase toda luz que bate por dentro sofre reflexão total → por isso o diamante brilha tanto',
       ],
       ans: 'v = 1,25×10⁸ m/s e sen L ≈ 0,42 (L ≈ 25°)',
     },
@@ -340,11 +481,11 @@ LESSONS[1] = {
 
 /* ================= LIÇÃO 2 — LENTES ================= */
 LESSONS[2] = {
-  id: 2, world: 1, emoji: '🔍', title: 'Lentes Esféricas',
+  id: 2, world: 1, emoji: '', title: 'Lentes Esféricas',
   sub: 'Convergentes, divergentes, raios notáveis, Gauss e vergência',
   theory: `
 <div class="card">
-  <h3>🔍 Dois tipos de lente</h3>
+  <h3>Dois tipos de lente</h3>
   <table class="t">
     <tr><th></th><th>Convergente</th><th>Divergente</th></tr>
     <tr><td>Bordas (no ar)</td><td><b>Finas</b> (meio grosso)</td><td><b>Grossas</b> (meio fino)</td></tr>
@@ -355,20 +496,20 @@ LESSONS[2] = {
   ${W('Pegadinha', '<p>“Bordas finas = convergente” só vale se a lente for <b>mais refringente que o meio</b> (vidro no ar). Se a lente estiver num meio com n <b>maior</b> que o dela, o comportamento <b>inverte</b>!</p>')}
 </div>
 <div class="card">
-  <h3>✨ Os 3 raios notáveis</h3>
+  <h3>Os 3 raios notáveis</h3>
   <ol>
     <li><b>Chega paralelo ao eixo</b> → sai passando pelo <b>foco</b> (na divergente, o <i>prolongamento</i> passa pelo foco).</li>
     <li><b>Chega passando pelo foco</b> (ou mirando nele) → sai <b>paralelo</b> ao eixo.</li>
     <li><b>Passa pelo centro óptico</b> → <b>não desvia</b>.</li>
   </ol>
   <p>Basta cruzar <b>2 raios</b> para achar a imagem. Se os raios de verdade se cruzam → imagem <b>real</b>. Se só os <i>prolongamentos</i> (tracejados) se cruzam → imagem <b>virtual</b>.</p>
-  ${TIP('Na aba 🎮 Simulação você vê os 3 raios mudando ao vivo enquanto arrasta o objeto!')}
+  ${TIP('Na aba Simulação você vê os 3 raios mudando ao vivo enquanto arrasta o objeto!')}
 </div>
 <div class="card">
-  <h3>🧮 Equação de Gauss e aumento</h3>
+  <h3>Equação de Gauss e aumento</h3>
   ${F(`${fr('1', 'f')} = ${fr('1', 'p')} + ${fr('1', "p'")}`, "f = distância focal · p = distância do objeto · p' = distância da imagem")}
   ${F(`A = ${fr('i', 'o')} = −${fr("p'", 'p')}`, 'i = altura da imagem · o = altura do objeto')}
-  <h4>📌 Convenção de sinais (decore!)</h4>
+  <h4>Convenção de sinais (decore!)</h4>
   <table class="t">
     <tr><th>Sinal</th><th>Significado</th></tr>
     <tr><td>f &gt; 0</td><td>Lente convergente</td></tr>
@@ -382,19 +523,19 @@ LESSONS[2] = {
   ${TIP('Truque rápido: <b>real ↔ invertida</b> e <b>virtual ↔ direita</b> (para objeto real numa lente só).')}
 </div>
 <div class="card">
-  <h3>📸 Casos da lente convergente</h3>
+  <h3>Casos da lente convergente</h3>
   <div class="tablewrap"><table class="t">
     <tr><th>Objeto</th><th>Imagem</th><th>Uso</th></tr>
     <tr><td>Além de 2F (p &gt; 2f)</td><td>Real, invertida, <b>menor</b></td><td>Câmera, olho</td></tr>
     <tr><td>Em 2F (p = 2f)</td><td>Real, invertida, <b>igual</b></td><td>—</td></tr>
     <tr><td>Entre F e 2F</td><td>Real, invertida, <b>maior</b></td><td>Projetor, cinema</td></tr>
     <tr><td>No foco (p = f)</td><td><b>Imprópria</b> (no infinito)</td><td>Holofote</td></tr>
-    <tr><td>Entre F e a lente</td><td><b>Virtual, direita, maior</b></td><td><b>Lupa</b> 🔍</td></tr>
+    <tr><td>Entre F e a lente</td><td><b>Virtual, direita, maior</b></td><td><b>Lupa</b></td></tr>
   </table></div>
   <p><b>Divergente:</b> para objeto real, a imagem é <b>sempre virtual, direita e menor</b>. Fácil!</p>
 </div>
 <div class="card">
-  <h3>👓 Vergência (o “grau”)</h3>
+  <h3>Vergência (o “grau”)</h3>
   ${F(`V = ${fr('1', 'f')}`, 'f em METROS → V em dioptrias (di), o famoso “grau”')}
   <ul>
     <li>Convergente → V positivo (+). Divergente → V negativo (−).</li>
@@ -406,7 +547,7 @@ LESSONS[2] = {
     <li>p' negativo <b>não é erro</b>: significa imagem virtual.</li>
   </ul>`)}
 </div>`,
-  simIntro: 'Arraste o <b>objeto</b> (a seta rosa) para frente e para trás. Veja quando a imagem vira real, virtual, maior ou menor!',
+  simIntro: 'Arraste o <b>objeto</b> (a seta colorida) para frente e para trás. Veja quando a imagem vira real, virtual, maior ou menor!',
   examples: [
     {
       q: 'Um objeto de 4 cm está a 30 cm de uma lente convergente de distância focal 20 cm. Encontre a posição, o tamanho e as características da imagem.',
@@ -415,7 +556,7 @@ LESSONS[2] = {
         "1/p' = 1/20 − 1/30 = (3 − 2)/60 = 1/60 → <b>p' = 60 cm</b> (positivo → real)",
         "Aumento: A = −p'/p = −60/30 = <b>−2</b> (negativo → invertida; |A| = 2 → 2× maior)",
         'Tamanho: i = A · o = −2 · 4 = <b>−8 cm</b>',
-        'Confere com a tabela: objeto entre F (20) e 2F (40) → real, invertida e maior (projetor) ✔',
+        'Confere com a tabela: objeto entre F (20) e 2F (40) → real, invertida e maior (projetor)',
       ],
       ans: "p' = 60 cm · i = −8 cm · imagem real, invertida e 2× maior",
     },
@@ -444,17 +585,17 @@ LESSONS[2] = {
 
 /* ================= LIÇÃO 3 — VISÃO ================= */
 LESSONS[3] = {
-  id: 3, world: 1, emoji: '👁️', title: 'Óptica da Visão',
+  id: 3, world: 1, emoji: '', title: 'Óptica da Visão',
   sub: 'Olho normal, miopia, hipermetropia e presbiopia',
   theory: `
 <div class="card">
-  <h3>👁️ O olho é uma câmera</h3>
+  <h3>O olho é uma câmera</h3>
   <ul>
     <li><b>Córnea + cristalino</b> funcionam como uma <b>lente convergente</b>.</li>
     <li><b>Retina</b> é a “tela” onde a imagem precisa se formar.</li>
     <li><b>Pupila/íris</b> controlam a quantidade de luz.</li>
   </ul>
-  <p>A imagem na retina é <b>real, invertida e menor</b> (o cérebro desvira 🧠).</p>
+  <p>A imagem na retina é <b>real, invertida e menor</b> (o cérebro desvira).</p>
   <h4>Acomodação visual</h4>
   <p>Os <b>músculos ciliares</b> mudam a curvatura do cristalino, mudando a distância focal para focar perto ou longe.</p>
   <ul>
@@ -463,7 +604,7 @@ LESSONS[3] = {
   </ul>
 </div>
 <div class="card">
-  <h3>🤓 Os defeitos da visão</h3>
+  <h3>Os defeitos da visão</h3>
   <div class="tablewrap"><table class="t">
     <tr><th>Defeito</th><th>Causa</th><th>Imagem</th><th>Enxerga mal</th><th>Correção</th></tr>
     <tr><td><b>Miopia</b></td><td>Olho alongado (ou muito convergente)</td><td><b>Antes</b> da retina</td><td>De <b>longe</b></td><td>Lente <b>divergente</b> (−)</td></tr>
@@ -474,7 +615,7 @@ LESSONS[3] = {
   ${TIP('Míope = <b>M</b>enos (lente negativa, divergente). Vê bem de perto, mal de longe.')}
 </div>
 <div class="card">
-  <h3>🧮 Calculando o grau dos óculos</h3>
+  <h3>Calculando o grau dos óculos</h3>
   <h4>Miopia</h4>
   <p>A lente divergente pega um objeto no infinito e faz a imagem no ponto remoto. Então:</p>
   ${F(`f = −PR &nbsp;&nbsp;→&nbsp;&nbsp; V = −${fr('1', 'PR')}`, 'PR em metros')}
@@ -488,7 +629,7 @@ LESSONS[3] = {
     <li>No cálculo do grau, converta tudo para <b>metros</b>.</li>
   </ul>`)}
 </div>`,
-  simIntro: 'Escolha o tipo de olho e onde está o objeto. Veja onde a imagem se forma — e coloque os óculos certos para consertar! 🤓',
+  simIntro: 'Escolha o tipo de olho e onde está o objeto. Veja onde a imagem se forma — e coloque os óculos certos para consertar!',
   examples: [
     {
       q: 'Uma pessoa míope tem ponto remoto a 50 cm. Qual a vergência (o “grau”) da lente que ela deve usar?',
@@ -505,7 +646,7 @@ LESSONS[3] = {
         'Objeto (livro) em p = 0,25 m; a lente deve formar a imagem virtual no PP: p\' = −1 m',
         "Gauss: 1/f = 1/p + 1/p' = 1/0,25 + 1/(−1)",
         '1/f = 4 − 1 = <b>3 di</b>',
-        'Positivo → lente convergente, f = 1/3 m ≈ 33 cm ✔',
+        'Positivo → lente convergente, f = 1/3 m ≈ 33 cm',
       ],
       ans: 'V = +3 di (lente convergente)',
     },
@@ -524,13 +665,13 @@ LESSONS[3] = {
 
 /* ================= LIÇÃO 4 — MCU ================= */
 LESSONS[4] = {
-  id: 4, world: 2, emoji: '🎠', title: 'Movimento Circular Uniforme',
+  id: 4, world: 2, emoji: '', title: 'Movimento Circular Uniforme',
   sub: 'Período, frequência, velocidade angular e linear, aceleração centrípeta',
   theory: `
 <div class="card">
-  <h3>🎠 O que é MCU?</h3>
+  <h3>O que é MCU?</h3>
   <p>É quando algo gira em uma <b>circunferência</b> com <b>velocidade de módulo constante</b> (sempre o mesmo “velocímetro”). Ex.: ponteiro de relógio, roda-gigante, ventilador ligado.</p>
-  <h4>⏱️ Período e frequência</h4>
+  <h4>Período e frequência</h4>
   ${F(`f = ${fr('1', 'T')}`, 'T = tempo de 1 volta (s) · f = voltas por segundo (Hz)')}
   <ul>
     <li><b>Hz</b> = voltas por segundo. <b>rpm</b> = voltas por minuto.</li>
@@ -538,27 +679,27 @@ LESSONS[4] = {
   </ul>
 </div>
 <div class="card">
-  <h3>🌀 Velocidade angular (ω)</h3>
+  <h3>Velocidade angular (ω)</h3>
   <p>Quanto <b>ângulo</b> o corpo varre por segundo (em radianos). Uma volta = 2π rad.</p>
   ${F(`ω = ${fr('Δφ', 'Δt')} = ${fr('2π', 'T')} = 2πf`, 'unidade: rad/s')}
-  <h3 style="margin-top:16px">🏃 Velocidade linear (v)</h3>
+  <h3 style="margin-top:28px">Velocidade linear (v)</h3>
   <p>A velocidade “de verdade” do corpo, sempre <b>tangente</b> à circunferência.</p>
   ${F(`v = ${fr('2πR', 'T')} = ω · R`, 'unidade: m/s')}
   <svg class="mini-svg" viewBox="0 0 220 180" width="220" aria-label="Vetor velocidade tangente e aceleração centrípeta apontando para o centro">
     <circle cx="100" cy="95" r="65" fill="none" stroke="currentColor" stroke-width="2" opacity=".6"/>
     <circle cx="100" cy="95" r="3" fill="currentColor"/>
-    <circle cx="165" cy="95" r="8" fill="#ec4899"/>
-    <line x1="165" y1="95" x2="165" y2="30" stroke="#3b82f6" stroke-width="3"/>
-    <polygon points="165,22 159,34 171,34" fill="#3b82f6"/>
-    <line x1="165" y1="95" x2="118" y2="95" stroke="#16a34a" stroke-width="3"/>
-    <polygon points="110,95 122,89 122,101" fill="#16a34a"/>
-    <text x="172" y="45" font-size="13" fill="#3b82f6" font-weight="bold">v</text>
-    <text x="120" y="88" font-size="13" fill="#16a34a" font-weight="bold">a꜀ₚ</text>
+    <circle cx="165" cy="95" r="8" class="sv-acc-f"/>
+    <line x1="165" y1="95" x2="165" y2="30" class="sv-v-s" stroke-width="3"/>
+    <polygon points="165,22 159,34 171,34" class="sv-v-f"/>
+    <line x1="165" y1="95" x2="118" y2="95" class="sv-a-s" stroke-width="3"/>
+    <polygon points="110,95 122,89 122,101" class="sv-a-f"/>
+    <text x="172" y="45" font-size="13" class="sv-v-f" font-weight="bold">v</text>
+    <text x="120" y="88" font-size="13" class="sv-a-f" font-weight="bold">a꜀ₚ</text>
     <text x="70" y="90" font-size="12" fill="currentColor">R</text>
   </svg>
 </div>
 <div class="card">
-  <h3>🎯 Aceleração centrípeta</h3>
+  <h3>Aceleração centrípeta</h3>
   <p>Mesmo com velocidade de módulo constante, a <b>direção</b> da velocidade muda o tempo todo. Quem faz isso é a <b>aceleração centrípeta</b>, que aponta sempre <b>para o centro</b>.</p>
   ${F(`a<sub>cp</sub> = ${fr('v²', 'R')} = ω² · R`, 'unidade: m/s²')}
   ${W('Pegadinhas', `<ul>
@@ -604,11 +745,11 @@ LESSONS[4] = {
 
 /* ================= LIÇÃO 5 — TRANSMISSÃO ================= */
 LESSONS[5] = {
-  id: 5, world: 2, emoji: '⚙️', title: 'Transmissão de MCU',
+  id: 5, world: 2, emoji: '', title: 'Transmissão de MCU',
   sub: 'Polias, correias, engrenagens e bicicleta',
   theory: `
 <div class="card">
-  <h3>⚙️ Duas regras para tudo</h3>
+  <h3>Duas regras para tudo</h3>
   <h4>1) Mesmo eixo (coaxiais)</h4>
   <p>Polias presas no <b>mesmo eixo</b> giram juntas:</p>
   ${F(`ω<sub>A</sub> = ω<sub>B</sub> &nbsp;·&nbsp; f<sub>A</sub> = f<sub>B</sub> &nbsp;·&nbsp; T<sub>A</sub> = T<sub>B</sub>`, 'a velocidade linear é diferente: v = ωR (raio maior → v maior)')}
@@ -619,7 +760,7 @@ LESSONS[5] = {
   ${TIP('Na correia: <b>a polia menor gira mais rápido</b> (f maior). f e R são inversamente proporcionais.')}
 </div>
 <div class="card">
-  <h3>🔄 Sentido de rotação</h3>
+  <h3>Sentido de rotação</h3>
   <table class="t">
     <tr><th>Ligação</th><th>Sentido</th></tr>
     <tr><td>Mesmo eixo</td><td>Mesmo sentido</td></tr>
@@ -629,7 +770,7 @@ LESSONS[5] = {
   </table>
 </div>
 <div class="card">
-  <h3>🚲 A bicicleta</h3>
+  <h3>A bicicleta</h3>
   <ol>
     <li><b>Pedal + coroa</b> (engrenagem da frente): mesmo eixo → mesma f.</li>
     <li><b>Coroa → catraca</b> (engrenagem de trás) pela corrente → mesma v: f<sub>coroa</sub>·N<sub>coroa</sub> = f<sub>catraca</sub>·N<sub>catraca</sub>.</li>
@@ -644,7 +785,7 @@ LESSONS[5] = {
     <li>Engrenagens em contato giram em <b>sentidos opostos</b>.</li>
   </ul>`)}
 </div>`,
-  simIntro: 'Escolha o tipo de ligação e mexa nos raios. Veja qual roda gira mais rápido e em que sentido! Teste também a bicicleta 🚲',
+  simIntro: 'Escolha o tipo de ligação e mexa nos raios. Veja qual roda gira mais rápido e em que sentido! Teste também a bicicleta',
   examples: [
     {
       q: 'A polia A (raio 10 cm) gira a 30 rpm e está ligada por uma correia à polia B (raio 5 cm). Qual a frequência de B?',
@@ -680,18 +821,18 @@ LESSONS[5] = {
 
 /* ================= LIÇÃO 6 — DINÂMICA CURVILÍNEA ================= */
 LESSONS[6] = {
-  id: 6, world: 2, emoji: '🎢', title: 'Dinâmica do Movimento Curvilíneo',
+  id: 6, world: 2, emoji: '', title: 'Dinâmica do Movimento Curvilíneo',
   sub: 'Força centrípeta: curvas, lombadas, looping e mais',
   theory: `
 <div class="card">
-  <h3>🎢 Força centrípeta</h3>
+  <h3>Força centrípeta</h3>
   <p>Para fazer curva, precisa de uma <b>força resultante apontando para o centro</b>. Ela é chamada de <b>resultante centrípeta</b>:</p>
   ${F(`F<sub>cp</sub> = m · ${fr('v²', 'R')} = m · ω² · R`)}
   ${W('A pegadinha nº 1', '<p>A força centrípeta <b>NÃO é uma força nova</b>! Ela é a <b>resultante</b> de forças que já existem (atrito, normal, peso, tração…). <b>Nunca</b> desenhe “F<sub>cp</sub>” como mais uma seta no diagrama.</p>')}
   ${TIP('Receita: (1) desenhe as forças; (2) escolha o sentido <b>para o centro como positivo</b>; (3) some: (forças para o centro) − (forças para fora) = mv²/R.')}
 </div>
 <div class="card">
-  <h3>📚 Os 8 casos clássicos</h3>
+  <h3>Os 8 casos clássicos</h3>
   <div class="tablewrap"><table class="t">
     <tr><th>Situação</th><th>Equação</th><th>Resultado importante</th></tr>
     <tr><td>1. <b>Curva plana</b> (carro)</td><td>F<sub>at</sub> = mv²/R</td><td>v<sub>máx</sub> = ${rt('μgR')}</td></tr>
@@ -706,16 +847,16 @@ LESSONS[6] = {
   ${TIP('Massa some em vários casos! Em v<sub>máx</sub> = √(μgR) e v<sub>mín</sub> = √(gR), <b>não depende da massa</b>.')}
 </div>
 <div class="card">
-  <h3>🤔 Entendendo cada caso</h3>
-  <h4>🚗 Curva plana</h4>
+  <h3>Entendendo cada caso</h3>
+  <h4>Curva plana</h4>
   <p>Quem segura o carro na curva é o <b>atrito</b> (lateral, para o centro). Se v passar de √(μgR), o atrito não dá conta → <b>derrapa</b> (pista molhada = μ menor = v<sub>máx</sub> menor).</p>
-  <h4>🛣️ Curva inclinada (compensada)</h4>
+  <h4>Curva inclinada (compensada)</h4>
   <p>A <b>componente horizontal da normal</b> faz o papel de centrípeta. Por isso estradas e pistas de corrida são inclinadas nas curvas.</p>
-  <h4>⛰️ Lombada × 🕳️ Depressão</h4>
-  <p>No topo da lombada o centro está <b>embaixo</b>: o peso “ajuda”, N diminui (frio na barriga 😆). No fundo da depressão o centro está <b>em cima</b>: N aumenta.</p>
-  <h4>🎢 Looping / globo da morte</h4>
+  <h4>Lombada × Depressão</h4>
+  <p>No topo da lombada o centro está <b>embaixo</b>: o peso “ajuda”, N diminui (frio na barriga). No fundo da depressão o centro está <b>em cima</b>: N aumenta.</p>
+  <h4>Looping / globo da morte</h4>
   <p>No topo, peso e normal apontam para baixo (para o centro). Velocidade mínima quando N = 0: só o peso faz a curva → mg = mv²/R → v = √(gR).</p>
-  <h4>🌀 Rotor</h4>
+  <h4>Rotor</h4>
   <p>A parede empurra a pessoa para o centro (normal = centrípeta) e o <b>atrito</b> segura o peso para ela não escorregar.</p>
   ${W('Pegadinhas', `<ul>
     <li>Não existe “força centrífuga” no referencial de quem está de fora (inercial). O que sentimos é a <b>inércia</b>.</li>
@@ -723,7 +864,7 @@ LESSONS[6] = {
     <li>Topo da lombada: <b>P − N</b>. Fundo: <b>N − P</b>. A força que aponta para o centro vem primeiro.</li>
   </ul>`)}
 </div>`,
-  simIntro: 'Escolha a situação, mexa na velocidade e no raio, e veja as forças mudando. Tente fazer o carro derrapar ou voar da lombada! 🚗💨',
+  simIntro: 'Escolha a situação, mexa na velocidade e no raio, e veja as forças mudando. Tente fazer o carro derrapar ou voar da lombada!',
   examples: [
     {
       q: 'Um carro de 1000 kg passa pelo topo de uma lombada de raio 40 m a 10 m/s. (a) Qual a normal? (b) Qual a velocidade máxima para não perder contato? (g = 10 m/s²)',
@@ -800,7 +941,7 @@ const FLASHCARDS = [
 /* ================= RESUMÃO ================= */
 const RESUMO = `
 <div class="card rs">
-  <h3>🌈 Refração</h3>
+  <h3>Refração</h3>
   ${F(`n = ${fr('c', 'v')} &nbsp;&nbsp;|&nbsp;&nbsp; n₁ sen θ₁ = n₂ sen θ₂ &nbsp;&nbsp;|&nbsp;&nbsp; sen L = ${fr('n<sub>menor</sub>', 'n<sub>maior</sub>')}`)}
   <ul>
     <li>n maior → luz mais lenta → raio mais perto da normal.</li>
@@ -811,7 +952,7 @@ const RESUMO = `
   </ul>
 </div>
 <div class="card rs">
-  <h3>🔍 Lentes</h3>
+  <h3>Lentes</h3>
   ${F(`${fr('1', 'f')} = ${fr('1', 'p')} + ${fr('1', "p'")} &nbsp;&nbsp;|&nbsp;&nbsp; A = ${fr('i', 'o')} = −${fr("p'", 'p')} &nbsp;&nbsp;|&nbsp;&nbsp; V = ${fr('1', 'f (m)')}`)}
   <table class="t">
     <tr><td><b>+</b></td><td>f: convergente · p': real · A: direita</td></tr>
@@ -824,7 +965,7 @@ const RESUMO = `
   </ul>
 </div>
 <div class="card rs">
-  <h3>👁️ Visão</h3>
+  <h3>Visão</h3>
   <table class="t">
     <tr><th>Defeito</th><th>Imagem</th><th>Lente</th><th>Grau</th></tr>
     <tr><td>Miopia</td><td>antes da retina</td><td>divergente</td><td>V = −1/PR</td></tr>
@@ -835,7 +976,7 @@ const RESUMO = `
   <p>Olho normal: PP ≈ 25 cm, PR = ∞. Imagem na retina: real, invertida, menor.</p>
 </div>
 <div class="card rs">
-  <h3>🎠 MCU</h3>
+  <h3>MCU</h3>
   ${F(`f = ${fr('1', 'T')} &nbsp;|&nbsp; ω = ${fr('2π', 'T')} = 2πf &nbsp;|&nbsp; v = ωR &nbsp;|&nbsp; a<sub>cp</sub> = ${fr('v²', 'R')} = ω²R`)}
   <ul>
     <li>rpm ÷ 60 = Hz.</li>
@@ -844,7 +985,7 @@ const RESUMO = `
   </ul>
 </div>
 <div class="card rs">
-  <h3>⚙️ Transmissão</h3>
+  <h3>Transmissão</h3>
   <ul>
     <li><b>Mesmo eixo</b>: ω<sub>A</sub> = ω<sub>B</sub> (mesmo sentido).</li>
     <li><b>Correia/contato</b>: v<sub>A</sub> = v<sub>B</sub> → f<sub>A</sub>R<sub>A</sub> = f<sub>B</sub>R<sub>B</sub> (ou dentes).</li>
@@ -853,7 +994,7 @@ const RESUMO = `
   </ul>
 </div>
 <div class="card rs">
-  <h3>🎢 Dinâmica curvilínea</h3>
+  <h3>Dinâmica curvilínea</h3>
   ${F(`F<sub>cp</sub> = m${fr('v²', 'R')} = mω²R`, 'resultante para o centro (para o centro = positivo)')}
   <div class="tablewrap"><table class="t">
     <tr><td>Curva plana</td><td>F<sub>at</sub> = mv²/R · v<sub>máx</sub> = √(μgR)</td></tr>
@@ -865,7 +1006,7 @@ const RESUMO = `
     <tr><td>Rotor</td><td>N = mv²/R · F<sub>at</sub> = P · μ<sub>mín</sub> = gR/v²</td></tr>
     <tr><td>Pêndulo cônico</td><td>tg θ = v²/(Rg) · T = P/cos θ</td></tr>
   </table></div>
-  <p>⚠️ km/h ÷ 3,6 = m/s · centrípeta não é força nova!</p>
+  <p>km/h ÷ 3,6 = m/s · centrípeta não é força nova!</p>
 </div>`;
 
 /* ================= SIMULADO (15) ================= */
@@ -902,16 +1043,16 @@ const CHECKLIST_DEFAULT = [
 
 /* ================= MENSAGENS ================= */
 const MSG_OK = [
-  'Isso aí, princesinha! 👑✨', 'Arrasou! 💖', 'Mandou muito bem, princesinha! 🌟', 'Certíssimo! Tá voando! 🚀',
-  'Que orgulho! 🥰', 'Física quem? Você domina! 💪', 'Perfeita! 💅', 'Acertou de novo! 🎉',
+  'Isso aí, princesinha!', 'Arrasou!', 'Mandou muito bem, princesinha!', 'Certíssimo! Tá voando!',
+  'Que orgulho!', 'Física quem? Você domina!', 'Perfeita!', 'Acertou de novo!',
 ];
 const MSG_ERR = [
-  'Quase, princesinha! Lê a explicação que agora vai 💕', 'Errar faz parte — melhor aqui do que na prova 😉',
-  'Tranquila! Essa é pegadinha clássica 💡', 'Respira e bora pra próxima, você consegue! 🌸',
+  'Quase, princesinha! Lê a explicação que agora vai', 'Errar faz parte — melhor aqui do que na prova',
+  'Tranquila! Essa é pegadinha clássica', 'Respira e bora pra próxima, você consegue!',
 ];
 const MSG_HOME = [
-  'Você é mais capaz do que imagina 💖', 'Um passinho de cada vez e a prova vai ser tranquila ✨',
-  'Estudar com carinho rende mais 🌷', 'Amanhã você vai arrasar! 👑', 'Cada lição concluída é uma estrela a mais ⭐',
+  'Você é mais capaz do que imagina', 'Um passinho de cada vez e a prova vai ser tranquila',
+  'Estudar com carinho rende mais', 'Amanhã você vai arrasar!', 'Cada lição concluída é uma estrela a mais',
 ];
 
 /* ================= ESTADO (localStorage) ================= */
@@ -968,65 +1109,116 @@ function overallProgress() {
 /* ================= UTILIDADES ================= */
 const $ = (sel, root = document) => root.querySelector(sel);
 const app = $('#app');
+const REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const starStr = n => '⭐'.repeat(n) + '☆'.repeat(3 - n);
 const fmt = (x, d = 2) => (Math.round(x * 10 ** d) / 10 ** d).toLocaleString('pt-BR', { maximumFractionDigits: d });
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const sentence = m => /[.!?]$/.test(m) ? m : m + '.';
+const stars = (n, size = 14) => `<span class="stars" aria-label="${n} de 3 estrelas">${[0, 1, 2].map(i => icon('star', size, i < n ? 'on' : '')).join('')}</span>`;
+
+/* contador numérico rolando */
+function countUp(el, to, from = 0, dur = 900) {
+  if (!el) return;
+  if (REDUCED || from === to) { el.textContent = to; return; }
+  const t0 = performance.now();
+  const step = t => {
+    const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = Math.round(from + (to - from) * e);
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+/* barras com data-w crescem depois de entrar na tela */
+function growBars(root = app) {
+  const bars = root.querySelectorAll('[data-w]');
+  requestAnimationFrame(() => requestAnimationFrame(() => bars.forEach(b => { b.style.width = b.dataset.w; })));
+}
+/* entrada em cascata */
+function stagger(els) {
+  if (REDUCED) return;
+  let i = 0;
+  els.forEach(el => {
+    if (!el || el.nodeType !== 1) return;
+    el.classList.remove('rise'); void el.offsetWidth;
+    el.style.setProperty('--i', Math.min(i++, 12));
+    el.classList.add('rise');
+  });
+}
 
 let toastTimer;
-function toast(msg, ms = 2400) {
+function toast(msg, ic = 'check', ms = 2400) {
   const t = $('#toast');
-  t.innerHTML = msg;
+  t.classList.remove('show'); void t.offsetWidth;
+  t.innerHTML = `${icon(ic, 18, ic === 'check' ? 'draw' : '')}<span>${msg}</span>`;
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), ms);
 }
 
-/* confete */
-const confettiCv = $('#confetti');
-let confettiParts = [], confettiRAF = null;
-function confetti(n = 120) {
-  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+/* brilho suave (substitui o confete) */
+const fxCv = $('#fx');
+let fxParts = [], fxRAF = null;
+function celebrate(origin, n = 26) {
+  if (REDUCED) return;
   const dpr = window.devicePixelRatio || 1;
-  confettiCv.width = innerWidth * dpr; confettiCv.height = innerHeight * dpr;
-  confettiCv.style.width = innerWidth + 'px'; confettiCv.style.height = innerHeight + 'px';
-  const colors = ['#ec4899', '#8b5cf6', '#f9a8d4', '#facc15', '#60a5fa', '#34d399', '#fb923c'];
+  if (fxCv.width !== Math.round(innerWidth * dpr) || fxCv.height !== Math.round(innerHeight * dpr)) {
+    fxCv.width = Math.round(innerWidth * dpr); fxCv.height = Math.round(innerHeight * dpr);
+    fxCv.style.width = innerWidth + 'px'; fxCv.style.height = innerHeight + 'px';
+  }
+  let x = innerWidth / 2, y = innerHeight * 0.45;
+  if (origin && origin.getBoundingClientRect) { const r = origin.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+  const cs = getComputedStyle(document.documentElement);
+  const cols = [cs.getPropertyValue('--gold').trim(), cs.getPropertyValue('--acc').trim(), cs.getPropertyValue('--gold').trim()];
   for (let i = 0; i < n; i++) {
-    confettiParts.push({
-      x: innerWidth / 2 + (Math.random() - 0.5) * innerWidth * 0.4, y: innerHeight * 0.35,
-      vx: (Math.random() - 0.5) * 12, vy: -Math.random() * 13 - 4, r: Math.random() * 6 + 4,
-      c: pick(colors), a: Math.random() * 6, va: (Math.random() - 0.5) * 0.3, heart: Math.random() < 0.18, life: 0,
+    const a = Math.random() * Math.PI * 2, sp = 0.6 + Math.random() * 2.4;
+    fxParts.push({
+      x: x + Math.cos(a) * 6, y: y + Math.sin(a) * 6, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1.2,
+      r: 1.5 + Math.random() * 3.2, c: pick(cols), life: 0, max: 55 + Math.random() * 40, star: Math.random() < 0.45, rot: Math.random() * Math.PI,
     });
   }
-  if (!confettiRAF) confettiRAF = requestAnimationFrame(confettiStep);
+  if (!fxRAF) fxRAF = requestAnimationFrame(fxStep);
 }
-function confettiStep() {
-  const ctx = confettiCv.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
+function fxStep() {
+  const ctx = fxCv.getContext('2d'), dpr = window.devicePixelRatio || 1;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, innerWidth, innerHeight);
-  confettiParts.forEach(p => {
-    p.vy += 0.32; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.a += p.va; p.life++;
-    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = p.c;
-    if (p.heart) { ctx.font = `${p.r * 3}px sans-serif`; ctx.fillText('💖', -p.r, p.r); }
-    else ctx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2);
+  fxParts.forEach(p => {
+    p.life++; p.vx *= 0.96; p.vy = p.vy * 0.96 - 0.02; p.x += p.vx; p.y += p.vy; p.rot += 0.03;
+    const k = p.life / p.max, a = k < 0.15 ? k / 0.15 : 1 - (k - 0.15) / 0.85;
+    ctx.save(); ctx.globalAlpha = Math.max(0, a) * 0.9; ctx.fillStyle = p.c; ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+    if (p.star) {
+      const r = p.r * 1.8;
+      ctx.beginPath(); ctx.moveTo(0, -r); ctx.quadraticCurveTo(0, 0, r, 0); ctx.quadraticCurveTo(0, 0, 0, r); ctx.quadraticCurveTo(0, 0, -r, 0); ctx.quadraticCurveTo(0, 0, 0, -r); ctx.fill();
+    } else { ctx.beginPath(); ctx.arc(0, 0, p.r * 0.6, 0, Math.PI * 2); ctx.fill(); }
     ctx.restore();
   });
-  confettiParts = confettiParts.filter(p => p.y < innerHeight + 40 && p.life < 400);
-  if (confettiParts.length) confettiRAF = requestAnimationFrame(confettiStep);
-  else { ctx.clearRect(0, 0, innerWidth, innerHeight); confettiRAF = null; }
+  fxParts = fxParts.filter(p => p.life < p.max);
+  if (fxParts.length) fxRAF = requestAnimationFrame(fxStep);
+  else { ctx.clearRect(0, 0, innerWidth, innerHeight); fxRAF = null; }
 }
+/* brilho do toque nos botões segue o dedo */
+document.addEventListener('pointerdown', e => {
+  const b = e.target.closest('.btn');
+  if (!b) return;
+  const r = b.getBoundingClientRect();
+  b.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+  b.style.setProperty('--my', (e.clientY - r.top) + 'px');
+});
+document.addEventListener('input', e => { if (e.target.type === 'range' && typeof paintRange === 'function') paintRange(e.target); });
 
 /* tema */
-function applyTheme() {
-  if (S.theme) document.documentElement.setAttribute('data-theme', S.theme);
-  else document.documentElement.removeAttribute('data-theme');
-  $('#themeBtn').textContent = isDark() ? '☀️' : '🌙';
-}
 function isDark() {
   if (S.theme) return S.theme === 'dark';
   return !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+}
+function applyTheme() {
+  if (S.theme) document.documentElement.setAttribute('data-theme', S.theme);
+  else document.documentElement.removeAttribute('data-theme');
+  $('#themeBtn').innerHTML = icon(isDark() ? 'sun' : 'moon', 18);
+  const meta = document.querySelector('meta[name=theme-color]');
+  if (meta) meta.content = isDark() ? '#141518' : '#f6f3ee';
+  refreshPalette();
 }
 $('#themeBtn').addEventListener('click', () => {
   S.theme = isDark() ? 'light' : 'dark';
@@ -1034,70 +1226,107 @@ $('#themeBtn').addEventListener('click', () => {
   if (activeSim && activeSim.redraw) activeSim.redraw();
 });
 
-function updateTop() { $('#xpPill').textContent = `⭐ ${totalXP()} XP`; }
+let shownXP = null;
+function updateTop() {
+  const xp = totalXP(), pill = $('#xpPill');
+  if (shownXP === null) {
+    pill.innerHTML = `${icon('spark', 16)}<span><span id="xpn">${xp}</span> XP</span>`;
+  } else if (xp !== shownXP) {
+    countUp($('#xpn'), xp, shownXP, 800);
+    if (xp > shownXP && !REDUCED) { pill.classList.remove('bump'); void pill.offsetWidth; pill.classList.add('bump'); }
+  }
+  shownXP = xp;
+}
 
 /* ================= ROTEAMENTO ================= */
-let activeSim = null;
+let activeSim = null, routeTimer = null, lastKey = null, lastTabIdx = 0;
 function cleanupSim() { if (activeSim && activeSim.stop) activeSim.stop(); activeSim = null; }
 function go(hash) { if (location.hash === hash) route(); else location.hash = hash; }
 
 function route() {
-  cleanupSim();
   const parts = location.hash.replace(/^#\/?/, '').split('/');
-  const back = $('#backBtn');
-  back.style.visibility = parts[0] ? 'visible' : 'hidden';
-  if (parts[0] === 'licao' && LESSONS[parts[1]]) renderLesson(+parts[1], parts[2] || 'teoria');
+  const key = parts[0] + '/' + (parts[1] || '');
+  const sameView = key === lastKey;
+  clearTimeout(routeTimer);
+  if (lastKey === null || sameView || REDUCED) { render(parts, sameView); return; }
+  app.classList.add('leaving');
+  routeTimer = setTimeout(() => { render(parts, false); app.classList.remove('leaving'); }, 160);
+}
+function render(parts, sameView) {
+  cleanupSim();
+  lastKey = parts[0] + '/' + (parts[1] || '');
+  $('#backBtn').classList.toggle('hide', !parts[0]);
+  if (parts[0] === 'licao' && LESSONS[parts[1]]) renderLesson(+parts[1], parts[2] || 'teoria', sameView);
   else if (parts[0] === 'flashcards') renderFlashcards();
   else if (parts[0] === 'resumo') renderResumo();
   else if (parts[0] === 'simulado') renderSimulado();
   else if (parts[0] === 'checklist') renderChecklist();
   else renderHome();
   updateTop();
-  window.scrollTo(0, 0);
+  if (!sameView) window.scrollTo(0, 0);
+  else { const t = $('.tabs'); if (t && t.getBoundingClientRect().top < 0) t.scrollIntoView({ block: 'start' }); }
 }
 window.addEventListener('hashchange', route);
+$('#backBtn').innerHTML = icon('back', 18);
 $('#backBtn').addEventListener('click', () => go('#/'));
+function setTitle(t) { $('#topTitle').textContent = t; }
 
 /* ================= HOME ================= */
+function nextStepHash() {
+  for (const id of Object.keys(LESSONS)) {
+    const k = TABS.find(t => (t.k === 'quiz' ? !S.quiz[id] : !stepDone(id, t.k)));
+    if (k) return { hash: `#/licao/${id}/${k.k}`, label: `Lição ${id} · ${k.l}` };
+  }
+  return { hash: '#/simulado', label: 'Simulado final' };
+}
 function renderHome() {
-  $('#topTitle').textContent = 'Física da Princesinha 👑';
+  setTitle('Física');
   const pct = Math.round(overallProgress() * 100);
   const done = Object.keys(LESSONS).filter(id => lessonProgress(id) === 1).length;
+  const nxt = nextStepHash();
   const worlds = WORLDS.map(w => `
-    <section class="world" style="--wc:${w.color}">
-      <div class="world-h"><div class="em">${w.emoji}</div><div><h2>Mundo ${w.id} — ${w.name}</h2><small>${w.prof}</small></div></div>
+    <section class="world" style="--wc:var(--w${w.id})">
+      <div class="world-h"><div class="em">${icon('w' + w.id, 20)}</div><div><div class="overline">Mundo ${w.id} · ${w.prof}</div><h2>${w.name}</h2></div></div>
       ${w.lessons.map(id => {
         const L = LESSONS[id], p = lessonProgress(id);
         return `<button class="lesson-item" data-go="#/licao/${id}">
-          <div class="n">${L.emoji}</div>
-          <div class="t"><b>${id}. ${L.title}</b><small>${L.sub}</small><div class="minibar"><i style="width:${p * 100}%"></i></div></div>
-          <div class="s" aria-label="${quizStars(id)} estrelas">${p === 1 ? '✅' : ''}<br>${starStr(quizStars(id))}</div>
+          <div class="n">${icon('l' + id, 20)}</div>
+          <div class="t"><b>${L.title}</b><small>${L.sub}</small><div class="minibar"><i data-w="${p * 100}%"></i></div></div>
+          <div class="s">${p === 1 ? `<span class="done-mark">${icon('check', 12)}Feita</span>` : ''}${stars(quizStars(id))}</div>
+          ${icon('chev', 18, 'chev')}
         </button>`;
       }).join('')}
     </section>`).join('');
   app.innerHTML = `
-    <div class="hero">
-      <div class="crown">👑</div>
-      <h1>Oi, princesinha! 💖</h1>
-      <p>Bora revisar Óptica e Movimento Circular juntinhos? ${pick(MSG_HOME)}</p>
-    </div>
+    <section class="hero">
+      <div class="overline">Revisão de Física</div>
+      <h1>Oi, <em>princesinha</em>.</h1>
+      <p>Vamos revisar Óptica e Movimento Circular com calma. ${sentence(pick(MSG_HOME))}</p>
+    </section>
     <div class="stats">
-      <div class="stat"><b>${totalXP()}</b><span>XP</span></div>
-      <div class="stat"><b>${totalStars()}/18</b><span>estrelas ⭐</span></div>
-      <div class="stat"><b>${done}/6</b><span>lições ✅</span></div>
+      <div class="stat"><b class="num" id="hxp">0</b><span>XP</span></div>
+      <div class="stat"><b class="num"><span id="hst">0</span><small style="font-size:.55em;color:var(--muted)">/18</small></b><span>estrelas</span></div>
+      <div class="stat"><b class="num"><span id="hls">0</span><small style="font-size:.55em;color:var(--muted)">/6</small></b><span>lições</span></div>
     </div>
-    <div class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
-    <p style="text-align:center;font-weight:800;color:var(--muted);margin:6px 0 0">${pct}% da jornada concluída ${pct === 100 ? '🏆' : pct >= 50 ? '🔥' : '🌱'}</p>
-    <div class="section-title">🗺️ Seus mundos</div>
+    <div class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i data-w="${pct}%"></i></div>
+    <div class="prog-label"><span><span id="hpct">0</span>% da jornada</span><span>${pct === 100 ? 'Tudo revisado' : ''}</span></div>
+    <button class="btn block" style="margin-top:22px" data-go="${nxt.hash}">${pct === 0 ? 'Começar' : 'Continuar'}: ${nxt.label} ${icon('arrow', 18)}</button>
+    <h2 class="section-title">Seus mundos</h2>
     ${worlds}
-    <div class="section-title">🎁 Extras</div>
+    <h2 class="section-title">Extras</h2>
     <div class="extras">
-      <button class="extra" data-go="#/flashcards"><div class="e">🃏</div><b>Flashcards</b><small>Fórmulas para decorar</small></button>
-      <button class="extra" data-go="#/resumo"><div class="e">📝</div><b>Resumão</b><small>A cola de última hora</small></button>
-      <button class="extra" data-go="#/simulado"><div class="e">🏆</div><b>Simulado</b><small>15 questões${S.simulado ? ` · recorde ${S.simulado.best}/15` : ''}</small></button>
-      <button class="extra" data-go="#/checklist"><div class="e">✅</div><b>Checklist</b><small>Livro e reta final</small></button>
+      <button class="extra" data-go="#/flashcards">${icon('cards', 22)}<b>Flashcards</b><small>Fórmulas para decorar</small></button>
+      <button class="extra" data-go="#/resumo">${icon('doc', 22)}<b>Resumão</b><small>A cola de última hora</small></button>
+      <button class="extra" data-go="#/simulado">${icon('target', 22)}<b>Simulado</b><small>15 questões${S.simulado ? ` · recorde ${S.simulado.best}/15` : ''}</small></button>
+      <button class="extra" data-go="#/checklist">${icon('list', 22)}<b>Checklist</b><small>Livro e páginas</small></button>
     </div>
-    <p class="footer">Feito com 💖 só pra você. Seu progresso fica salvo neste aparelho.</p>`;
+    <p class="footer">Feito com carinho, só pra você.<br><span style="font-family:var(--sans);font-style:normal;font-size:.78rem">Seu progresso fica salvo neste aparelho.</span></p>`;
+  countUp($('#hxp'), totalXP());
+  countUp($('#hst'), totalStars(), 0, 700);
+  countUp($('#hls'), done, 0, 700);
+  countUp($('#hpct'), pct, 0, 1100);
+  stagger([...app.querySelectorAll('.hero, .stats, .bar, .prog-label, .btn, .section-title, .world-h, .lesson-item, .extra, .footer')]);
+  growBars();
 }
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-go]');
@@ -1106,45 +1335,59 @@ document.addEventListener('click', e => {
 
 /* ================= LIÇÃO ================= */
 const TABS = [
-  { k: 'teoria', ic: '📖', l: 'Explica' },
-  { k: 'sim', ic: '🎮', l: 'Simulação' },
-  { k: 'exemplos', ic: '✍️', l: 'Exemplos' },
-  { k: 'quiz', ic: '🧠', l: 'Quiz' },
+  { k: 'teoria', ic: 'book', l: 'Explica' },
+  { k: 'sim', ic: 'sim', l: 'Simulação' },
+  { k: 'exemplos', ic: 'pen', l: 'Exemplos' },
+  { k: 'quiz', ic: 'quiz', l: 'Quiz' },
 ];
-function renderLesson(id, tab) {
+function placeInd(nav, idx, animate) {
+  const ind = $('.tab-ind', nav), tab = nav.querySelectorAll('.tab')[idx];
+  if (!ind || !tab) return;
+  if (!animate) ind.style.transition = 'none';
+  ind.style.width = tab.offsetWidth + 'px';
+  ind.style.transform = `translateX(${tab.offsetLeft - 4}px)`;
+  if (!animate) { void ind.offsetWidth; ind.style.transition = ''; }
+}
+function renderLesson(id, tab, sameView) {
   const L = LESSONS[id];
   if (!TABS.some(t => t.k === tab)) tab = 'teoria';
-  $('#topTitle').textContent = `${L.emoji} ${L.title}`;
+  setTitle(L.title);
   const w = WORLDS.find(w => w.id === L.world);
+  const idx = TABS.findIndex(t => t.k === tab);
   app.innerHTML = `
-    <div class="lesson-head"><p>Mundo ${w.id} · ${w.name} · Lição ${id}</p><h1>${L.emoji} ${L.title}</h1></div>
-    <nav class="tabs">${TABS.map(t => {
+    <div class="lesson-head"><div class="overline">Mundo ${w.id} · ${w.name} · Lição ${id}</div><h1>${L.title}</h1><p>${L.sub}</p></div>
+    <nav class="tabs"><span class="tab-ind"></span>${TABS.map(t => {
       const d = t.k === 'quiz' ? !!S.quiz[id] : stepDone(id, t.k);
-      return `<button class="tab ${t.k === tab ? 'on' : ''}" data-go="#/licao/${id}/${t.k}"><span class="ic">${t.ic}</span>${t.l}${d ? '<span class="dn">✔</span>' : ''}</button>`;
+      return `<button class="tab ${t.k === tab ? 'on' : ''}" data-go="#/licao/${id}/${t.k}">${icon(t.ic, 18)}<span>${t.l}</span>${d ? '<i class="dn" title="Concluído"></i>' : ''}</button>`;
     }).join('')}</nav>
     <div id="tabc"></div>`;
+  const nav = $('.tabs');
+  if (sameView && !REDUCED) { placeInd(nav, lastTabIdx, false); requestAnimationFrame(() => placeInd(nav, idx, true)); }
+  else placeInd(nav, idx, false);
+  lastTabIdx = idx;
   const c = $('#tabc');
-  const idx = TABS.findIndex(t => t.k === tab);
   const next = TABS[idx + 1];
-  const nextBtn = label => next
-    ? `<button class="btn block" data-go="#/licao/${id}/${next.k}">${label || `Próximo: ${next.ic} ${next.l} →`}</button>`
-    : (LESSONS[id + 1] ? `<button class="btn block" data-go="#/licao/${id + 1}">Próxima lição: ${LESSONS[id + 1].emoji} ${LESSONS[id + 1].title} →</button>`
-      : `<button class="btn block" data-go="#/simulado">Bora pro Simulado final! 🏆</button>`);
+  const nextBtn = () => next
+    ? `<button class="btn sec block next-row" data-go="#/licao/${id}/${next.k}">Próximo: ${next.l} ${icon('arrow', 18)}</button>`
+    : (LESSONS[id + 1] ? `<button class="btn sec block next-row" data-go="#/licao/${id + 1}">Próxima lição: ${LESSONS[id + 1].title} ${icon('arrow', 18)}</button>`
+      : `<button class="btn sec block next-row" data-go="#/simulado">Ir para o Simulado final ${icon('arrow', 18)}</button>`);
+  const done = (k, btn, to) => {
+    if (markStep(id, k)) {
+      toast(`+20 XP · ${pick(MSG_OK)}`); celebrate(btn);
+      const here = location.hash;
+      setTimeout(() => { if (location.hash === here) go(to); }, REDUCED ? 0 : 450);
+    }
+    else go(to);
+  };
 
   if (tab === 'teoria') {
-    c.innerHTML = L.theory + `<div class="done-box"><button class="btn ok block" id="doneBtn">Entendi tudo! ✔</button></div>`;
-    $('#doneBtn').onclick = () => {
-      if (markStep(id, 'teoria')) { toast(`+20 XP · ${pick(MSG_OK)}`); confetti(60); }
-      go(`#/licao/${id}/sim`);
-    };
+    c.innerHTML = L.theory + `<div class="done-box"><button class="btn ok block" id="doneBtn">${icon('check', 18)} Entendi tudo</button></div>` + nextBtn();
+    $('#doneBtn').onclick = e => done('teoria', e.currentTarget, `#/licao/${id}/sim`);
   } else if (tab === 'sim') {
-    c.innerHTML = `<div class="tip">🎮 ${L.simIntro}</div><div id="simbox"></div>
-      <div class="done-box"><button class="btn ok block" id="doneBtn">Já brinquei bastante! ✔</button></div>`;
+    c.innerHTML = `<div class="tip box">${icon('sim', 18)}<div>${L.simIntro}</div></div><div id="simbox"></div>
+      <div class="done-box"><button class="btn ok block" id="doneBtn">${icon('check', 18)} Já brinquei bastante</button></div>` + nextBtn();
     activeSim = SIMS[id]($('#simbox'));
-    $('#doneBtn').onclick = () => {
-      if (markStep(id, 'sim')) { toast(`+20 XP · ${pick(MSG_OK)}`); confetti(60); }
-      go(`#/licao/${id}/exemplos`);
-    };
+    $('#doneBtn').onclick = e => done('sim', e.currentTarget, `#/licao/${id}/exemplos`);
   } else if (tab === 'exemplos') {
     renderExamples(c, L, nextBtn());
   } else {
@@ -1156,35 +1399,37 @@ function renderLesson(id, tab) {
         save(); updateTop();
       },
       endExtra: () => nextBtn(),
-      retryHash: `#/licao/${id}/quiz`,
     });
   }
-  if (tab !== 'quiz' && tab !== 'exemplos') c.insertAdjacentHTML('beforeend', `<div style="margin-top:4px">${nextBtn()}</div>`);
+  const items = sameView ? [...c.children] : [...app.querySelectorAll('.lesson-head, .tabs'), ...c.children];
+  stagger(items);
 }
 
 function renderExamples(c, L, nextHTML) {
   const id = L.id;
-  c.innerHTML = L.examples.map((ex, i) => `
+  c.innerHTML = `<div class="tip box">${icon('pen', 18)}<div>Tenta resolver sozinha no caderno antes de abrir cada passo.</div></div>` +
+    L.examples.map((ex, i) => `
     <div class="card" data-ex="${i}">
-      <h3>✍️ Exemplo ${i + 1}</h3>
-      <p><b>${ex.q}</b></p>
+      <div class="overline">Exemplo ${i + 1}</div>
+      <p class="q-ex">${ex.q}</p>
       <div class="steps"></div>
-      <button class="btn sec block" data-step="${i}">👉 Mostrar 1º passo</button>
-    </div>`).join('') + `<div class="tip">Tenta resolver sozinha no caderno antes de abrir cada passo! 💪</div>` + nextHTML;
+      <button class="btn sec block" data-step="${i}" style="margin-top:12px">Mostrar 1º passo</button>
+    </div>`).join('') + nextHTML;
   const shown = L.examples.map(() => 0);
   c.querySelectorAll('[data-step]').forEach(btn => {
     btn.onclick = () => {
       const i = +btn.dataset.step, ex = L.examples[i];
       const box = c.querySelector(`[data-ex="${i}"] .steps`);
       if (shown[i] < ex.steps.length) {
-        box.insertAdjacentHTML('beforeend', `<div class="step"><b>Passo ${shown[i] + 1}:</b> ${ex.steps[shown[i]]}</div>`);
+        box.insertAdjacentHTML('beforeend', `<div class="step"><span class="k">${shown[i] + 1}</span><div>${ex.steps[shown[i]]}</div></div>`);
         shown[i]++;
-        btn.textContent = shown[i] < ex.steps.length ? `👉 Mostrar ${shown[i] + 1}º passo` : '🎯 Mostrar resposta final';
+        btn.textContent = shown[i] < ex.steps.length ? `Mostrar ${shown[i] + 1}º passo` : 'Mostrar resposta final';
       } else {
-        box.insertAdjacentHTML('beforeend', `<div class="answer">✅ Resposta: ${ex.ans}</div>`);
+        box.insertAdjacentHTML('beforeend', `<div class="answer">${icon('check', 18, 'draw')}<div>Resposta: ${ex.ans}</div></div>`);
+        const ans = box.lastElementChild;
         btn.remove();
         if (shown.every((s, k) => s >= L.examples[k].steps.length) && !c.querySelector('[data-step]')) {
-          if (markStep(id, 'exemplos')) { toast(`+20 XP · ${pick(MSG_OK)}`); confetti(60); }
+          if (markStep(id, 'exemplos')) { toast(`+20 XP · ${pick(MSG_OK)}`); celebrate(ans); }
         }
       }
     };
@@ -1201,13 +1446,15 @@ function runQuiz(box, questions, opts) {
   function show() {
     const q = qs[i];
     box.innerHTML = `<div class="card">
-      <div class="qprog"><span>Questão ${i + 1} de ${qs.length}</span><span>✅ ${score}</span></div>
-      <div class="bar"><i style="width:${(i / qs.length) * 100}%"></i></div>
+      <div class="qprog"><span>Questão ${i + 1} de ${qs.length}</span><span>${score} ${score === 1 ? 'acerto' : 'acertos'}</span></div>
+      <div class="bar"><i style="width:${(i / qs.length) * 100}%" data-w="${((i + 1) / qs.length) * 100}%"></i></div>
       <div class="qtext">${q.q}</div>
-      ${q.o.map((o, k) => `<button class="opt" data-k="${k}">${String.fromCharCode(65 + k)}) ${o}</button>`).join('')}
+      ${q.o.map((o, k) => `<button class="opt" data-k="${k}"><span class="L">${String.fromCharCode(65 + k)}</span><span class="tx">${o}</span><span class="mk"></span></button>`).join('')}
       <div id="fb"></div>
     </div>`;
+    growBars(box);
     box.querySelectorAll('.opt').forEach(b => b.onclick = () => answer(+b.dataset.k));
+    stagger([box.firstElementChild]);
   }
   function answer(k) {
     const q = qs[i], ok = k === q.a;
@@ -1215,136 +1462,150 @@ function runQuiz(box, questions, opts) {
     box.querySelectorAll('.opt').forEach(b => {
       b.disabled = true;
       const kk = +b.dataset.k;
-      if (kk === q.a) b.classList.add('right');
-      else if (kk === k) b.classList.add('wrong');
+      if (kk === q.a) { b.classList.add('right'); $('.mk', b).innerHTML = icon('check', 22, 'draw'); }
+      else if (kk === k) { b.classList.add('wrong'); $('.mk', b).innerHTML = icon('x', 22, 'draw'); }
+      else b.classList.add('dim');
     });
-    $('#fb', box).innerHTML = `<div class="fb ${ok ? 'r' : 'w'}"><b>${ok ? pick(MSG_OK) : pick(MSG_ERR)}</b><br>${q.e}</div>
-      <button class="btn block" style="margin-top:12px" id="nextQ">${i + 1 < qs.length ? 'Próxima →' : 'Ver resultado 🎉'}</button>`;
-    if (ok) confetti(25);
+    $('#fb', box).innerHTML = `<div class="fb ${ok ? 'r' : 'w'}"><b>${ok ? pick(MSG_OK) : pick(MSG_ERR)}</b>${q.e}</div>
+      <button class="btn block" style="margin-top:14px" id="nextQ">${i + 1 < qs.length ? 'Próxima' : 'Ver resultado'} ${icon('arrow', 18)}</button>`;
+    if (ok) celebrate(box.querySelector('.opt.right'), 16);
     $('#nextQ', box).onclick = () => { i++; i < qs.length ? show() : finish(); };
-    $('#nextQ', box).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    $('#nextQ', box).scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest' });
   }
   function finish() {
     opts.onFinish(score, qs.length);
     const r = score / qs.length;
-    const stars = r >= 0.9 ? 3 : r >= 0.7 ? 2 : r >= 0.5 ? 1 : 0;
-    const msg = r === 1 ? 'GABARITOU, PRINCESINHA! 👑👑👑 Você é incrível!'
-      : r >= 0.7 ? 'Muito bem! Você tá prontíssima! 💖'
-      : r >= 0.5 ? 'Tá indo bem! Revisa as explicações e tenta de novo pra ganhar mais estrelas 🌟'
-      : 'Sem stress, princesinha! Volta na aba 📖 Explica, dá uma olhadinha nas pegadinhas e tenta de novo. Você consegue! 💕';
-    box.innerHTML = `<div class="card" style="text-align:center">
-      <div class="big-emoji">${r >= 0.7 ? '🏆' : r >= 0.5 ? '🌟' : '🌸'}</div>
-      <h3>${score} de ${qs.length} acertos</h3>
-      <div class="stars">${starStr(stars)}</div>
+    const st = r >= 0.9 ? 3 : r >= 0.7 ? 2 : r >= 0.5 ? 1 : 0;
+    const msg = r === 1 ? 'Gabaritou, princesinha. Você é incrível!'
+      : r >= 0.7 ? 'Muito bem! Você tá prontíssima.'
+      : r >= 0.5 ? 'Tá indo bem! Revisa as explicações e tenta de novo pra ganhar mais estrelas.'
+      : 'Sem stress, princesinha. Volta na aba Explica, dá uma olhadinha nas pegadinhas e tenta de novo. Você consegue!';
+    box.innerHTML = `<div class="card result">
+      <div class="overline">Resultado</div>
+      <div class="score num"><span id="qsc">0</span><small>/${qs.length}</small></div>
+      <div style="color:var(--muted);font-size:.85rem;font-weight:600">acertos</div>
+      ${stars(st, 26)}
       <p>${msg}</p>
-      <div class="row" style="justify-content:center;margin-top:10px">
-        <button class="btn sec" id="retry">🔁 Tentar de novo</button>
+      <div class="row" style="justify-content:center;margin-top:20px">
+        <button class="btn sec" id="retry">${icon('redo', 18)} Tentar de novo</button>
       </div>
     </div>${opts.endExtra ? opts.endExtra() : ''}`;
+    countUp($('#qsc', box), score, 0, 800);
     $('#retry', box).onclick = () => runQuiz(box, questions, opts);
-    if (r >= 0.7) confetti(r === 1 ? 220 : 130);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    stagger([...box.children]);
+    if (r >= 0.7) setTimeout(() => celebrate($('.score', box), r === 1 ? 60 : 36), 300);
+    window.scrollTo({ top: Math.max(0, box.getBoundingClientRect().top + scrollY - 80), behavior: REDUCED ? 'auto' : 'smooth' });
   }
   show();
 }
 
 /* ================= FLASHCARDS ================= */
 function renderFlashcards() {
-  $('#topTitle').textContent = '🃏 Flashcards';
+  setTitle('Flashcards');
   const topics = ['Todos', ...new Set(FLASHCARDS.map(c => c.t))];
-  let topic = 'Todos', deck = FLASHCARDS.slice(), i = 0;
+  let deck = FLASHCARDS.slice(), i = 0;
   app.innerHTML = `
-    <div class="lesson-head"><h1>🃏 Flashcards</h1><p>Toque no cartão para virar. Tente lembrar antes!</p></div>
-    <div class="seg" id="topics" style="margin:12px 0">${topics.map(t => `<button data-t="${t}" class="${t === topic ? 'on' : ''}">${t}</button>`).join('')}</div>
+    <div class="lesson-head"><div class="overline">Extras</div><h1>Flashcards</h1><p>Toque no cartão para virar. Tente lembrar antes.</p></div>
+    <div class="seg" id="topics" style="margin:20px 0 6px">${topics.map((t, k) => `<button data-t="${t}" class="${k === 0 ? 'on' : ''}">${t}</button>`).join('')}</div>
     <div class="fc-wrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Virar cartão"><div class="front"></div><div class="back"></div></div></div>
-    <p style="text-align:center;font-weight:800;color:var(--muted)" id="fcn"></p>
+    <p class="fc-n" id="fcn"></p>
     <div class="row" style="justify-content:center">
-      <button class="btn sec" id="prev">← Anterior</button>
-      <button class="btn sec" id="shuf">🔀</button>
-      <button class="btn" id="next">Próximo →</button>
+      <button class="btn sec" id="prev" aria-label="Anterior">${icon('back', 18)} Anterior</button>
+      <button class="btn sec" id="shuf" aria-label="Embaralhar">${icon('shuffle', 18)}</button>
+      <button class="btn" id="next">Próximo ${icon('arrow', 18)}</button>
     </div>`;
   const fc = $('#fc');
-  function draw() {
+  function draw(dir) {
     const c = deck[i];
     const wasFlipped = fc.classList.contains('flip');
     fc.classList.remove('flip');
-    $('.front', fc).innerHTML = `<div class="tag">${c.t}</div>${c.f}`;
+    $('.front', fc).innerHTML = `<div class="tag">${c.t}</div><div>${c.f}</div><div class="hint">${icon('redo', 14)} toque para virar</div>`;
     // troca o verso só depois de desvirar, para não "spoilar" a resposta
-    setTimeout(() => { $('.back', fc).innerHTML = `<div class="tag">${c.f}</div><div>${c.b}</div>`; }, wasFlipped ? 300 : 0);
-    $('#fcn').textContent = `${i + 1} / ${deck.length}`;
+    setTimeout(() => { $('.back', fc).innerHTML = `<div class="tag">${c.f}</div><div>${c.b}</div>`; }, wasFlipped ? 380 : 0);
+    $('#fcn').textContent = `${i + 1} de ${deck.length}`;
+    if (dir && !REDUCED) fc.parentElement.animate([{ opacity: 0, transform: `translateX(${dir * 24}px)` }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
   }
   const flip = () => fc.classList.toggle('flip');
   fc.onclick = flip;
   fc.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } };
-  $('#prev').onclick = () => { i = (i - 1 + deck.length) % deck.length; draw(); };
-  $('#next').onclick = () => {
+  $('#prev').onclick = () => { i = (i - 1 + deck.length) % deck.length; draw(-1); };
+  $('#next').onclick = e => {
     i = (i + 1) % deck.length;
-    if (i === 0) { toast('Você passou por todos os cartões! 🎉 ' + pick(MSG_OK)); confetti(80); }
-    draw();
+    if (i === 0) { toast('Você passou por todos os cartões. ' + pick(MSG_OK), 'spark'); celebrate(e.currentTarget); }
+    draw(1);
   };
-  $('#shuf').onclick = () => { deck = shuffle(deck); i = 0; draw(); toast('Embaralhado! 🔀', 1200); };
+  $('#shuf').onclick = () => { deck = shuffle(deck); i = 0; draw(1); toast('Cartões embaralhados', 'shuffle', 1200); };
   $('#topics').onclick = e => {
     const b = e.target.closest('button'); if (!b) return;
-    topic = b.dataset.t;
+    const topic = b.dataset.t;
     deck = topic === 'Todos' ? FLASHCARDS.slice() : FLASHCARDS.filter(c => c.t === topic);
     i = 0;
     $('#topics').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
-    draw();
+    draw(1);
   };
   draw();
+  stagger([...app.children]);
 }
 
 /* ================= RESUMÃO ================= */
 function renderResumo() {
-  $('#topTitle').textContent = '📝 Resumão';
-  app.innerHTML = `<div class="lesson-head"><h1>📝 Resumão de última hora</h1><p>Tudo o que cai, numa olhada só. Lê com calma antes de dormir 😴</p></div>
+  setTitle('Resumão');
+  app.innerHTML = `<div class="lesson-head"><div class="overline">Extras</div><h1>Resumão de última hora</h1><p>Tudo o que cai, numa olhada só. Lê com calma antes de dormir.</p></div>
+    <div style="height:20px"></div>
     ${RESUMO}
-    <div class="card" style="text-align:center"><b>Você estudou muito, princesinha. Confia em você! 💖</b></div>`;
+    <div class="card" style="text-align:center"><p class="serif" style="font-size:1.45rem;line-height:1.3;margin:4px 0">Você estudou muito, princesinha.<br><em>Confia em você.</em></p></div>`;
+  stagger([...app.children]);
 }
 
 /* ================= SIMULADO ================= */
 function renderSimulado() {
-  $('#topTitle').textContent = '🏆 Simulado';
-  app.innerHTML = `<div class="lesson-head"><h1>🏆 Simulado final</h1><p>15 questões misturando tudo. Use g = 10 m/s². Tenha papel e caneta por perto!</p></div>
-    ${S.simulado ? `<div class="tip">Seu recorde: <b>${S.simulado.best}/15</b>. Bora bater? 💪</div>` : ''}
+  setTitle('Simulado');
+  app.innerHTML = `<div class="lesson-head"><div class="overline">Extras</div><h1>Simulado final</h1><p>15 questões misturando tudo. Use g = 10 m/s². Tenha papel e caneta por perto.</p></div>
+    <div style="height:20px"></div>
+    ${S.simulado ? `<div class="tip box">${icon('target', 18)}<div>Seu recorde: <b>${S.simulado.best}/15</b>. Bora bater?</div></div>` : ''}
     <div id="quizbox"></div>`;
+  stagger([...app.children].slice(0, -1));
   runQuiz($('#quizbox'), shuffle(SIMULADO), {
     onFinish(score) {
       if (!S.simulado || score > S.simulado.best) S.simulado = { best: score };
       save(); updateTop();
     },
-    endExtra: () => `<button class="btn sec block" data-go="#/resumo">📝 Revisar o Resumão</button>`,
+    endExtra: () => `<button class="btn sec block next-row" data-go="#/resumo">${icon('doc', 18)} Revisar o Resumão</button>`,
   });
 }
 
 /* ================= CHECKLIST ================= */
 function renderChecklist() {
-  $('#topTitle').textContent = '✅ Checklist';
+  setTitle('Checklist');
   const items = [...CHECKLIST_DEFAULT, ...S.checklist.custom];
   const groups = [...new Set([...CHECKLIST_DEFAULT.map(i => i.g), ...S.checklist.custom.map(i => i.g)])];
-  const doneN = items.filter(i => S.checklist.done[i.id]).length;
-  app.innerHTML = `<div class="lesson-head"><h1>✅ Checklist do livro</h1><p>Marque o que já fez. Adicione as páginas e questões que os professores passaram!</p></div>
-    <div class="bar" style="margin:12px 0"><i style="width:${items.length ? doneN / items.length * 100 : 0}%"></i></div>
-    <p style="text-align:center;font-weight:800;color:var(--muted);margin-top:0">${doneN} de ${items.length} concluídos</p>
-    <div class="card">
-      <h3>➕ Adicionar item</h3>
-      <select class="inp" id="clg" style="margin-bottom:8px">${groups.map(g => `<option>${esc(g)}</option>`).join('')}</select>
-      <input class="inp" id="clt" placeholder="Ex.: Livro pág. 112 — questões 1 a 10" maxlength="140">
-      <button class="btn block" id="cladd" style="margin-top:10px">Adicionar</button>
-    </div>
+  const count = () => items.filter(i => S.checklist.done[i.id]).length;
+  app.innerHTML = `<div class="lesson-head"><div class="overline">Extras</div><h1>Checklist do livro</h1><p>Marque o que já fez. Dá pra adicionar outras páginas e questões também.</p></div>
+    <div style="margin:24px 0 18px"><div class="bar"><i id="clbar" data-w="${items.length ? count() / items.length * 100 : 0}%"></i></div>
+    <div class="prog-label"><span id="clcount">${count()} de ${items.length} concluídos</span></div></div>
     ${groups.map(g => `<div class="card"><h3>${esc(g)}</h3>${items.filter(i => i.g === g).map(i => `
       <label class="cl-item ${S.checklist.done[i.id] ? 'done' : ''}">
         <input type="checkbox" data-id="${esc(i.id)}" ${S.checklist.done[i.id] ? 'checked' : ''}>
         <span>${esc(i.t)}</span>
-        ${i.id.startsWith('c') ? `<button data-del="${esc(i.id)}" aria-label="Remover item">🗑️</button>` : ''}
-      </label>`).join('')}</div>`).join('')}`;
+        ${i.id.startsWith('c') ? `<button data-del="${esc(i.id)}" aria-label="Remover item">${icon('trash', 18)}</button>` : ''}
+      </label>`).join('')}</div>`).join('')}
+    <div class="card">
+      <h3>Adicionar item</h3>
+      <select class="inp" id="clg" style="margin-bottom:8px">${groups.map(g => `<option>${esc(g)}</option>`).join('')}</select>
+      <input class="inp" id="clt" placeholder="Ex.: Livro pág. 112, questões 1 a 10" maxlength="140">
+      <button class="btn block" id="cladd" style="margin-top:12px">${icon('plus', 18)} Adicionar</button>
+    </div>`;
+  growBars();
+  stagger([...app.children]);
   app.querySelectorAll('input[type=checkbox][data-id]').forEach(cb => cb.onchange = () => {
     S.checklist.done[cb.dataset.id] = cb.checked;
-    save();
-    if (cb.checked) { toast(`+5 XP · ${pick(MSG_OK)}`, 1500); confetti(30); }
-    const total = items.length, d = items.filter(i => S.checklist.done[i.id]).length;
-    if (cb.checked && d === total) { toast('Checklist completo! Você está PRONTA 👑🎉', 3500); confetti(250); }
-    renderChecklist(); updateTop();
+    save(); updateTop();
+    cb.closest('.cl-item').classList.toggle('done', cb.checked);
+    const d = count();
+    $('#clbar').style.width = (items.length ? d / items.length * 100 : 0) + '%';
+    $('#clcount').textContent = `${d} de ${items.length} concluídos`;
+    if (cb.checked && d === items.length) { toast('Checklist completo. Você está pronta, princesinha!', 'spark', 3500); celebrate(cb, 60); }
+    else if (cb.checked) { toast(`+5 XP · ${pick(MSG_OK)}`, 'check', 1500); celebrate(cb, 12); }
   });
   app.querySelectorAll('[data-del]').forEach(b => b.onclick = e => {
     e.preventDefault();
@@ -1358,7 +1619,7 @@ function renderChecklist() {
     if (!t) { $('#clt').focus(); return; }
     S.checklist.custom.push({ id: 'c' + Date.now().toString(36), g: $('#clg').value, t });
     save(); renderChecklist();
-    toast('Adicionado! 📌', 1200);
+    toast('Item adicionado', 'plus', 1200);
   };
   $('#cladd').onclick = add;
   $('#clt').onkeydown = e => { if (e.key === 'Enter') add(); };
@@ -1368,6 +1629,45 @@ function renderChecklist() {
 const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const DEG = Math.PI / 180;
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const PALS = {
+  light: { ray: '#bf8f2a', rose: '#b5664b', ochre: '#b98232', blue: '#4f7cac', acc: '#34507a', sage: '#5a8964', red: '#a5473d', gray: '#7a7e86', gray2: '#b3b6bb',
+    spec: ['#c4584a', '#cf8a45', '#c4a23e', '#6a9c68', '#4f7cac', '#7c62a6'] },
+  dark: { ray: '#e0b65a', rose: '#d78d70', ochre: '#d9a758', blue: '#88aad3', acc: '#a3b8dc', sage: '#8db896', red: '#d98b7f', gray: '#9aa0a8', gray2: '#5d636c',
+    spec: ['#e07a6b', '#e5a160', '#e3c565', '#8cc08a', '#7fa6d6', '#a68fd4'] },
+};
+let C = PALS.light;
+function refreshPalette() { C = isDark() ? PALS.dark : PALS.light; }
+const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+/* interpola suavemente os valores numéricos de `st` (chaves `keys`) e redesenha até assentar */
+function smooth(st, keys, draw) {
+  const D = {};
+  keys.forEach(k => { D[k] = st[k]; });
+  let raf = null, last = 0;
+  const settle = () => keys.forEach(k => { D[k] = st[k]; });
+  const tick = t => {
+    const dt = Math.min(0.05, Math.max(0.001, (t - last) / 1000)); last = t;
+    const a = 1 - Math.exp(-dt * 13);
+    let moving = false;
+    keys.forEach(k => {
+      const target = st[k];
+      if (typeof target !== 'number' || typeof D[k] !== 'number') { D[k] = target; return; }
+      const d = target - D[k];
+      if (Math.abs(d) > 1e-3 * (Math.abs(target) + 1)) { D[k] += d * a; moving = true; } else D[k] = target;
+    });
+    draw();
+    raf = moving ? requestAnimationFrame(tick) : null;
+  };
+  return {
+    D,
+    kick() {
+      if (REDUCED) { settle(); draw(); return; }
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+    },
+    snap() { settle(); },
+    stop() { cancelAnimationFrame(raf); raf = null; },
+  };
+}
+function paintRange(el) { el.style.setProperty('--p', ((el.value - el.min) / (el.max - el.min) * 100) + '%'); }
 
 function simShell(box, { height, controls }) {
   box.innerHTML = `<div class="sim"><canvas></canvas><div class="sim-alert"></div><div class="readout"></div><div class="ctrls">${controls}</div></div>`;
@@ -1381,13 +1681,15 @@ function simShell(box, { height, controls }) {
     sh.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
   sh.fit();
+  box.querySelectorAll('input[type=range]').forEach(paintRange);
+  sh.flash = () => { cv.classList.remove('flash'); void cv.offsetWidth; cv.classList.add('flash'); };
   sh.readout = html => { $('.readout', box).innerHTML = html; };
   let lastAlert = '';
   sh.alert = (cls, html) => {
     const key = cls + html;
     if (key === lastAlert) return;
     lastAlert = key;
-    $('.sim-alert', box).innerHTML = html ? `<div class="alert ${cls}">${html}</div>` : '';
+    $('.sim-alert', box).innerHTML = html ? `<div class="alert ${cls}">${icon(cls === 'ok' ? 'check' : cls === 'bad' ? 'alert' : 'info', 18)}<div>${html}</div></div>` : '';
   };
   sh.pos = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
   return sh;
@@ -1399,9 +1701,9 @@ const segHTML = (id, items, on) =>
   `<div class="seg" id="${id}">${items.map(([k, l]) => `<button data-k="${k}" class="${k === on ? 'on' : ''}">${l}</button>`).join('')}</div>`;
 function bindSlider(box, id, unit, fn, fmtFn) {
   const el = $('#' + id, box), out = $('#' + id + '-v', box);
-  const upd = () => { const v = parseFloat(el.value); out.textContent = (fmtFn ? fmtFn(v) : fmt(v)) + unit; fn(v); };
+  const upd = () => { const v = parseFloat(el.value); paintRange(el); out.textContent = (fmtFn ? fmtFn(v) : fmt(v)) + unit; fn(v); };
   el.addEventListener('input', upd);
-  return { el, set(v) { el.value = v; out.textContent = (fmtFn ? fmtFn(+el.value) : fmt(+el.value)) + unit; } };
+  return { el, set(v) { el.value = v; paintRange(el); out.textContent = (fmtFn ? fmtFn(+el.value) : fmt(+el.value)) + unit; } };
 }
 function bindSeg(box, id, fn) {
   const seg = $('#' + id, box);
@@ -1414,26 +1716,26 @@ function bindSeg(box, id, fn) {
 function arrow(ctx, x1, y1, x2, y2, color, lw = 3, label, labelOff = 8) {
   const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
   if (len < 2) return;
-  const ux = dx / len, uy = dy / len, hs = Math.min(11, len * 0.45);
+  const ux = dx / len, uy = dy / len, hs = Math.min(9, len * 0.45);
   ctx.save();
-  ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = lw; ctx.lineCap = 'round';
+  ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = Math.max(1.4, lw * 0.6); ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * hs * 0.8, y2 - uy * hs * 0.8); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(x2, y2);
   ctx.lineTo(x2 - ux * hs - uy * hs * 0.55, y2 - uy * hs + ux * hs * 0.55);
   ctx.lineTo(x2 - ux * hs + uy * hs * 0.55, y2 - uy * hs - ux * hs * 0.55);
   ctx.closePath(); ctx.fill();
   if (label) {
-    ctx.font = 'bold 13px Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = 'bold 13px Manrope, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(label, x2 + ux * (labelOff + 6), y2 + uy * (labelOff + 6));
   }
   ctx.restore();
 }
 function text(ctx, s, x, y, color, size = 12, align = 'left', weight = '700') {
-  ctx.save(); ctx.fillStyle = color; ctx.font = `${weight} ${size}px Nunito, sans-serif`; ctx.textAlign = align; ctx.textBaseline = 'middle';
+  ctx.save(); ctx.fillStyle = color; ctx.font = `${weight} ${size}px Manrope, sans-serif`; ctx.textAlign = align; ctx.textBaseline = 'middle';
   ctx.fillText(s, x, y); ctx.restore();
 }
 function line(ctx, x1, y1, x2, y2, color, lw = 2, dash) {
-  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw; if (dash) ctx.setLineDash(dash);
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw > 2 ? lw * 0.65 : lw; ctx.lineCap = 'round'; if (dash) ctx.setLineDash(dash);
   ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.restore();
 }
 /* faz um loop de animação; devolve stop() */
@@ -1463,66 +1765,67 @@ SIMS[1] = function (box) {
       ${sliderHTML('n1', 'n₁', 1, 2.5, 0.01, '1.00')}
       <div class="ctrl"><label>Meio 2 (de baixo)</label>${segHTML('m2', MEIOS, '1.50')}</div>
       ${sliderHTML('n2', 'n₂', 1, 2.5, 0.01, '1.50')}
-      <label class="chk"><input type="checkbox" id="disp"> Luz branca (mostrar dispersão 🌈)</label>`,
+      <label class="chk"><input type="checkbox" id="disp"> Luz branca (mostrar dispersão)</label>`,
   });
   const nameOf = n => { const m = MEIOS.find(([k]) => Math.abs(+k - n) < 0.005); return m ? m[1] : 'n = ' + fmt(n); };
-  const sT = bindSlider(box, 't1', '°', v => { st.t1 = v; draw(); }, v => v.toFixed(0));
-  const sN1 = bindSlider(box, 'n1', '', v => { st.n1 = v; syncSeg(); draw(); }, v => v.toFixed(2).replace('.', ','));
-  const sN2 = bindSlider(box, 'n2', '', v => { st.n2 = v; syncSeg(); draw(); }, v => v.toFixed(2).replace('.', ','));
+  const sT = bindSlider(box, 't1', '°', v => { st.t1 = v; tw.kick(); }, v => v.toFixed(0));
+  const sN1 = bindSlider(box, 'n1', '', v => { st.n1 = v; syncSeg(); tw.kick(); }, v => v.toFixed(2).replace('.', ','));
+  const sN2 = bindSlider(box, 'n2', '', v => { st.n2 = v; syncSeg(); tw.kick(); }, v => v.toFixed(2).replace('.', ','));
   sN1.set(1); sN2.set(1.5);
   function syncSeg() {
     [['m1', st.n1], ['m2', st.n2]].forEach(([id, n]) => $('#' + id, box).querySelectorAll('button').forEach(b => b.classList.toggle('on', Math.abs(+b.dataset.k - n) < 0.005)));
   }
-  bindSeg(box, 'm1', k => { st.n1 = +k; sN1.set(+k); draw(); });
-  bindSeg(box, 'm2', k => { st.n2 = +k; sN2.set(+k); draw(); });
-  $('#disp', box).onchange = e => { st.disp = e.target.checked; draw(); };
+  bindSeg(box, 'm1', k => { st.n1 = +k; sN1.set(+k); tw.kick(); });
+  bindSeg(box, 'm2', k => { st.n2 = +k; sN2.set(+k); tw.kick(); });
+  $('#disp', box).onchange = e => { st.disp = e.target.checked; sh.flash(); draw(); };
 
   function draw() {
+    const D = tw.D;
     const { ctx, w, h } = sh, cx = w / 2, cy = h / 2, R = Math.min(w * 0.46, h * 0.47);
     const txt = cssv('--sim-line');
     ctx.clearRect(0, 0, w, h);
-    const tone = n => 0.08 + (n - 1) / 1.5 * 0.42;
-    ctx.fillStyle = `rgba(147,197,253,${tone(st.n1)})`; ctx.fillRect(0, 0, w, cy);
-    ctx.fillStyle = `rgba(167,139,250,${tone(st.n2)})`; ctx.fillRect(0, cy, w, h - cy);
+    const tone = n => 0.04 + (n - 1) / 1.5 * 0.22;
+    ctx.fillStyle = rgba(C.blue, tone(D.n1)); ctx.fillRect(0, 0, w, cy);
+    ctx.fillStyle = rgba(C.acc, tone(D.n2)); ctx.fillRect(0, cy, w, h - cy);
     line(ctx, 0, cy, w, cy, txt, 2);
     line(ctx, cx, 8, cx, h - 8, txt, 1.5, [6, 5]);
     text(ctx, 'normal', cx + 6, 14, txt, 11);
-    text(ctx, `${nameOf(st.n1)} (n₁ = ${fmt(st.n1)})`, 10, 16, txt, 12);
-    text(ctx, `${nameOf(st.n2)} (n₂ = ${fmt(st.n2)})`, 10, h - 14, txt, 12);
+    text(ctx, `${nameOf(D.n1)} (n₁ = ${fmt(D.n1)})`, 10, 16, txt, 12);
+    text(ctx, `${nameOf(D.n2)} (n₂ = ${fmt(D.n2)})`, 10, h - 14, txt, 12);
 
-    const t1 = st.t1 * DEG;
-    const sinT2 = st.n1 * Math.sin(t1) / st.n2;
+    const t1 = D.t1 * DEG;
+    const sinT2 = D.n1 * Math.sin(t1) / D.n2;
     const tir = sinT2 > 1;
-    const L = st.n1 > st.n2 ? Math.asin(st.n2 / st.n1) / DEG : null;
+    const L = D.n1 > D.n2 ? Math.asin(D.n2 / D.n1) / DEG : null;
     const ix = cx - R * Math.sin(t1), iy = cy - R * Math.cos(t1);
     // incidente
-    line(ctx, ix, iy, cx, cy, '#facc15', 4);
-    arrow(ctx, ix, iy, (ix + cx) / 2, (iy + cy) / 2, '#facc15', 4);
+    line(ctx, ix, iy, cx, cy, C.ray, 4);
+    arrow(ctx, ix, iy, (ix + cx) / 2, (iy + cy) / 2, C.ray, 4);
     // refletido
     const rx = cx + R * Math.sin(t1), ry = cy - R * Math.cos(t1);
     ctx.globalAlpha = tir ? 1 : 0.3;
-    arrow(ctx, cx, cy, rx, ry, '#facc15', tir ? 4 : 2.5);
+    arrow(ctx, cx, cy, rx, ry, C.ray, tir ? 4 : 2.5);
     ctx.globalAlpha = 1;
     // refratado
     if (!tir) {
       if (st.disp) {
-        const cores = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6'];
+        const cores = C.spec;
         cores.forEach((c, k) => {
-          const n2c = st.n2 + (k - 2.5) * 0.014;
-          const s = st.n1 * Math.sin(t1) / n2c;
+          const n2c = D.n2 + (k - 2.5) * 0.014;
+          const s = D.n1 * Math.sin(t1) / n2c;
           if (s <= 1) { const a = Math.asin(s); arrow(ctx, cx, cy, cx + R * Math.sin(a), cy + R * Math.cos(a), c, 2.5); }
         });
-        text(ctx, 'violeta desvia mais!', cx + 8, cy + R * 0.95, '#8b5cf6', 11);
+        text(ctx, 'violeta desvia mais', cx + 8, cy + R * 0.95, C.spec[5], 11);
       } else {
         const t2 = Math.asin(sinT2);
-        arrow(ctx, cx, cy, cx + R * Math.sin(t2), cy + R * Math.cos(t2), '#ec4899', 4);
+        arrow(ctx, cx, cy, cx + R * Math.sin(t2), cy + R * Math.cos(t2), C.rose, 4);
       }
     }
     // arcos dos ângulos
     ctx.strokeStyle = txt; ctx.lineWidth = 1.5;
-    if (st.t1 > 0) {
+    if (D.t1 > 0) {
       ctx.beginPath(); ctx.arc(cx, cy, 34, -Math.PI / 2 - t1, -Math.PI / 2); ctx.stroke();
-      text(ctx, `θ₁=${st.t1}°`, cx - 44 * Math.sin(t1 / 2) - 4, cy - 50 * Math.cos(t1 / 2), txt, 12, 'right');
+      text(ctx, `θ₁=${Math.round(D.t1)}°`, cx - 44 * Math.sin(t1 / 2) - 4, cy - 50 * Math.cos(t1 / 2), txt, 12, 'right');
     }
     let t2deg = null;
     if (!tir) {
@@ -1534,14 +1837,14 @@ SIMS[1] = function (box) {
     }
     sh.readout(
       ro('θ₂ (refração)', tir ? '— (não há)' : fmt(t2deg, 1) + '°') +
-      ro('v no meio 1', fmt(3 / st.n1, 2) + '×10⁸ m/s') +
-      ro('v no meio 2', fmt(3 / st.n2, 2) + '×10⁸ m/s') +
+      ro('v no meio 1', fmt(3 / D.n1, 2) + '×10⁸ m/s') +
+      ro('v no meio 2', fmt(3 / D.n2, 2) + '×10⁸ m/s') +
       ro('Ângulo limite L', L === null ? 'não existe (n₁ ≤ n₂)' : fmt(L, 1) + '°')
     );
-    if (tir) sh.alert('bad', `💥 REFLEXÃO TOTAL! θ₁ = ${st.t1}° &gt; L = ${fmt(L, 1)}°. A luz não sai: volta toda para o meio 1.`);
-    else if (Math.abs(st.n1 - st.n2) < 0.005) sh.alert('info', 'Mesmo índice: a luz passa reto, sem desviar.');
-    else if (st.n2 > st.n1) sh.alert('ok', '⬇️ Indo para meio MAIS refringente: o raio se APROXIMA da normal (θ₂ &lt; θ₁).');
-    else sh.alert('info', `⬆️ Indo para meio MENOS refringente: o raio se AFASTA da normal. Passe de L = ${fmt(L, 1)}° para ver a reflexão total!`);
+    if (tir) sh.alert('bad', `REFLEXÃO TOTAL! θ₁ = ${Math.round(D.t1)}° &gt; L = ${fmt(L, 1)}°. A luz não sai: volta toda para o meio 1.`);
+    else if (Math.abs(D.n1 - D.n2) < 0.005) sh.alert('info', 'Mesmo índice: a luz passa reto, sem desviar.');
+    else if (D.n2 > D.n1) sh.alert('ok', 'Indo para meio MAIS refringente: o raio se APROXIMA da normal (θ₂ &lt; θ₁).');
+    else sh.alert('info', `Indo para meio MENOS refringente: o raio se AFASTA da normal. Passe de L = ${fmt(L, 1)}° para ver a reflexão total!`);
   }
   // arrastar o raio incidente
   let drag = false;
@@ -1549,14 +1852,15 @@ SIMS[1] = function (box) {
     const p = sh.pos(e), cx = sh.w / 2, cy = sh.h / 2;
     if (p.y >= cy) return;
     st.t1 = clamp(Math.round(Math.atan2(Math.abs(p.x - cx), cy - p.y) / DEG), 0, 89);
-    sT.set(st.t1); draw();
+    sT.set(st.t1); tw.kick();
   };
   sh.cv.addEventListener('pointerdown', e => { drag = true; sh.cv.setPointerCapture(e.pointerId); setFromPointer(e); });
   sh.cv.addEventListener('pointermove', e => { if (drag) setFromPointer(e); });
   sh.cv.addEventListener('pointerup', () => { drag = false; });
+  const tw = smooth(st, ['t1', 'n1', 'n2'], draw);
   draw();
   const off = onResize(sh, draw);
-  return { stop: off, redraw: draw };
+  return { stop() { off(); tw.stop(); }, redraw: draw };
 };
 
 /* ---------- SIM 2: LENTES ---------- */
@@ -1565,35 +1869,36 @@ SIMS[2] = function (box) {
   const sh = simShell(box, {
     height: 320,
     controls: `
-      <div class="ctrl"><label>Tipo de lente</label>${segHTML('lt', [['conv', '🔍 Convergente'], ['div', '👓 Divergente']], 'conv')}</div>
+      <div class="ctrl"><label>Tipo de lente</label>${segHTML('lt', [['conv', 'Convergente'], ['div', 'Divergente']], 'conv')}</div>
       ${sliderHTML('lp', 'Distância do objeto p', 2, 38, 0.5, st.p, ' cm')}
       ${sliderHTML('lf', 'Distância focal |f|', 6, 18, 0.5, st.f, ' cm')}
       <div class="row">${[['Câmera', 3], ['Em 2F', 2], ['Projetor', 1.5], ['No foco', 1], ['Lupa', 0.6]].map(([l, k]) => `<button class="btn sec" style="padding:7px 10px;font-size:.85rem" data-pre="${k}">${l}</button>`).join('')}</div>`,
   });
-  const sP = bindSlider(box, 'lp', ' cm', v => { st.p = v; draw(); });
-  bindSlider(box, 'lf', ' cm', v => { st.f = v; draw(); });
-  bindSeg(box, 'lt', k => { st.type = k; draw(); });
+  const sP = bindSlider(box, 'lp', ' cm', v => { st.p = v; tw.kick(); });
+  bindSlider(box, 'lf', ' cm', v => { st.f = v; tw.kick(); });
+  bindSeg(box, 'lt', k => { st.type = k; sh.flash(); draw(); });
   box.querySelectorAll('[data-pre]').forEach(b => b.onclick = () => {
     if (st.type !== 'conv') { st.type = 'conv'; $('#lt', box).querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.k === 'conv')); }
-    st.p = clamp(Math.round(st.f * +b.dataset.pre * 2) / 2, 2, 38); sP.set(st.p); draw();
+    st.p = clamp(Math.round(st.f * +b.dataset.pre * 2) / 2, 2, 38); sP.set(st.p); tw.kick();
   });
   const SPAN = 80;
   function draw() {
+    const D = tw.D;
     const { ctx, w, h } = sh, cx = w / 2, cy = h / 2, s = w / SPAN;
     const X = x => cx + x * s, Y = y => cy - y * s;
     const txt = cssv('--sim-line');
     ctx.clearRect(0, 0, w, h);
-    const f = st.type === 'conv' ? st.f : -st.f, p = st.p, ho = st.ho;
+    const f = st.type === 'conv' ? D.f : -D.f, p = D.p, ho = D.ho;
     // eixo e marcas
     line(ctx, 0, cy, w, cy, txt, 1.5);
-    [[-2 * st.f, '2F'], [-st.f, 'F'], [st.f, "F'"], [2 * st.f, "2F'"]].forEach(([x, l]) => {
+    [[-2 * D.f, '2F'], [-D.f, 'F'], [D.f, "F'"], [2 * D.f, "2F'"]].forEach(([x, l]) => {
       if (Math.abs(x) > SPAN / 2) return;
       line(ctx, X(x), cy - 5, X(x), cy + 5, txt, 2);
       text(ctx, l, X(x), cy + 16, txt, 12, 'center');
     });
     // lente
     const lh = Math.min(h * 0.44, 150);
-    ctx.save(); ctx.strokeStyle = '#60a5fa'; ctx.fillStyle = 'rgba(96,165,250,.18)'; ctx.lineWidth = 3;
+    ctx.save(); ctx.strokeStyle = C.blue; ctx.fillStyle = rgba(C.blue, 0.12); ctx.lineWidth = 1.5; ctx.lineWidth = 3;
     ctx.beginPath();
     if (st.type === 'conv') { ctx.ellipse(cx, cy, 9, lh, 0, 0, Math.PI * 2); }
     else { ctx.moveTo(cx - 12, cy - lh); ctx.quadraticCurveTo(cx - 2, cy, cx - 12, cy + lh); ctx.lineTo(cx + 12, cy + lh); ctx.quadraticCurveTo(cx + 2, cy, cx + 12, cy - lh); ctx.closePath(); }
@@ -1606,8 +1911,8 @@ SIMS[2] = function (box) {
     const virtual = pi < 0;
     const RIGHT = SPAN / 2 + 5;
     const toEdge = (x0, y0, dx, dy) => { const t = (RIGHT - x0) / dx; return [x0 + dx * t, y0 + dy * t]; };
-    const C1 = '#f97316', C2 = '#3b82f6', C3 = '#16a34a';
-    const ray = (pts, c, dash) => { ctx.save(); ctx.strokeStyle = c; ctx.lineWidth = 2.2; if (dash) ctx.setLineDash([6, 5]); ctx.beginPath(); pts.forEach(([x, y], k) => k ? ctx.lineTo(X(x), Y(y)) : ctx.moveTo(X(x), Y(y))); ctx.stroke(); ctx.restore(); };
+    const C1 = C.ochre, C2 = C.blue, C3 = C.sage;
+    const ray = (pts, c, dash) => { ctx.save(); ctx.strokeStyle = c; ctx.lineWidth = 1.6; if (dash) ctx.setLineDash([6, 5]); ctx.beginPath(); pts.forEach(([x, y], k) => k ? ctx.lineTo(X(x), Y(y)) : ctx.moveTo(X(x), Y(y))); ctx.stroke(); ctx.restore(); };
     // raio 1: paralelo
     const d1 = f > 0 ? [f, -ho] : [-f, ho];
     ray([[-p, ho], [0, ho], toEdge(0, ho, d1[0], d1[1])], C1);
@@ -1623,27 +1928,27 @@ SIMS[2] = function (box) {
       if (y3 !== null) ray([[0, y3], [pi, hi]], C3, true);
     }
     // objeto
-    arrow(ctx, X(-p), cy, X(-p), Y(ho), '#ec4899', 5);
-    text(ctx, 'objeto', X(-p), Y(ho) - 12, '#ec4899', 12, 'center');
+    arrow(ctx, X(-p), cy, X(-p), Y(ho), C.rose, 5);
+    text(ctx, 'objeto', X(-p), Y(ho) - 12, C.rose, 12, 'center');
     // imagem
     if (isFinite(pi) && Math.abs(pi) < SPAN && Math.abs(hi) < 40) {
       ctx.save(); if (virtual) ctx.setLineDash([5, 4]);
-      arrow(ctx, X(pi), cy, X(pi), Y(hi), '#8b5cf6', 5);
+      arrow(ctx, X(pi), cy, X(pi), Y(hi), C.acc, 5);
       ctx.restore();
-      text(ctx, virtual ? 'imagem (virtual)' : 'imagem (real)', X(pi), Y(hi) + (hi > 0 ? -12 : 14), '#8b5cf6', 12, 'center');
+      text(ctx, virtual ? 'imagem (virtual)' : 'imagem (real)', X(pi), Y(hi) + (hi > 0 ? -12 : 14), C.acc, 12, 'center');
     }
     // dica de arraste
     text(ctx, '↔ arraste o objeto', 8, 14, txt, 11);
 
     let nat, caso;
-    if (improper) { nat = 'Imprópria (no infinito)'; caso = 'Objeto NO FOCO: os raios saem paralelos e não formam imagem. 🔦'; }
+    if (improper) { nat = 'Imprópria (no infinito)'; caso = 'Objeto NO FOCO: os raios saem paralelos e não formam imagem.'; }
     else {
       nat = `${virtual ? 'Virtual' : 'Real'}, ${A > 0 ? 'direita' : 'invertida'}, ${Math.abs(Math.abs(A) - 1) < 0.03 ? 'mesmo tamanho' : Math.abs(A) > 1 ? 'maior' : 'menor'}`;
-      if (st.type === 'div') caso = 'Lente divergente: SEMPRE virtual, direita e menor. 👓';
+      if (st.type === 'div') caso = 'Lente divergente: SEMPRE virtual, direita e menor.';
       else if (Math.abs(p - 2 * f) < 0.25) caso = 'Objeto em 2F: imagem real, invertida e do mesmo tamanho.';
-      else if (p > 2 * f) caso = 'Objeto além de 2F: real, invertida e menor — como na câmera e no olho 📸';
-      else if (p > f) caso = 'Objeto entre F e 2F: real, invertida e maior — como no projetor 📽️';
-      else caso = 'Objeto entre F e a lente: virtual, direita e maior — é a LUPA! 🔍';
+      else if (p > 2 * f) caso = 'Objeto além de 2F: real, invertida e menor — como na câmera e no olho';
+      else if (p > f) caso = 'Objeto entre F e 2F: real, invertida e maior — como no projetor';
+      else caso = 'Objeto entre F e a lente: virtual, direita e maior — é a LUPA!';
     }
     sh.readout(
       ro('p', fmt(p, 1) + ' cm') + ro('f', fmt(f, 1) + ' cm') +
@@ -1661,13 +1966,14 @@ SIMS[2] = function (box) {
     const p = sh.pos(e), s = sh.w / SPAN;
     st.p = clamp(Math.round((sh.w / 2 - p.x) / s * 2) / 2, 2, 38);
     st.ho = clamp((sh.h / 2 - p.y) / s, 3, 12);
-    sP.set(st.p); draw();
+    sP.set(st.p); tw.kick();
   };
   sh.cv.addEventListener('pointermove', e => { if (drag) move(e); });
   sh.cv.addEventListener('pointerup', () => { drag = false; });
+  const tw = smooth(st, ['p', 'f', 'ho'], draw);
   draw();
   const off = onResize(sh, draw);
-  return { stop: off, redraw: draw };
+  return { stop() { off(); tw.stop(); }, redraw: draw };
 };
 
 /* ---------- SIM 3: OLHO ---------- */
@@ -1676,69 +1982,83 @@ SIMS[3] = function (box) {
   const sh = simShell(box, {
     height: 260,
     controls: `
-      <div class="ctrl"><label>Tipo de olho</label>${segHTML('ey', [['normal', '😊 Normal'], ['miopia', '🤓 Miopia'], ['hiper', '🧐 Hipermetropia'], ['presbiopia', '👵 Presbiopia']], 'normal')}</div>
-      <div class="ctrl"><label>Onde está o objeto?</label>${segHTML('ob', [['longe', '🏔️ Longe'], ['perto', '📖 Perto']], 'longe')}</div>
-      <label class="chk"><input type="checkbox" id="gl"> Colocar óculos corretivos 👓</label>`,
+      <div class="ctrl"><label>Tipo de olho</label>${segHTML('ey', [['normal', 'Normal'], ['miopia', 'Miopia'], ['hiper', 'Hipermetropia'], ['presbiopia', 'Presbiopia']], 'normal')}</div>
+      <div class="ctrl"><label>Onde está o objeto?</label>${segHTML('ob', [['longe', 'Longe'], ['perto', 'Perto']], 'longe')}</div>
+      <label class="chk"><input type="checkbox" id="gl"> Colocar óculos corretivos</label>`,
   });
   const gl = $('#gl', box);
-  bindSeg(box, 'ey', k => { st.eye = k; draw(); });
-  bindSeg(box, 'ob', k => { st.obj = k; draw(); });
-  gl.onchange = () => { st.glasses = gl.checked; draw(); };
+  bindSeg(box, 'ey', k => { st.eye = k; targets(); tw.kick(); });
+  bindSeg(box, 'ob', k => { st.obj = k; targets(); tw.snap(); sh.flash(); draw(); });
+  gl.onchange = () => { st.glasses = gl.checked; targets(); tw.kick(); };
+  function targets() {
+    const factor = st.eye === 'miopia' ? 1.15 : st.eye === 'hiper' ? 0.85 : 1;
+    const useG = st.glasses && st.eye !== 'normal';
+    let fr_;
+    if (st.eye === 'normal' || useG) fr_ = factor;
+    else if (st.eye === 'miopia') fr_ = st.obj === 'longe' ? 1 : factor;
+    else if (st.eye === 'hiper') fr_ = st.obj === 'longe' ? 1 : 1.12;
+    else fr_ = st.obj === 'longe' ? 1 : 1.18;
+    st.factor = factor; st.fr = fr_; st.gA = useG ? 1 : 0;
+  }
+  function drawObj(ctx, x, y, color) {
+    ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.lineJoin = 'round'; ctx.beginPath();
+    if (st.obj === 'longe') { ctx.moveTo(x - 12, y + 8); ctx.lineTo(x - 3, y - 6); ctx.lineTo(x + 2, y + 1); ctx.lineTo(x + 6, y - 3); ctx.lineTo(x + 13, y + 8); ctx.closePath(); }
+    else { ctx.moveTo(x, y - 7); ctx.quadraticCurveTo(x - 6, y - 10, x - 12, y - 8); ctx.lineTo(x - 12, y + 8); ctx.quadraticCurveTo(x - 6, y + 6, x, y + 9); ctx.quadraticCurveTo(x + 6, y + 6, x + 12, y + 8); ctx.lineTo(x + 12, y - 8); ctx.quadraticCurveTo(x + 6, y - 10, x, y - 7); ctx.lineTo(x, y + 9); }
+    ctx.stroke(); ctx.restore();
+  }
   const INFO = {
-    normal: 'Olho normal: acomoda sozinho e forma a imagem sempre na retina. ✔',
+    normal: 'Olho normal: acomoda sozinho e forma a imagem sempre na retina.',
     miopia: 'Miopia: olho alongado → imagem de objetos distantes ANTES da retina. Corrige com lente DIVERGENTE (−).',
     hiper: 'Hipermetropia: olho curto → imagem DEPOIS da retina (pior de perto). Corrige com lente CONVERGENTE (+).',
     presbiopia: 'Presbiopia: o cristalino perde a acomodação com a idade → não foca de perto. Corrige com lente CONVERGENTE (+).',
   };
   function draw() {
+    const D = tw.D;
     const { ctx, w, h } = sh, txt = cssv('--sim-line');
     ctx.clearRect(0, 0, w, h);
     const ey = h / 2, ry = h * 0.36;
     const base = Math.min(w * 0.24, 170);
-    const factor = st.eye === 'miopia' ? 1.15 : st.eye === 'hiper' ? 0.85 : 1;
+    const factor = D.factor;
     const lensX = w * 0.5;
     const Dn = base * 1.6;
     const retinaD = Dn * factor, retinaX = lensX + retinaD;
     const ex = lensX + retinaD / 2 - 6, rx = retinaD / 2 + 14;
-    const fixedEye = st.eye === 'normal' || st.glasses;
-    let focusD;
-    if (fixedEye) focusD = retinaD;
-    else if (st.eye === 'miopia') focusD = st.obj === 'longe' ? Dn : retinaD;
-    else if (st.eye === 'hiper') focusD = st.obj === 'longe' ? Dn : Dn * 1.12;
-    else focusD = st.obj === 'longe' ? retinaD : retinaD * 1.18;
+    const focusD = Dn * D.fr;
     const fx = lensX + focusD;
     // globo ocular
     ctx.save();
-    ctx.fillStyle = cssv('--bg2'); ctx.strokeStyle = txt; ctx.lineWidth = 2;
+    ctx.fillStyle = cssv('--card'); ctx.strokeStyle = txt; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.ellipse(ex, ey, rx, ry, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
     // retina
-    ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 5;
+    ctx.strokeStyle = C.red; ctx.lineWidth = 3;
     ctx.beginPath(); ctx.ellipse(ex, ey, rx, ry, 0, -0.9, 0.9); ctx.stroke();
     // cristalino
-    ctx.fillStyle = 'rgba(96,165,250,.55)'; ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 2;
+    ctx.fillStyle = rgba(C.blue, 0.22); ctx.strokeStyle = C.blue; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.ellipse(lensX, ey, 9, ry * 0.55, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
     ctx.restore();
-    text(ctx, 'cristalino', lensX, ey + ry * 0.55 + 14, '#3b82f6', 11, 'center');
-    text(ctx, 'retina', retinaX - 4, ey - ry * 0.85, '#ef4444', 11, 'center');
+    text(ctx, 'cristalino', lensX, ey + ry * 0.55 + 14, C.blue, 11, 'center');
+    text(ctx, 'retina', retinaX - 4, ey - ry * 0.85, C.red, 11, 'center');
     // óculos
     const gx = lensX - 45;
     const gtype = st.eye === 'miopia' ? 'div' : 'conv';
-    if (st.glasses && st.eye !== 'normal') {
-      ctx.save(); ctx.strokeStyle = '#8b5cf6'; ctx.fillStyle = 'rgba(139,92,246,.2)'; ctx.lineWidth = 2.5;
+    if (D.gA > 0.01) {
+      ctx.save(); ctx.globalAlpha = D.gA;
+      ctx.save(); ctx.strokeStyle = C.acc; ctx.fillStyle = rgba(C.acc, 0.12); ctx.lineWidth = 1.5;
       const gh = ry * 0.75;
       ctx.beginPath();
       if (gtype === 'conv') ctx.ellipse(gx, ey, 7, gh, 0, 0, Math.PI * 2);
       else { ctx.moveTo(gx - 9, ey - gh); ctx.quadraticCurveTo(gx, ey, gx - 9, ey + gh); ctx.lineTo(gx + 9, ey + gh); ctx.quadraticCurveTo(gx, ey, gx + 9, ey - gh); ctx.closePath(); }
       ctx.fill(); ctx.stroke(); ctx.restore();
-      text(ctx, gtype === 'conv' ? 'lente +' : 'lente −', gx, ey - gh - 10, '#8b5cf6', 11, 'center');
+      text(ctx, gtype === 'conv' ? 'lente +' : 'lente −', gx, ey - gh - 10, C.acc, 11, 'center');
+      ctx.restore();
     }
     // objeto
     const srcX = 22;
-    text(ctx, st.obj === 'longe' ? '🏔️' : '📖', srcX - 6, st.obj === 'longe' ? 22 : ey, txt, 22, 'center', '400');
+    drawObj(ctx, srcX - 4, st.obj === 'longe' ? 26 : ey, txt);
     // raios
     const a = ry * 0.45;
-    const useG = st.glasses && st.eye !== 'normal';
-    const k = gtype === 'div' ? 0.75 : 1.3;
+    const useG = D.gA > 0.01;
+    const k = 1 + ((gtype === 'div' ? 0.75 : 1.3) - 1) * D.gA;
     let hits = [];
     [-a, 0, a].forEach(yk => {
       const yl = ey + yk;
@@ -1749,12 +2069,12 @@ SIMS[3] = function (box) {
         if (useG) pts.push([gx, y0]);
       } else {
         pts.push([srcX + 12, ey]);
-        if (useG) pts.push([gx, ey + yk * (gx - srcX - 12) / (lensX - srcX - 12) * (gtype === 'conv' ? 1.25 : 0.8)]);
+        if (useG) pts.push([gx, ey + yk * (gx - srcX - 12) / (lensX - srcX - 12) * (1 + ((gtype === 'conv' ? 1.25 : 0.8) - 1) * D.gA)]);
       }
       pts.push([lensX, yl]);
       const m = (ey - yl) / (fx - lensX);
       const yRet = yl + m * (retinaX - lensX);
-      ctx.save(); ctx.strokeStyle = '#facc15'; ctx.lineWidth = 2.5; ctx.beginPath();
+      ctx.save(); ctx.strokeStyle = C.ray; ctx.lineWidth = 1.8; ctx.beginPath();
       pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
       ctx.lineTo(retinaX, yRet); ctx.stroke();
       if (fx > retinaX + 1) { ctx.setLineDash([4, 4]); ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.moveTo(retinaX, yRet); ctx.lineTo(fx, ey); ctx.stroke(); }
@@ -1764,30 +2084,32 @@ SIMS[3] = function (box) {
     const spread = Math.max(...hits) - Math.min(...hits);
     const sharp = spread < 3;
     ctx.save();
-    if (sharp) { ctx.fillStyle = '#16a34a'; ctx.beginPath(); ctx.arc(retinaX, ey, 6, 0, Math.PI * 2); ctx.fill(); }
-    else { ctx.fillStyle = 'rgba(220,38,38,.35)'; ctx.beginPath(); ctx.ellipse(retinaX, ey, 6, spread / 2 + 4, 0, 0, Math.PI * 2); ctx.fill(); }
+    if (sharp) { ctx.fillStyle = C.sage; ctx.beginPath(); ctx.arc(retinaX, ey, 6, 0, Math.PI * 2); ctx.fill(); }
+    else { ctx.fillStyle = rgba(C.red, 0.3); ctx.beginPath(); ctx.ellipse(retinaX, ey, 6, spread / 2 + 4, 0, 0, Math.PI * 2); ctx.fill(); }
     ctx.restore();
     if (Math.abs(fx - retinaX) > 2) {
-      ctx.fillStyle = '#ec4899'; ctx.beginPath(); ctx.arc(fx, ey, 4, 0, Math.PI * 2); ctx.fill();
-      text(ctx, 'foco', fx, ey + 14, '#ec4899', 11, 'center');
+      ctx.fillStyle = C.rose; ctx.beginPath(); ctx.arc(fx, ey, 4, 0, Math.PI * 2); ctx.fill();
+      text(ctx, 'foco', fx, ey + 14, C.rose, 11, 'center');
     }
     let msg;
-    if (sharp) msg = st.glasses && st.eye !== 'normal' ? `Com os óculos certos, a imagem caiu na retina! Nítido 🤩` : 'Imagem na retina: visão nítida! ✔';
-    else msg = (fx < retinaX ? 'Imagem ANTES da retina' : 'Imagem DEPOIS da retina') + ' → visão embaçada 😵‍💫 Tente os óculos!';
+    if (sharp) msg = st.glasses && st.eye !== 'normal' ? `Com os óculos certos, a imagem caiu na retina! Nítido` : 'Imagem na retina: visão nítida!';
+    else msg = (fx < retinaX ? 'Imagem ANTES da retina' : 'Imagem DEPOIS da retina') + ' → visão embaçada. Tente os óculos!';
     sh.alert(sharp ? 'ok' : 'bad', msg);
     sh.readout(`<div style="grid-column:1/-1">${INFO[st.eye]}</div>` +
-      ro('Lente corretora', st.eye === 'normal' ? 'não precisa 😊' : gtype === 'div' ? 'Divergente (grau −)' : 'Convergente (grau +)') +
+      ro('Lente corretora', st.eye === 'normal' ? 'não precisa' : gtype === 'div' ? 'Divergente (grau −)' : 'Convergente (grau +)') +
       ro('Enxerga mal', { normal: '—', miopia: 'de longe', hiper: 'de perto', presbiopia: 'de perto' }[st.eye]));
     gl.disabled = st.eye === 'normal';
   }
+  targets();
+  const tw = smooth(st, ['factor', 'fr', 'gA'], draw);
   draw();
   const off = onResize(sh, draw);
-  return { stop: off, redraw: draw };
+  return { stop() { off(); tw.stop(); }, redraw: draw };
 };
 
 /* ---------- SIM 4: MCU ---------- */
 SIMS[4] = function (box) {
-  const st = { R: 2, f: 0.5, phi: 0, vec: true, inner: false, paused: false, laps: 0, trail: [] };
+  const st = { R: 2, f: 0.5, Rd: 2, fd: 0.5, phi: 0, vec: true, inner: false, paused: false, laps: 0, trail: [] };
   const sh = simShell(box, {
     height: 300,
     controls: `
@@ -1795,17 +2117,17 @@ SIMS[4] = function (box) {
       ${sliderHTML('mf', 'Frequência f', 0.1, 2, 0.05, '0,5', ' Hz')}
       <label class="chk"><input type="checkbox" id="mv" checked> Mostrar vetores (v e a꜀ₚ)</label>
       <label class="chk"><input type="checkbox" id="mi"> Mostrar ponto no meio do raio (R/2)</label>
-      <button class="btn sec" id="mp">⏸️ Pausar</button>`,
+      <button class="btn sec small" id="mp">${icon('pause', 16)} Pausar</button>`,
   });
-  bindSlider(box, 'mr', ' m', v => { st.R = v; st.trail = []; draw(); });
-  bindSlider(box, 'mf', ' Hz', v => { st.f = v; draw(); });
+  bindSlider(box, 'mr', ' m', v => { st.R = v; });
+  bindSlider(box, 'mf', ' Hz', v => { st.f = v; });
   $('#mv', box).onchange = e => { st.vec = e.target.checked; draw(); };
   $('#mi', box).onchange = e => { st.inner = e.target.checked; draw(); };
-  $('#mp', box).onclick = e => { st.paused = !st.paused; e.target.textContent = st.paused ? '▶️ Continuar' : '⏸️ Pausar'; };
+  $('#mp', box).onclick = () => { st.paused = !st.paused; $('#mp', box).innerHTML = st.paused ? `${icon('play', 16)} Continuar` : `${icon('pause', 16)} Pausar`; };
   function draw() {
     const { ctx, w, h } = sh, cx = w / 2, cy = h / 2, txt = cssv('--sim-line');
-    const maxR = Math.min(w, h) / 2 - 40, r = st.R / 3 * maxR;
-    const T = 1 / st.f, om = 2 * Math.PI * st.f, v = om * st.R, a = om * om * st.R;
+    const maxR = Math.min(w, h) / 2 - 40, r = st.Rd / 3 * maxR;
+    const T = 1 / st.fd, om = 2 * Math.PI * st.fd, v = om * st.Rd, a = om * om * st.Rd;
     ctx.clearRect(0, 0, w, h);
     ctx.save(); ctx.strokeStyle = txt; ctx.globalAlpha = 0.35; ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
@@ -1815,34 +2137,36 @@ SIMS[4] = function (box) {
     text(ctx, 'R', (cx + px) / 2 + 6, (cy + py) / 2 - 8, txt, 12);
     // rastro
     st.trail.push([px, py]); if (st.trail.length > 30) st.trail.shift();
-    st.trail.forEach(([x, y], i) => { ctx.fillStyle = `rgba(236,72,153,${i / 60})`; ctx.beginPath(); ctx.arc(x, y, 6 * i / 30, 0, Math.PI * 2); ctx.fill(); });
+    st.trail.forEach(([x, y], i) => { ctx.fillStyle = rgba(C.rose, i / 70); ctx.beginPath(); ctx.arc(x, y, 6 * i / 30, 0, Math.PI * 2); ctx.fill(); });
     if (st.vec) {
       const vl = 22 + v / (4 * Math.PI * 3) * 70;
       const al = 16 + Math.sqrt(a / (16 * Math.PI * Math.PI * 3)) * 60;
       const tx = -Math.sin(st.phi), ty = -Math.cos(st.phi);
-      arrow(ctx, px, py, px + tx * vl, py + ty * vl, '#3b82f6', 3.5, 'v');
+      arrow(ctx, px, py, px + tx * vl, py + ty * vl, C.blue, 3.5, 'v');
       const ux = (cx - px) / r, uy = (cy - py) / r;
-      arrow(ctx, px, py, px + ux * Math.min(al, r - 6), py + uy * Math.min(al, r - 6), '#16a34a', 3.5, 'a');
+      arrow(ctx, px, py, px + ux * Math.min(al, r - 6), py + uy * Math.min(al, r - 6), C.sage, 3.5, 'a');
     }
     if (st.inner) {
       const ix = cx + r / 2 * Math.cos(st.phi), iy = cy - r / 2 * Math.sin(st.phi);
-      ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.arc(ix, iy, 7, 0, Math.PI * 2); ctx.fill();
-      if (st.vec) arrow(ctx, ix, iy, ix - Math.sin(st.phi) * (11 + v / 2 / (4 * Math.PI * 3) * 70), iy - Math.cos(st.phi) * (11 + v / 2 / (4 * Math.PI * 3) * 70), '#f97316', 3);
+      ctx.fillStyle = C.ochre; ctx.beginPath(); ctx.arc(ix, iy, 7, 0, Math.PI * 2); ctx.fill();
+      if (st.vec) arrow(ctx, ix, iy, ix - Math.sin(st.phi) * (11 + v / 2 / (4 * Math.PI * 3) * 70), iy - Math.cos(st.phi) * (11 + v / 2 / (4 * Math.PI * 3) * 70), C.ochre, 3);
     }
-    ctx.fillStyle = '#ec4899'; ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = C.rose; ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI * 2); ctx.fill();
     text(ctx, `voltas: ${st.laps}`, 10, 16, txt, 12);
     sh.readout(
-      ro('Período T', fmt(T, 2) + ' s') + ro('Frequência f', fmt(st.f, 2) + ' Hz = ' + fmt(st.f * 60, 0) + ' rpm') +
+      ro('Período T', fmt(T, 2) + ' s') + ro('Frequência f', fmt(st.fd, 2) + ' Hz = ' + fmt(st.fd * 60, 0) + ' rpm') +
       ro('Vel. angular ω', fmt(om, 2) + ' rad/s') + ro('Vel. linear v', fmt(v, 2) + ' m/s') +
       ro('a꜀ₚ = v²/R', fmt(a, 2) + ' m/s²') +
-      (st.inner ? ro('Ponto do meio (laranja)', `mesmo ω · v = ${fmt(v / 2, 2)} m/s`) : '')
+      (st.inner ? ro('Ponto do meio (R/2)', `mesmo ω · v = ${fmt(v / 2, 2)} m/s`) : '')
     );
   }
-  sh.alert('info', '🔵 v é sempre TANGENTE · 🟢 a꜀ₚ sempre aponta para o CENTRO. Dobre o raio e veja v dobrar!');
+  sh.alert('info', 'v é sempre TANGENTE · a꜀ₚ sempre aponta para o CENTRO. Dobre o raio e veja v dobrar!');
   const stopLoop = loop(dt => {
+    const k = REDUCED ? 1 : 1 - Math.exp(-dt * 9);
+    st.Rd += (st.R - st.Rd) * k; st.fd += (st.f - st.fd) * k;
     if (!st.paused) {
       const before = Math.floor(st.phi / (2 * Math.PI));
-      st.phi += 2 * Math.PI * st.f * dt;
+      st.phi += 2 * Math.PI * st.fd * dt;
       if (Math.floor(st.phi / (2 * Math.PI)) > before) st.laps++;
     }
     draw();
@@ -1853,11 +2177,11 @@ SIMS[4] = function (box) {
 
 /* ---------- SIM 5: TRANSMISSÃO ---------- */
 SIMS[5] = function (box) {
-  const st = { mode: 'correia', RA: 8, RB: 4, fA: 30, ncor: 48, ncat: 16, fp: 60, phA: 0, phB: 0, belt: 0 };
+  const st = { mode: 'correia', RA: 8, RB: 4, fA: 30, ncor: 48, ncat: 16, RAd: 8, RBd: 4, ncord: 48, ncatd: 16, fp: 60, phA: 0, phB: 0, belt: 0 };
   const sh = simShell(box, {
     height: 280,
     controls: `
-      <div class="ctrl"><label>Tipo de ligação</label>${segHTML('tm', [['correia', '➰ Correia'], ['cruzada', '❎ Correia cruzada'], ['engrenagem', '⚙️ Engrenagens'], ['coaxial', '🎯 Mesmo eixo'], ['bike', '🚲 Bicicleta']], 'correia')}</div>
+      <div class="ctrl"><label>Tipo de ligação</label>${segHTML('tm', [['correia', 'Correia'], ['cruzada', 'Correia cruzada'], ['engrenagem', 'Engrenagens'], ['coaxial', 'Mesmo eixo'], ['bike', 'Bicicleta']], 'correia')}</div>
       <div id="tc"></div>`,
   });
   const tc = $('#tc', box);
@@ -1868,18 +2192,18 @@ SIMS[5] = function (box) {
       bindSlider(box, 'bk', '', v => { st.ncat = v; }, v => v.toFixed(0));
       bindSlider(box, 'bp', ' rpm', v => { st.fp = v; }, v => v.toFixed(0));
     } else {
-      tc.innerHTML = `<div class="ctrls">${sliderHTML('ra', 'Raio da roda A (motora, rosa)', 2, 10, 0.5, st.RA, ' cm')}${sliderHTML('rb', 'Raio da roda B (roxa)', 2, 10, 0.5, st.RB, ' cm')}${sliderHTML('fa', 'Frequência de A', 10, 120, 5, st.fA, ' rpm')}</div>`;
+      tc.innerHTML = `<div class="ctrls">${sliderHTML('ra', 'Raio da roda A (motora)', 2, 10, 0.5, st.RA, ' cm')}${sliderHTML('rb', 'Raio da roda B', 2, 10, 0.5, st.RB, ' cm')}${sliderHTML('fa', 'Frequência de A', 10, 120, 5, st.fA, ' rpm')}</div>`;
       bindSlider(box, 'ra', ' cm', v => { st.RA = v; });
       bindSlider(box, 'rb', ' cm', v => { st.RB = v; });
       bindSlider(box, 'fa', ' rpm', v => { st.fA = v; }, v => v.toFixed(0));
     }
   }
-  bindSeg(box, 'tm', k => { st.mode = k; st.phA = st.phB = 0; controls(); });
+  bindSeg(box, 'tm', k => { st.mode = k; st.phA = st.phB = 0; controls(); sh.flash(); });
   controls();
 
   function wheel(ctx, x, y, r, ph, color, gearN) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(-ph);
-    ctx.fillStyle = color + '33'; ctx.strokeStyle = color; ctx.lineWidth = 3;
+    ctx.fillStyle = rgba(color, 0.1); ctx.strokeStyle = color; ctx.lineWidth = 1.5;
     if (gearN) {
       ctx.beginPath();
       for (let i = 0; i < gearN; i++) {
@@ -1893,22 +2217,27 @@ SIMS[5] = function (box) {
       ctx.closePath();
     } else { ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); }
     ctx.fill(); ctx.stroke();
-    for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2; line(ctx, 0, 0, Math.cos(a) * r * 0.85, Math.sin(a) * r * 0.85, color, 2); }
+    for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2; line(ctx, 0, 0, Math.cos(a) * r * 0.85, Math.sin(a) * r * 0.85, color, 1.2); }
     ctx.fillStyle = color; ctx.beginPath(); ctx.arc(r * 0.7, 0, Math.max(3, r * 0.12), 0, Math.PI * 2); ctx.fill();
     ctx.restore();
     ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
   }
   function beltPath(ctx, xa, ra, xb, rb, y, crossed, off) {
-    ctx.save(); ctx.strokeStyle = '#64748b'; ctx.lineWidth = 3; ctx.setLineDash([10, 6]); ctx.lineDashOffset = off;
+    ctx.save(); ctx.strokeStyle = C.gray; ctx.lineWidth = 2; ctx.setLineDash([8, 6]); ctx.lineDashOffset = off;
     ctx.beginPath();
     if (!crossed) { ctx.moveTo(xa, y - ra - 2); ctx.lineTo(xb, y - rb - 2); ctx.moveTo(xb, y + rb + 2); ctx.lineTo(xa, y + ra + 2); }
     else { ctx.moveTo(xa, y - ra - 2); ctx.lineTo(xb, y + rb + 2); ctx.moveTo(xb, y - rb - 2); ctx.lineTo(xa, y + ra + 2); }
     ctx.stroke(); ctx.restore();
   }
+  function ease(dt) {
+    const k = REDUCED || !dt ? 1 : 1 - Math.exp(-dt * 9);
+    ['RA', 'RB', 'ncor', 'ncat'].forEach(n => { st[n + 'd'] += (st[n] - st[n + 'd']) * k; });
+  }
   function drawGears(dt) {
+    ease(dt);
     const { ctx, w, h } = sh, cy = h / 2, txt = cssv('--sim-line');
     const k = Math.min(w * 0.2, h * 0.38) / 10;
-    const rA = st.RA * k, rB = st.RB * k;
+    const rA = st.RAd * k, rB = st.RBd * k;
     const fA = st.fA / 60;
     const fB = st.mode === 'coaxial' ? fA : fA * st.RA / st.RB;
     const opposite = st.mode === 'cruzada' || st.mode === 'engrenagem';
@@ -1920,24 +2249,24 @@ SIMS[5] = function (box) {
     if (st.mode === 'coaxial') {
       xA = xB = w / 2;
       const order = rA >= rB ? [['A', rA], ['B', rB]] : [['B', rB], ['A', rA]];
-      order.forEach(([n, r]) => wheel(ctx, xA, cy, r, st.phA, n === 'A' ? '#ec4899' : '#8b5cf6'));
+      order.forEach(([n, r]) => wheel(ctx, xA, cy, r, st.phA, n === 'A' ? C.rose : C.acc));
     } else if (st.mode === 'engrenagem') {
       const d = rA + rB + 7;
       xA = w / 2 - d / 2; xB = w / 2 + d / 2;
-      const nA = Math.max(6, Math.round(st.RA * 2.4)), nB = Math.max(6, Math.round(st.RB * 2.4));
-      wheel(ctx, xA, cy, rA, st.phA, '#ec4899', nA);
-      wheel(ctx, xB, cy, rB, -st.phA * nA / nB + Math.PI + Math.PI / nB, '#8b5cf6', nB);
+      const nA = Math.max(6, Math.round(st.RAd * 2.4)), nB = Math.max(6, Math.round(st.RBd * 2.4));
+      wheel(ctx, xA, cy, rA, st.phA, C.rose, nA);
+      wheel(ctx, xB, cy, rB, -st.phA * nA / nB + Math.PI + Math.PI / nB, C.acc, nB);
     } else {
       xA = w * 0.27; xB = w * 0.73;
       st.belt += 2 * Math.PI * st.RA * k * fA * vis * dt;
       beltPath(ctx, xA, rA, xB, rB, cy, st.mode === 'cruzada', st.belt);
-      wheel(ctx, xA, cy, rA, st.phA, '#ec4899');
-      wheel(ctx, xB, cy, rB, st.phB, '#8b5cf6');
+      wheel(ctx, xA, cy, rA, st.phA, C.rose);
+      wheel(ctx, xB, cy, rB, st.phB, C.acc);
     }
     if (st.mode !== 'coaxial') {
-      text(ctx, 'A', xA, cy - rA - 18, '#ec4899', 14, 'center', '900');
-      text(ctx, 'B', xB, cy - rB - 18, '#8b5cf6', 14, 'center', '900');
-    } else text(ctx, 'A (rosa) e B (roxa) no mesmo eixo', w / 2, 16, txt, 12, 'center');
+      text(ctx, 'A', xA, cy - rA - 18, C.rose, 14, 'center', '700');
+      text(ctx, 'B', xB, cy - rB - 18, C.acc, 14, 'center', '700');
+    } else text(ctx, 'A e B no mesmo eixo', w / 2, 16, txt, 12, 'center');
     if (vis < 1) text(ctx, '(animação em câmera lenta)', w - 8, h - 12, txt, 11, 'right');
     const vA = 2 * Math.PI * st.RA / 100 * fA, vB = 2 * Math.PI * st.RB / 100 * fB;
     sh.readout(
@@ -1946,11 +2275,12 @@ SIMS[5] = function (box) {
       ro('ω<sub>A</sub>', fmt(2 * Math.PI * fA, 2) + ' rad/s') + ro('ω<sub>B</sub>', fmt(2 * Math.PI * fB, 2) + ' rad/s')
     );
     const rule = st.mode === 'coaxial'
-      ? '🎯 Mesmo eixo → mesmo ω e mesma f. Quem tem raio maior tem v maior.'
-      : `🔗 ${st.mode === 'engrenagem' ? 'Contato' : 'Correia'} → mesma v na borda: f<sub>A</sub>·R<sub>A</sub> = f<sub>B</sub>·R<sub>B</sub>. ${st.RB < st.RA ? 'B é menor, então gira mais rápido!' : st.RB > st.RA ? 'B é maior, então gira mais devagar.' : 'Raios iguais → mesma f.'}`;
-    sh.alert('info', `${rule}<br>Sentido: <b>${opposite ? 'OPOSTO 🔄' : 'o MESMO ↻↻'}</b>`);
+      ? 'Mesmo eixo → mesmo ω e mesma f. Quem tem raio maior tem v maior.'
+      : `${st.mode === 'engrenagem' ? 'Contato' : 'Correia'} → mesma v na borda: f<sub>A</sub>·R<sub>A</sub> = f<sub>B</sub>·R<sub>B</sub>. ${st.RB < st.RA ? 'B é menor, então gira mais rápido!' : st.RB > st.RA ? 'B é maior, então gira mais devagar.' : 'Raios iguais → mesma f.'}`;
+    sh.alert('info', `${rule}<br>Sentido: <b>${opposite ? 'OPOSTO' : 'o MESMO'}</b>`);
   }
   function drawBike(dt) {
+    ease(dt);
     const { ctx, w, h } = sh, cy = h / 2 + 10, txt = cssv('--sim-line');
     const fP = st.fp / 60, fR = fP * st.ncor / st.ncat;
     const v = 2 * Math.PI * 0.35 * fR;
@@ -1961,30 +2291,30 @@ SIMS[5] = function (box) {
     ctx.clearRect(0, 0, w, h);
     const rw = Math.min(h * 0.4, w * 0.25), xw = w * 0.3;
     const kk = rw * 0.0115;
-    const rcat = st.ncat * kk, rcor = st.ncor * kk, xc = w * 0.77;
+    const rcat = st.ncatd * kk, rcor = st.ncord * kk, xc = w * 0.77;
     // roda traseira
     ctx.save(); ctx.translate(xw, cy); ctx.rotate(-st.phB);
-    ctx.strokeStyle = txt; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(0, 0, rw, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = txt; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, 0, rw, 0, Math.PI * 2); ctx.stroke();
     ctx.lineWidth = 1; ctx.globalAlpha = 0.5;
     for (let i = 0; i < 12; i++) { const a = i * Math.PI / 6; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * rw, Math.sin(a) * rw); ctx.stroke(); }
-    ctx.globalAlpha = 1; ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.arc(rw, 0, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1; ctx.fillStyle = C.ochre; ctx.beginPath(); ctx.arc(rw, 0, 4.5, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
     beltPath(ctx, xw, rcat, xc, rcor, cy, false, -st.belt);
-    wheel(ctx, xw, cy, rcat, st.phB, '#8b5cf6', st.ncat);
-    wheel(ctx, xc, cy, rcor, st.phA, '#ec4899', st.ncor);
+    wheel(ctx, xw, cy, rcat, st.phB, C.acc, Math.round(st.ncatd));
+    wheel(ctx, xc, cy, rcor, st.phA, C.rose, Math.round(st.ncord));
     // pedal
     const pl = rcor + 16, pxp = xc + Math.cos(-st.phA + Math.PI) * pl, pyp = cy + Math.sin(-st.phA + Math.PI) * pl;
     line(ctx, xc, cy, pxp, pyp, txt, 4); ctx.fillStyle = txt; ctx.fillRect(pxp - 9, pyp - 3, 18, 6);
-    text(ctx, 'catraca', xw, cy + rcat + 20, '#8b5cf6', 12, 'center');
-    text(ctx, 'coroa + pedal', xc, cy + rcor + 26, '#ec4899', 12, 'center');
+    text(ctx, 'catraca', xw, cy + rcat + 20, C.acc, 12, 'center');
+    text(ctx, 'coroa + pedal', xc, cy + rcor + 26, C.rose, 12, 'center');
     if (vis < 1) text(ctx, '(câmera lenta)', w - 8, 14, txt, 11, 'right');
     sh.readout(
       ro('f do pedal = f da coroa', fmt(fP, 2) + ' Hz') + ro('f catraca = f roda', fmt(fR, 2) + ' Hz') +
       ro('Velocidade', `${fmt(v, 1)} m/s = ${fmt(v * 3.6, 1)} km/h`) + ro('Relação', fmt(st.ncor / st.ncat, 2) + ' voltas da roda por pedalada')
     );
     sh.alert(st.ncor / st.ncat >= 2.5 ? 'ok' : 'info', st.ncor / st.ncat >= 2.5
-      ? '🚀 Marcha “pesada”: coroa grande + catraca pequena = muito rápido (mas pesado pra subir ladeira)!'
-      : '⛰️ Marcha “leve”: fica fácil pedalar, mas a bike anda menos por pedalada.');
+      ? 'Marcha “pesada”: coroa grande + catraca pequena = muito rápido (mas pesado pra subir ladeira)!'
+      : 'Marcha “leve”: fica fácil pedalar, mas a bike anda menos por pedalada.');
   }
   const stopLoop = loop(dt => (st.mode === 'bike' ? drawBike(dt) : drawGears(dt)));
   const redraw = () => (st.mode === 'bike' ? drawBike(0) : drawGears(0));
@@ -1995,14 +2325,14 @@ SIMS[5] = function (box) {
 /* ---------- SIM 6: DINÂMICA ---------- */
 SIMS[6] = function (box) {
   const CASES = {
-    plana: { l: '🚗 Curva plana', v: 15, R: 50, m: 1000, mu: 0.5 },
-    inclinada: { l: '🛣️ Curva inclinada', v: 15, R: 50, m: 1000, th: 25 },
-    lombada: { l: '⛰️ Lombada', v: 10, R: 40, m: 1000 },
-    depressao: { l: '🕳️ Depressão', v: 10, R: 50, m: 1000 },
-    looping: { l: '🎢 Looping', v: 8, R: 5, m: 500 },
-    fio: { l: '🪢 Pedra no fio', v: 5, R: 1, m: 2 },
-    rotor: { l: '🌀 Rotor', v: 8, R: 3, m: 60, mu: 0.5 },
-    conico: { l: '🎯 Pêndulo cônico', v: 3, R: 1, m: 2 },
+    plana: { l: 'Curva plana', v: 15, R: 50, m: 1000, mu: 0.5 },
+    inclinada: { l: 'Curva inclinada', v: 15, R: 50, m: 1000, th: 25 },
+    lombada: { l: 'Lombada', v: 10, R: 40, m: 1000 },
+    depressao: { l: 'Depressão', v: 10, R: 50, m: 1000 },
+    looping: { l: 'Looping', v: 8, R: 5, m: 500 },
+    fio: { l: 'Pedra no fio', v: 5, R: 1, m: 2 },
+    rotor: { l: 'Rotor', v: 8, R: 3, m: 60, mu: 0.5 },
+    conico: { l: 'Pêndulo cônico', v: 3, R: 1, m: 2 },
   };
   const st = { c: 'plana', ...CASES.plana };
   const sh = simShell(box, {
@@ -2020,51 +2350,52 @@ SIMS[6] = function (box) {
       ${c.mu !== undefined ? sliderHTML('dmu', 'Coef. de atrito μ', 0.1, 1, 0.05, st.mu) : ''}
       ${c.th !== undefined ? sliderHTML('dth', 'Inclinação θ', 5, 45, 1, st.th, '°') : ''}</div>`;
     const vtxt = v => `${fmt(v, 1)} m/s (${fmt(v * 3.6, 0)} km/h)`;
-    bindSlider(box, 'dv', '', v => { st.v = v; draw(); }, vtxt);
+    bindSlider(box, 'dv', '', v => { st.v = v; tw.kick(); }, vtxt);
     $('#dv-v', box).textContent = vtxt(st.v);
-    bindSlider(box, 'dr', ' m', v => { st.R = v; draw(); });
-    bindSlider(box, 'dm', ' kg', v => { st.m = v; draw(); }, v => v.toFixed(0));
-    if (c.mu !== undefined) bindSlider(box, 'dmu', '', v => { st.mu = v; draw(); });
-    if (c.th !== undefined) bindSlider(box, 'dth', '°', v => { st.th = v; draw(); }, v => v.toFixed(0));
+    bindSlider(box, 'dr', ' m', v => { st.R = v; tw.kick(); });
+    bindSlider(box, 'dm', ' kg', v => { st.m = v; tw.kick(); }, v => v.toFixed(0));
+    if (c.mu !== undefined) bindSlider(box, 'dmu', '', v => { st.mu = v; tw.kick(); });
+    if (c.th !== undefined) bindSlider(box, 'dth', '°', v => { st.th = v; tw.kick(); }, v => v.toFixed(0));
   }
-  bindSeg(box, 'dc', k => { Object.assign(st, { mu: undefined, th: undefined }, CASES[k], { c: k }); controls(); draw(); });
+  bindSeg(box, 'dc', k => { Object.assign(st, { mu: undefined, th: undefined }, CASES[k], { c: k }); controls(); tw.snap(); sh.flash(); draw(); });
   controls();
   const N = x => `${fmt(x, 0)} N`;
-  function car(ctx, x, y, ang, color = '#ec4899') {
+  function car(ctx, x, y, ang, color = C.rose) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
     ctx.fillStyle = color; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-20, -18, 40, 14, 5) : ctx.rect(-20, -18, 40, 14); ctx.fill();
     ctx.fillRect(-11, -26, 22, 9);
-    ctx.fillStyle = '#334155'; ctx.beginPath(); ctx.arc(-12, -4, 5, 0, Math.PI * 2); ctx.arc(12, -4, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = C.gray; ctx.beginPath(); ctx.arc(-12, -4, 5, 0, Math.PI * 2); ctx.arc(12, -4, 5, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
   }
   function draw() {
+    const D = tw.D;
     const { ctx, w, h } = sh, txt = cssv('--sim-line');
     ctx.clearRect(0, 0, w, h);
-    const { v, R, m } = st, P = m * g, Fcp = m * v * v / R;
+    const { v, R, m } = D, P = m * g, Fcp = m * v * v / R;
     const sc = F => clamp(F / Math.max(P, 1) * 55, 0, 110);
-    const PC = '#ef4444', NC = '#3b82f6', AC = '#16a34a', TC = '#f97316';
+    const PC = C.red, NC = C.blue, AC = C.sage, TC = C.ochre;
     const cx = w / 2;
     let rd = '', al = ['ok', ''];
     switch (st.c) {
       case 'plana': {
-        const vmax = Math.sqrt(st.mu * g * R), skid = v > vmax;
+        const vmax = Math.sqrt(D.mu * g * R), skid = v > vmax;
         const rr = Math.min(w * 0.36, h * 0.38), cyc = h / 2 + 10;
-        ctx.save(); ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 26; ctx.globalAlpha = 0.5; ctx.beginPath(); ctx.arc(cx, cyc, rr, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+        ctx.save(); ctx.strokeStyle = C.gray2; ctx.lineWidth = 26; ctx.globalAlpha = 0.45; ctx.beginPath(); ctx.arc(cx, cyc, rr, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
         text(ctx, 'vista de cima', 8, 14, txt, 11);
         ctx.fillStyle = txt; ctx.beginPath(); ctx.arc(cx, cyc, 3, 0, Math.PI * 2); ctx.fill(); text(ctx, 'centro', cx, cyc + 14, txt, 11, 'center');
-        if (skid) { line(ctx, cx, cyc - rr, cx + rr * 1.2, cyc - rr - 10, PC, 2, [6, 5]); text(ctx, 'derrapa! 💨', cx + rr * 0.8, cyc - rr - 26, PC, 13, 'center', '900'); }
+        if (skid) { line(ctx, cx, cyc - rr, cx + rr * 1.2, cyc - rr - 10, PC, 2, [6, 5]); text(ctx, 'derrapa!', cx + rr * 0.8, cyc - rr - 26, PC, 13, 'center', '700'); }
         car(ctx, cx, cyc - rr + 10, 0);
-        arrow(ctx, cx, cyc - rr, cx, cyc - rr + Math.min(sc(Math.min(Fcp, st.mu * P)), rr - 10), AC, 4, 'Fat');
+        arrow(ctx, cx, cyc - rr, cx, cyc - rr + Math.min(sc(Math.min(Fcp, D.mu * P)), rr - 10), AC, 4, 'Fat');
         arrow(ctx, cx + 24, cyc - rr - 8, cx + 70, cyc - rr - 8, NC, 3, 'v');
-        rd = ro('F꜀ₚ necessária = mv²/R', N(Fcp)) + ro('Atrito máximo = μmg', N(st.mu * P)) + ro('v máxima = √(μgR)', `${fmt(vmax, 1)} m/s (${fmt(vmax * 3.6, 0)} km/h)`);
-        al = skid ? ['bad', `🚗💨 DERRAPOU! Precisa de ${N(Fcp)}, mas o atrito só dá ${N(st.mu * P)}.`] : ['ok', '✔ O atrito segura o carro na curva. (Diminua μ para simular pista molhada!)'];
+        rd = ro('F꜀ₚ necessária = mv²/R', N(Fcp)) + ro('Atrito máximo = μmg', N(D.mu * P)) + ro('v máxima = √(μgR)', `${fmt(vmax, 1)} m/s (${fmt(vmax * 3.6, 0)} km/h)`);
+        al = skid ? ['bad', `DERRAPOU! Precisa de ${N(Fcp)}, mas o atrito só dá ${N(D.mu * P)}.`] : ['ok', 'O atrito segura o carro na curva. (Diminua μ para simular pista molhada!)'];
         break;
       }
       case 'inclinada': {
-        const th = st.th * DEG, vi = Math.sqrt(R * g * Math.tan(th));
+        const th = D.th * DEG, vi = Math.sqrt(R * g * Math.tan(th));
         const L = Math.min(w * 0.7, 360), x0 = cx - L / 2, y0 = h * 0.78;
         const x1 = x0 + L * Math.cos(th), y1 = y0 - L * Math.sin(th);
-        ctx.fillStyle = 'rgba(148,163,184,.4)'; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.lineTo(x1, y0); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = rgba(C.gray2, 0.35); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.lineTo(x1, y0); ctx.closePath(); ctx.fill();
         line(ctx, x0, y0, x1, y1, txt, 3);
         const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
         car(ctx, mx, my, -th);
@@ -2073,12 +2404,12 @@ SIMS[6] = function (box) {
         arrow(ctx, ox, oy, ox - Math.sin(th) * sc(Nn), oy - Math.cos(th) * sc(Nn), NC, 4, 'N');
         arrow(ctx, ox, oy + 26, ox - Math.sin(th) * sc(Nn), oy + 26, AC, 2.5, 'N·sen θ', 22);
         text(ctx, '← centro da curva', x0 + 4, y0 + 16, txt, 12);
-        text(ctx, `θ = ${st.th}°`, x1 - 50, y0 - 10, txt, 12);
+        text(ctx, `θ = ${Math.round(D.th)}°`, x1 - 50, y0 - 10, txt, 12);
         rd = ro('v ideal = √(Rg·tg θ)', `${fmt(vi, 1)} m/s (${fmt(vi * 3.6, 0)} km/h)`) + ro('N = P/cos θ', N(Nn)) + ro('F꜀ₚ = N·sen θ', N(Nn * Math.sin(th)));
         const tol = 0.06 * vi + 0.3;
-        al = Math.abs(v - vi) <= tol ? ['ok', '✔ Velocidade ideal: a componente horizontal da normal faz a curva sozinha, sem precisar de atrito!']
-          : v > vi ? ['bad', '⬆️ Rápido demais para essa inclinação: sem atrito, o carro escapa para FORA da curva.']
-            : ['info', '⬇️ Devagar demais: sem atrito, o carro escorrega para DENTRO (para baixo).'];
+        al = Math.abs(v - vi) <= tol ? ['ok', 'Velocidade ideal: a componente horizontal da normal faz a curva sozinha, sem precisar de atrito!']
+          : v > vi ? ['bad', 'Rápido demais para essa inclinação: sem atrito, o carro escapa para FORA da curva.']
+            : ['info', 'Devagar demais: sem atrito, o carro escorrega para DENTRO (para baixo).'];
         break;
       }
       case 'lombada': case 'depressao': {
@@ -2097,8 +2428,8 @@ SIMS[6] = function (box) {
         text(ctx, top ? 'centro da curva ↓ (embaixo)' : 'centro da curva ↑ (em cima)', 8, 14, txt, 11);
         rd = ro(top ? 'N = m(g − v²/R)' : 'N = m(g + v²/R)', N(Math.max(Nv, 0))) + ro('Peso P', N(P)) + ro('N/P (“peso que você sente”)', fmt(Math.max(Nv, 0) / P, 2) + '×') +
           (top ? ro('v máx sem voar = √(gR)', `${fmt(Math.sqrt(g * R), 1)} m/s (${fmt(Math.sqrt(g * R) * 3.6, 0)} km/h)`) : '');
-        al = top ? (flying ? ['bad', '🚀 PERDEU CONTATO! v > √(gR): o peso não dá conta de fazer a curva e o carro “voa”.'] : ['ok', `✔ No topo P − N = mv²/R → N < P (frio na barriga 😆). Você se sente ${fmt(Nv / P, 2)}× o seu peso.`])
-          : ['info', `⬇️ No fundo N − P = mv²/R → N > P. Você se sente ${fmt(Nv / P, 2)}× mais pesada!`];
+        al = top ? (flying ? ['bad', 'PERDEU CONTATO! v > √(gR): o peso não dá conta de fazer a curva e o carro “voa”.'] : ['ok', `No topo P − N = mv²/R → N < P (frio na barriga). Você se sente ${fmt(Nv / P, 2)}× o seu peso.`])
+          : ['info', `No fundo N − P = mv²/R → N > P. Você se sente ${fmt(Nv / P, 2)}× mais pesada!`];
         break;
       }
       case 'looping': case 'fio': {
@@ -2114,11 +2445,11 @@ SIMS[6] = function (box) {
           arrow(ctx, cx - 30, cyc - rr + 8, cx - 30, cyc - rr + 8 + sc(P), PC, 4, 'P');
           if (!fall) arrow(ctx, cx + 30, cyc - rr + 8, cx + 30, cyc - rr + 8 + sc(Ftop), NC, 4, 'N');
           rd = ro('No topo: N + P = mv²/R → N', N(Math.max(Ftop, 0))) + ro('v mínima = √(gR)', `${fmt(vmin, 2)} m/s`) + ro('F꜀ₚ = mv²/R', N(Fcp));
-          al = fall ? ['bad', '😱 Velocidade insuficiente! v < √(gR): o carrinho cai do looping.'] : Math.abs(Ftop) < P * 0.05 ? ['info', '🎯 Quase no limite: N ≈ 0 e só o peso faz a curva (v = √(gR)).'] : ['ok', '✔ Passou pelo topo! Peso + normal fazem a resultante centrípeta.'];
+          al = fall ? ['bad', 'Velocidade insuficiente! v < √(gR): o carrinho cai do looping.'] : Math.abs(Ftop) < P * 0.05 ? ['info', 'Quase no limite: N ≈ 0 e só o peso faz a curva (v = √(gR)).'] : ['ok', 'Passou pelo topo! Peso + normal fazem a resultante centrípeta.'];
         } else {
           const Tb = m * (g + v * v / R);
           line(ctx, cx, cyc, cx, cyc + rr, TC, 2); line(ctx, cx, cyc, cx, cyc - rr, TC, 2, Ftop < 0 ? [3, 4] : null);
-          ctx.fillStyle = '#64748b'; [cyc + rr, cyc - rr].forEach(y => { ctx.beginPath(); ctx.arc(cx, y, 10, 0, Math.PI * 2); ctx.fill(); });
+          ctx.fillStyle = C.gray; [cyc + rr, cyc - rr].forEach(y => { ctx.beginPath(); ctx.arc(cx, y, 10, 0, Math.PI * 2); ctx.fill(); });
           const sx = Math.min(sc(P), rr - 14) / sc(P) || 1; // encolhe as setas se o círculo for pequeno
           arrow(ctx, cx + 16, cyc + rr, cx + 16, cyc + rr + Math.min(sc(P), h - (cyc + rr) - 4), PC, 4, 'P');
           arrow(ctx, cx - 16, cyc + rr, cx - 16, cyc + rr - Math.min(sc(Tb), rr * 0.45), TC, 4, 'T');
@@ -2127,24 +2458,24 @@ SIMS[6] = function (box) {
           text(ctx, 'ponto mais baixo', cx + 30, cyc + rr - 14, txt, 11);
           text(ctx, 'ponto mais alto', cx + 30, cyc - rr - 4, txt, 11);
           rd = ro('Embaixo: T = m(g + v²/R)', N(Tb)) + ro('Em cima: T = m(v²/R − g)', Ftop < 0 ? 'fio afrouxa!' : N(Ftop)) + ro('Peso', N(P));
-          al = Ftop < 0 ? ['bad', `🪢 No topo o fio AFROUXA: v < √(gR) = ${fmt(vmin, 2)} m/s.`] : ['ok', '✔ Tração máxima no ponto mais BAIXO (T − P = mv²/R): é ali que o fio pode arrebentar!'];
+          al = Ftop < 0 ? ['bad', `No topo o fio AFROUXA: v < √(gR) = ${fmt(vmin, 2)} m/s.`] : ['ok', 'Tração máxima no ponto mais BAIXO (T − P = mv²/R): é ali que o fio pode arrebentar!'];
         }
         break;
       }
       case 'rotor': {
-        const Nn = Fcp, mumin = v > 0 ? g * R / (v * v) : Infinity, ok = st.mu >= mumin;
+        const Nn = Fcp, mumin = v > 0 ? g * R / (v * v) : Infinity, ok = D.mu >= mumin;
         const ww = Math.min(w * 0.6, 280), x0 = cx - ww / 2, x1 = cx + ww / 2, y0 = 20, y1 = h - 20;
         ctx.save(); ctx.strokeStyle = txt; ctx.lineWidth = 4; line(ctx, x0, y0, x0, y1, txt, 5); line(ctx, x1, y0, x1, y1, txt, 5);
         ctx.setLineDash([4, 4]); line(ctx, cx, y0, cx, y1, txt, 1.5); ctx.restore();
         text(ctx, 'eixo', cx + 4, y0 + 6, txt, 11);
         const py = ok ? h * 0.42 : h * 0.62;
-        ctx.font = '30px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('🧍', x0 + 18, py);
+        ctx.save(); ctx.strokeStyle = txt; ctx.lineWidth = 1.8; ctx.lineCap = 'round'; ctx.beginPath(); ctx.arc(x0 + 18, py - 16, 5, 0, Math.PI * 2); ctx.moveTo(x0 + 18, py - 11); ctx.lineTo(x0 + 18, py + 6); ctx.moveTo(x0 + 18, py + 6); ctx.lineTo(x0 + 13, py + 18); ctx.moveTo(x0 + 18, py + 6); ctx.lineTo(x0 + 23, py + 18); ctx.moveTo(x0 + 12, py - 5); ctx.lineTo(x0 + 24, py - 5); ctx.stroke(); ctx.restore();
         arrow(ctx, x0 + 10, py, x0 + 10 + sc(Nn), py, NC, 4, 'N');
         arrow(ctx, x0 + 34, py, x0 + 34, py + sc(P), PC, 4, 'P');
-        arrow(ctx, x0 + 34, py, x0 + 34, py - sc(Math.min(P, st.mu * Nn)), AC, 4, 'Fat');
-        if (!ok) text(ctx, '⬇️ escorregando', x0 + 50, py + 40, PC, 13, 'left', '900');
-        rd = ro('N = mv²/R', N(Nn)) + ro('Atrito máx = μN', N(st.mu * Nn)) + ro('Peso', N(P)) + ro('μ mínimo = gR/v²', isFinite(mumin) ? fmt(mumin, 2) : '∞');
-        al = ok ? ['ok', '✔ A normal (da parede) é a centrípeta e o atrito segura o peso: fica “grudada” na parede!'] : ['bad', '⬇️ Escorrega! μN < P. Aumente v ou μ.'];
+        arrow(ctx, x0 + 34, py, x0 + 34, py - sc(Math.min(P, D.mu * Nn)), AC, 4, 'Fat');
+        if (!ok) text(ctx, 'escorregando', x0 + 50, py + 40, PC, 13, 'left', '700');
+        rd = ro('N = mv²/R', N(Nn)) + ro('Atrito máx = μN', N(D.mu * Nn)) + ro('Peso', N(P)) + ro('μ mínimo = gR/v²', isFinite(mumin) ? fmt(mumin, 2) : '∞');
+        al = ok ? ['ok', 'A normal (da parede) é a centrípeta e o atrito segura o peso: fica “grudada” na parede!'] : ['bad', 'Escorrega! μN < P. Aumente v ou μ.'];
         break;
       }
       case 'conico': {
@@ -2156,22 +2487,23 @@ SIMS[6] = function (box) {
         line(ctx, px, py, px, by, txt, 1.5, [3, 3]); ctx.restore();
         line(ctx, px - 30, py, px + 30, py, txt, 4);
         line(ctx, px, py, bx, by, TC, 2.5);
-        ctx.fillStyle = '#64748b'; ctx.beginPath(); ctx.arc(bx, by, 11, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = C.gray; ctx.beginPath(); ctx.arc(bx, by, 11, 0, Math.PI * 2); ctx.fill();
         arrow(ctx, bx, by, bx, by + sc(P), PC, 4, 'P');
         arrow(ctx, bx, by, bx - Math.sin(th) * sc(T), by - Math.cos(th) * sc(T), TC, 4, 'T');
         arrow(ctx, bx, by + 18, bx - Math.sin(th) * sc(T), by + 18, AC, 2.5, 'F꜀ₚ');
         text(ctx, `θ = ${fmt(th / DEG, 1)}°`, px + 8, py + 34, txt, 12);
         rd = ro('tg θ = v²/(Rg)', `θ = ${fmt(th / DEG, 1)}°`) + ro('T = P/cos θ', N(T)) + ro('F꜀ₚ = T·sen θ', N(T * Math.sin(th)));
-        al = ['info', '🎯 A componente horizontal da tração é a centrípeta. Mais rápido → o fio abre mais (θ maior).'];
+        al = ['info', 'A componente horizontal da tração é a centrípeta. Mais rápido → o fio abre mais (θ maior).'];
         break;
       }
     }
     sh.readout(rd + ro('F꜀ₚ = mv²/R', N(Fcp)));
     sh.alert(al[0], al[1]);
   }
+  const tw = smooth(st, ['v', 'R', 'm', 'mu', 'th'], draw);
   draw();
   const off = onResize(sh, draw);
-  return { stop: off, redraw: draw };
+  return { stop() { off(); tw.stop(); }, redraw: draw };
 };
 
 /* ================= INÍCIO ================= */
