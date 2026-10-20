@@ -1,0 +1,2194 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f472b6">
+<title>Física da Princesinha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff5fa; --bg2:#fde8f3; --card:#ffffff; --text:#3b2440; --muted:#7a6380;
+  --pink:#ec4899; --pink2:#f9a8d4; --purple:#8b5cf6; --purple2:#c4b5fd;
+  --blue:#3b82f6; --green:#16a34a; --green-bg:#dcfce7; --red:#dc2626; --red-bg:#fee2e2;
+  --yellow-bg:#fef9c3; --yellow-bd:#facc15; --yellow-tx:#713f12;
+  --border:#f3d3e6; --shadow:0 6px 20px rgba(236,72,153,.12);
+  --w1:#8b5cf6; --w2:#f97316;
+  --sim-bg:#fdf2f8; --sim-line:#3b2440; --sim-grid:#f5d0e6;
+  --radius:18px;
+}
+:root[data-theme="dark"]{
+  --bg:#1b1324; --bg2:#251a32; --card:#2a1e38; --text:#f8e9f5; --muted:#c3aecb;
+  --pink:#f472b6; --pink2:#9d174d; --purple:#a78bfa; --purple2:#4c1d95;
+  --blue:#60a5fa; --green:#4ade80; --green-bg:#14532d; --red:#f87171; --red-bg:#7f1d1d;
+  --yellow-bg:#422006; --yellow-bd:#ca8a04; --yellow-tx:#fde68a;
+  --border:#3d2c4f; --shadow:0 6px 20px rgba(0,0,0,.35);
+  --sim-bg:#1f1629; --sim-line:#f8e9f5; --sim-grid:#3a2a4a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1324; --bg2:#251a32; --card:#2a1e38; --text:#f8e9f5; --muted:#c3aecb;
+    --pink:#f472b6; --pink2:#9d174d; --purple:#a78bfa; --purple2:#4c1d95;
+    --blue:#60a5fa; --green:#4ade80; --green-bg:#14532d; --red:#f87171; --red-bg:#7f1d1d;
+    --yellow-bg:#422006; --yellow-bd:#ca8a04; --yellow-tx:#fde68a;
+    --border:#3d2c4f; --shadow:0 6px 20px rgba(0,0,0,.35);
+    --sim-bg:#1f1629; --sim-line:#f8e9f5; --sim-grid:#3a2a4a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Nunito',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.55;min-height:100vh;overflow-x:hidden}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+a{color:var(--pink)}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 96px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.topbar-in{max-width:780px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.topbar .ttl{flex:1;min-width:0;font-weight:800;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn{border:0;background:var(--card);box-shadow:var(--shadow);width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:1.15rem;flex:none}
+.pill{background:var(--card);box-shadow:var(--shadow);border-radius:999px;padding:6px 12px;font-weight:800;font-size:.9rem;white-space:nowrap;flex:none}
+
+/* home */
+.hero{margin:18px 0 8px;padding:22px 20px;border-radius:24px;background:linear-gradient(135deg,#f9a8d4,#c4b5fd 60%,#93c5fd);color:#3b0a33;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero h1{margin:0 0 6px;font-size:1.6rem;line-height:1.2;font-weight:900}
+.hero p{margin:0;font-weight:600}
+.hero .crown{position:absolute;right:-6px;top:-12px;font-size:5rem;opacity:.25;transform:rotate(14deg)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.stat{background:var(--card);border-radius:16px;padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:1.35rem;font-weight:900}
+.stat span{font-size:.8rem;color:var(--muted);font-weight:700}
+.bar{height:14px;background:var(--bg2);border-radius:999px;overflow:hidden;border:1px solid var(--border)}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:999px;transition:width .6s}
+.section-title{font-weight:900;font-size:1.2rem;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
+.world{border-radius:22px;padding:16px;margin-bottom:16px;background:var(--card);box-shadow:var(--shadow);border-top:6px solid var(--wc)}
+.world-h{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.world-h .em{font-size:2rem;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--wc) 18%,transparent)}
+.world-h h2{margin:0;font-size:1.15rem;font-weight:900;line-height:1.2}
+.world-h small{color:var(--muted);font-weight:700}
+.lesson-item{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--border);background:var(--bg);border-radius:16px;padding:12px;margin-top:8px;transition:transform .15s}
+.lesson-item:active{transform:scale(.98)}
+.lesson-item .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:color-mix(in srgb,var(--wc) 20%,transparent);flex:none}
+.lesson-item .t{flex:1;min-width:0}
+.lesson-item .t b{display:block;font-weight:800}
+.lesson-item .t small{display:block;color:var(--muted);font-size:.82rem;line-height:1.3}
+.lesson-item .s{font-size:.95rem;white-space:nowrap}
+.minibar{height:6px;background:var(--bg2);border-radius:9px;margin-top:6px;overflow:hidden}
+.minibar>i{display:block;height:100%;background:var(--wc)}
+.extras{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.extra{border:0;background:var(--card);box-shadow:var(--shadow);border-radius:18px;padding:16px 12px;text-align:left}
+.extra .e{font-size:1.8rem}
+.extra b{display:block;font-weight:900;margin-top:4px}
+.extra small{color:var(--muted);font-size:.8rem;line-height:1.3;display:block}
+
+/* buttons */
+.btn{border:0;border-radius:14px;padding:12px 18px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:var(--shadow);transition:transform .12s,opacity .2s}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:var(--card);color:var(--text);border:2px solid var(--border)}
+.btn.ok{background:var(--green);color:#fff}
+.btn.block{display:block;width:100%}
+.btn:disabled{opacity:.5}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* lesson */
+.lesson-head{margin:16px 0 4px}
+.lesson-head h1{margin:0;font-size:1.45rem;font-weight:900;line-height:1.2}
+.lesson-head p{margin:2px 0 0;color:var(--muted);font-weight:600}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0;padding:6px 0}
+.tab{border:2px solid var(--border);background:var(--card);border-radius:14px;padding:8px 2px;font-weight:800;font-size:.78rem;line-height:1.15;display:flex;flex-direction:column;align-items:center;gap:2px}
+.tab .ic{font-size:1.25rem}
+.tab.on{border-color:var(--pink);background:color-mix(in srgb,var(--pink) 14%,var(--card))}
+.tab .dn{font-size:.7rem;color:var(--green)}
+.card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.card h3{margin:0 0 8px;font-size:1.12rem;font-weight:900}
+.card h4{margin:14px 0 6px;font-size:1rem;font-weight:800}
+.card p{margin:8px 0}
+.card ul,.card ol{padding-left:22px;margin:8px 0}
+.card li{margin:4px 0}
+.warn{background:var(--yellow-bg);border:2px solid var(--yellow-bd);color:var(--yellow-tx);border-radius:16px;padding:12px 14px;margin:12px 0}
+.warn>b:first-child{display:block;margin-bottom:4px}
+.tip{background:color-mix(in srgb,var(--purple) 12%,var(--card));border-left:5px solid var(--purple);border-radius:12px;padding:10px 14px;margin:12px 0}
+.formula{background:var(--bg2);border:2px dashed var(--pink2);border-radius:14px;padding:12px;margin:10px 0;text-align:center;font-size:1.12rem;font-weight:700;overflow-x:auto}
+.formula small{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:4px}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em;line-height:1.15}
+.frac>span:first-child{border-bottom:2px solid currentColor;padding:0 .2em}
+.frac>span:last-child{padding:0 .2em}
+.sqrt{white-space:nowrap}
+.sqrt>span{border-top:2px solid currentColor;padding:0 .15em}
+table.t{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+table.t th,table.t td{border:1px solid var(--border);padding:7px 8px;text-align:left;vertical-align:top}
+table.t th{background:var(--bg2)}
+.tablewrap{overflow-x:auto}
+.mini-svg{display:block;margin:10px auto;max-width:100%;height:auto}
+.done-box{text-align:center;margin:18px 0}
+
+/* sim */
+.sim{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;margin-bottom:14px}
+.sim canvas{display:block;width:100%;border-radius:12px;background:var(--sim-bg);touch-action:none}
+.ctrls{display:grid;gap:10px;margin-top:12px}
+.ctrl label{display:flex;justify-content:space-between;font-weight:800;font-size:.9rem}
+.ctrl label span{color:var(--pink)}
+input[type=range]{width:100%;accent-color:var(--pink);height:28px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:2px solid var(--border);background:var(--bg);border-radius:12px;padding:7px 10px;font-weight:800;font-size:.85rem}
+.seg button.on{border-color:var(--pink);background:color-mix(in srgb,var(--pink) 16%,var(--card))}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.readout div{background:var(--bg2);border-radius:12px;padding:8px 10px;font-size:.88rem}
+.readout b{display:block;font-size:1.02rem}
+.alert{border-radius:14px;padding:10px 14px;margin-top:10px;font-weight:800;text-align:center}
+.alert.ok{background:var(--green-bg);color:var(--green)}
+.alert.bad{background:var(--red-bg);color:var(--red);animation:shake .4s}
+.alert.info{background:color-mix(in srgb,var(--blue) 15%,var(--card));color:var(--text)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.chk{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem}
+.chk input{width:20px;height:20px;accent-color:var(--pink)}
+
+/* examples */
+.step{border-left:4px solid var(--purple2);padding:6px 0 6px 12px;margin:8px 0;animation:fadein .35s}
+.answer{background:var(--green-bg);color:var(--text);border-radius:12px;padding:10px 12px;font-weight:800;margin-top:8px;animation:fadein .35s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* quiz */
+.qprog{display:flex;justify-content:space-between;font-weight:800;color:var(--muted);font-size:.9rem;margin-bottom:6px}
+.qtext{font-size:1.08rem;font-weight:800;margin:10px 0 12px}
+.opt{display:block;width:100%;text-align:left;border:2px solid var(--border);background:var(--bg);border-radius:14px;padding:12px 14px;margin:8px 0;font-weight:700;transition:transform .1s}
+.opt:active{transform:scale(.99)}
+.opt.right{border-color:var(--green);background:var(--green-bg)}
+.opt.wrong{border-color:var(--red);background:var(--red-bg)}
+.opt:disabled{cursor:default}
+.fb{border-radius:14px;padding:12px 14px;margin-top:10px;animation:fadein .3s}
+.fb.r{background:var(--green-bg)}
+.fb.w{background:var(--red-bg)}
+.big-emoji{font-size:3.5rem;text-align:center}
+.stars{font-size:2rem;text-align:center;letter-spacing:4px}
+
+/* flashcards */
+.fc-wrap{perspective:1000px;margin:10px 0}
+.fc{position:relative;height:260px;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+.fc.flip{transform:rotateY(180deg)}
+.fc>div{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+.fc .front{background:linear-gradient(135deg,#f9a8d4,#c4b5fd);color:#3b0a33;font-weight:900;font-size:1.3rem}
+.fc .back{background:var(--card);transform:rotateY(180deg);font-size:1.1rem;font-weight:700;overflow:auto}
+.fc .tag{font-size:.75rem;font-weight:800;opacity:.75;margin-bottom:8px}
+
+/* resumo */
+.rs h3{color:var(--pink)}
+.rs .formula{font-size:1rem}
+
+/* checklist */
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border)}
+.cl-item input[type=checkbox]{width:22px;height:22px;accent-color:var(--pink);flex:none;margin-top:2px}
+.cl-item span{flex:1}
+.cl-item.done span{text-decoration:line-through;color:var(--muted)}
+.cl-item button{border:0;background:none;font-size:1rem;opacity:.6}
+.inp{width:100%;border:2px solid var(--border);background:var(--bg);color:var(--text);border-radius:12px;padding:10px 12px;font-family:inherit;font-size:1rem}
+
+/* toast & confetti */
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120px);background:var(--card);color:var(--text);border:2px solid var(--pink2);box-shadow:var(--shadow);border-radius:18px;padding:12px 18px;font-weight:800;z-index:60;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden;transition:transform .35s cubic-bezier(.2,1.4,.4,1),opacity .25s,visibility .25s}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+.footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px}
+@media (min-width:700px){
+  .topbar .ttl{font-size:1.1rem}
+  .tabs{position:sticky;top:61px;z-index:10;background:var(--bg)}
+  .hero h1{font-size:2rem}
+  .extras{grid-template-columns:repeat(4,1fr)}
+  .tab{font-size:.9rem;flex-direction:row;justify-content:center;gap:6px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="topbar-in">
+  <button class="iconbtn" id="backBtn" aria-label="Voltar" style="visibility:hidden">←</button>
+  <div class="ttl" id="topTitle">Física da Princesinha 👑</div>
+  <div class="pill" id="xpPill">⭐ 0 XP</div>
+  <button class="iconbtn" id="themeBtn" aria-label="Alternar modo escuro">🌙</button>
+</div></header>
+<main class="wrap" id="app"></main>
+<div id="toast" role="status" aria-live="polite"></div>
+<canvas id="confetti"></canvas>
+<script>
+'use strict';
+/* ===== Helpers de fórmula ===== */
+const fr = (a, b) => `<span class="frac"><span>${a}</span><span>${b}</span></span>`;
+const rt = x => `<span class="sqrt">√<span>${x}</span></span>`;
+const F = (html, note) => `<div class="formula">${html}${note ? `<small>${note}</small>` : ''}</div>`;
+const W = (title, html) => `<div class="warn"><b>⚠️ ${title}</b>${html}</div>`;
+const TIP = html => `<div class="tip">💡 ${html}</div>`;
+
+const WORLDS = [
+  { id: 1, name: 'Óptica', prof: 'prof. Luiz', emoji: '🔭', color: 'var(--w1)', lessons: [1, 2, 3] },
+  { id: 2, name: 'Movimento Circular', prof: 'prof. Héric', emoji: '🎡', color: 'var(--w2)', lessons: [4, 5, 6] },
+];
+
+const LESSONS = {};
+
+/* ================= LIÇÃO 1 — REFRAÇÃO ================= */
+LESSONS[1] = {
+  id: 1, world: 1, emoji: '🌈', title: 'Refração da Luz',
+  sub: 'Lei de Snell, ângulo limite, reflexão total e dispersão',
+  theory: `
+<div class="card">
+  <h3>🌈 O que é refração?</h3>
+  <p><b>Refração</b> é quando a luz <b>passa de um meio para outro</b> (ar → água, ar → vidro…) e <b>muda de velocidade</b>. Se ela chega inclinada, também <b>muda de direção</b> (“entorta”).</p>
+  <p>É por isso que um canudo parece “quebrado” dentro do copo d'água 🥤.</p>
+  <h4>Índice de refração (n)</h4>
+  <p>Diz o quanto a luz fica mais lenta naquele meio:</p>
+  ${F(`n = ${fr('c', 'v')}`, 'c = 3×10⁸ m/s (velocidade da luz no vácuo) · v = velocidade no meio')}
+  <ul>
+    <li>Ar ≈ 1,00 · Água ≈ 1,33 · Vidro ≈ 1,5 · Diamante ≈ 2,42</li>
+    <li>n é sempre <b>≥ 1</b> e <b>não tem unidade</b>.</li>
+    <li>Quanto <b>maior o n</b>, <b>mais lenta</b> a luz e o meio é <b>“mais refringente”</b>.</li>
+  </ul>
+</div>
+<div class="card">
+  <h3>📐 Lei de Snell-Descartes</h3>
+  ${F(`n<sub>1</sub> · sen θ<sub>1</sub> = n<sub>2</sub> · sen θ<sub>2</sub>`, 'θ₁ = ângulo de incidência · θ₂ = ângulo de refração')}
+  <svg class="mini-svg" viewBox="0 0 260 170" width="260" aria-label="Raio de luz refratando ao passar do ar para a água">
+    <rect x="0" y="85" width="260" height="85" fill="#93c5fd" opacity=".35"/>
+    <line x1="0" y1="85" x2="260" y2="85" stroke="currentColor" stroke-width="2"/>
+    <line x1="130" y1="5" x2="130" y2="165" stroke="currentColor" stroke-dasharray="5 4" opacity=".6"/>
+    <line x1="60" y1="15" x2="130" y2="85" stroke="#ec4899" stroke-width="3"/>
+    <line x1="130" y1="85" x2="170" y2="160" stroke="#ec4899" stroke-width="3"/>
+    <text x="10" y="30" font-size="12" fill="currentColor">meio 1 (ar)</text>
+    <text x="10" y="160" font-size="12" fill="currentColor">meio 2 (água)</text>
+    <text x="105" y="50" font-size="12" fill="currentColor">θ₁</text>
+    <text x="137" y="125" font-size="12" fill="currentColor">θ₂</text>
+    <text x="134" y="14" font-size="11" fill="currentColor">normal</text>
+  </svg>
+  <ul>
+    <li>Indo para um meio <b>MAIS refringente</b> (n maior): o raio <b>se aproxima da normal</b> (θ₂ &lt; θ₁).</li>
+    <li>Indo para um meio <b>MENOS refringente</b> (n menor): o raio <b>se afasta da normal</b> (θ₂ &gt; θ₁).</li>
+    <li>Incidência <b>perpendicular</b> (θ₁ = 0°): <b>não desvia</b>, mas a velocidade muda mesmo assim!</li>
+  </ul>
+  ${TIP('Macete: <b>n maior ↔ ângulo menor</b>. O produto n·sen θ é o mesmo dos dois lados.')}
+</div>
+<div class="card">
+  <h3>🔁 O que muda e o que NÃO muda</h3>
+  <table class="t">
+    <tr><th>Grandeza</th><th>Na refração</th></tr>
+    <tr><td>Frequência (f) e cor</td><td><b>NÃO muda</b> (depende só da fonte)</td></tr>
+    <tr><td>Velocidade (v)</td><td>Muda (v = c/n)</td></tr>
+    <tr><td>Comprimento de onda (λ)</td><td>Muda junto com v (v = λ·f)</td></tr>
+  </table>
+  ${F(`${fr('n<sub>1</sub>', 'n<sub>2</sub>')} = ${fr('v<sub>2</sub>', 'v<sub>1</sub>')} = ${fr('λ<sub>2</sub>', 'λ<sub>1</sub>')}`)}
+</div>
+<div class="card">
+  <h3>🚫 Ângulo limite e reflexão total</h3>
+  <p>Quando a luz vai do meio <b>mais refringente</b> para o <b>menos refringente</b> (ex.: água → ar), ela se afasta da normal. Aumentando θ₁, chega um ponto em que θ₂ = 90°: esse θ₁ é o <b>ângulo limite (L)</b>.</p>
+  ${F(`sen L = ${fr('n<sub>menor</sub>', 'n<sub>maior</sub>')}`)}
+  <p>Se θ₁ &gt; L, <b>não há refração</b>: a luz volta inteira para o mesmo meio → <b>reflexão total</b>.</p>
+  <p>Aplicações: <b>fibra óptica</b>, brilho do <b>diamante</b>, prismas de binóculo, miragens.</p>
+  ${W('Pegadinhas', `<ul>
+    <li>Reflexão total <b>só</b> acontece do meio <b>MAIS</b> refringente para o <b>MENOS</b> refringente. Do ar para a água, nunca!</li>
+    <li>Os ângulos são medidos em relação à <b>normal</b>, não à superfície. Se a questão der o ângulo com a superfície, faça 90° − ângulo.</li>
+    <li>A <b>frequência não muda</b> na refração — a cor da luz continua a mesma.</li>
+  </ul>`)}
+</div>
+<div class="card">
+  <h3>🏊 Dioptro plano (profundidade aparente)</h3>
+  <p>Um objeto dentro da água, visto de fora, parece <b>mais perto da superfície</b> (a piscina parece mais rasa!).</p>
+  ${F(`${fr("h'", 'h')} = ${fr('n<sub>observador</sub>', 'n<sub>objeto</sub>')}`, "h = profundidade real · h' = profundidade aparente (olhando quase na vertical)")}
+</div>
+<div class="card">
+  <h3>🌈 Dispersão da luz</h3>
+  <p>O índice de refração <b>depende da cor</b>. A luz branca é uma mistura de cores; ao refratar (num prisma ou numa gota de chuva), cada cor desvia de um jeito → aparece o <b>arco-íris</b>.</p>
+  <ul>
+    <li><b>Violeta</b>: maior n → <b>mais desvia</b> e é a <b>mais lenta</b> no vidro.</li>
+    <li><b>Vermelho</b>: menor n → <b>menos desvia</b> e é a <b>mais rápida</b> no vidro.</li>
+  </ul>
+  ${TIP('Ordem das cores: <b>Vermelho, Laranja, Amarelo, Verde, Azul, Anil, Violeta</b> — n aumenta nesse sentido.')}
+  ${W('Pegadinha', '<p>No <b>vácuo</b> todas as cores têm a mesma velocidade (c). A diferença só aparece dentro de meios materiais.</p>')}
+</div>`,
+  simIntro: 'Arraste o raio no desenho (ou use os controles) e veja a luz entortar! Tente fazer a <b>reflexão total</b> acontecer 😉',
+  examples: [
+    {
+      q: 'Um raio de luz passa do ar (n = 1) para um vidro de índice n = √3, com ângulo de incidência de 60°. Qual o ângulo de refração?',
+      steps: [
+        'Snell: n₁ · sen θ₁ = n₂ · sen θ₂',
+        '1 · sen 60° = √3 · sen θ₂ → <b>√3/2 = √3 · sen θ₂</b>',
+        'Dividindo por √3: sen θ₂ = 1/2',
+        'O ângulo cujo seno é 1/2 é <b>30°</b>. Faz sentido: entrou num meio mais refringente e se aproximou da normal (60° → 30°).',
+      ],
+      ans: 'θ₂ = 30°',
+    },
+    {
+      q: 'No diamante, n = 2,4. (a) Qual a velocidade da luz dentro dele? (b) Qual o seno do ângulo limite diamante → ar?',
+      steps: [
+        '(a) n = c / v → v = c / n',
+        'v = 3×10⁸ / 2,4 = <b>1,25×10⁸ m/s</b>',
+        '(b) sen L = n<sub>menor</sub> / n<sub>maior</sub> = 1 / 2,4 ≈ <b>0,42</b> → L ≈ 25°',
+        'Como L é pequeno, quase toda luz que bate por dentro sofre reflexão total → por isso o diamante brilha tanto 💎',
+      ],
+      ans: 'v = 1,25×10⁸ m/s e sen L ≈ 0,42 (L ≈ 25°)',
+    },
+  ],
+  quiz: [
+    { q: 'Quando a luz passa do ar para a água, qual grandeza NÃO muda?', o: ['Velocidade', 'Comprimento de onda', 'Frequência', 'Índice de refração do meio em que ela está'], a: 2, e: 'A frequência depende só da fonte, então não muda na refração. Velocidade e λ mudam juntos (v = λ·f).' },
+    { q: 'Num meio, a luz viaja a 2×10⁸ m/s. Qual o índice de refração desse meio? (c = 3×10⁸ m/s)', o: ['0,67', '1,5', '2', '6'], a: 1, e: 'n = c/v = 3×10⁸ / 2×10⁸ = 1,5.' },
+    { q: 'Um raio passa de um meio MENOS refringente para um MAIS refringente, chegando inclinado. Ele:', o: ['Se afasta da normal', 'Se aproxima da normal', 'Não desvia', 'Sofre reflexão total'], a: 1, e: 'n maior ↔ ângulo menor. Entrou num meio de n maior → ângulo de refração menor → se aproxima da normal.' },
+    { q: 'Para ocorrer reflexão total, a luz deve:', o: ['Ir do meio menos para o mais refringente, com qualquer ângulo', 'Ir do meio mais para o menos refringente, com ângulo de incidência maior que o ângulo limite', 'Incidir perpendicularmente', 'Ir do ar para o vidro com ângulo maior que 45°'], a: 1, e: 'Duas condições: (1) do mais para o menos refringente e (2) θ₁ > L.' },
+    { q: 'Qual o ângulo limite para a luz indo de um vidro com n = 2 para o ar (n = 1)?', o: ['30°', '45°', '60°', '90°'], a: 0, e: 'sen L = 1/2 → L = 30°.' },
+    { q: 'Na dispersão da luz branca num prisma de vidro, a cor que sofre MAIOR desvio é:', o: ['Vermelho', 'Amarelo', 'Verde', 'Violeta'], a: 3, e: 'O violeta tem o maior índice de refração no vidro → desvia mais (e é a mais lenta lá dentro).' },
+    { q: 'Olhando de fora da água, um peixe parece estar:', o: ['Mais fundo do que realmente está', 'Mais próximo da superfície do que realmente está', 'Exatamente onde está', 'Invisível por reflexão total'], a: 1, e: "Dioptro plano: h'/h = n_obs/n_obj = 1/1,33 < 1 → a imagem é mais rasa que o objeto." },
+    { q: 'Um raio incide perpendicularmente (θ₁ = 0°) na superfície ar–vidro. Então:', o: ['Ele não desvia, e a velocidade continua igual', 'Ele não desvia, mas a velocidade diminui', 'Ele desvia 90°', 'Sofre reflexão total'], a: 1, e: 'Com θ₁ = 0°, sen θ₂ = 0 → não desvia. Mas ainda é refração: a velocidade muda (diminui no vidro).' },
+  ],
+};
+
+/* ================= LIÇÃO 2 — LENTES ================= */
+LESSONS[2] = {
+  id: 2, world: 1, emoji: '🔍', title: 'Lentes Esféricas',
+  sub: 'Convergentes, divergentes, raios notáveis, Gauss e vergência',
+  theory: `
+<div class="card">
+  <h3>🔍 Dois tipos de lente</h3>
+  <table class="t">
+    <tr><th></th><th>Convergente</th><th>Divergente</th></tr>
+    <tr><td>Bordas (no ar)</td><td><b>Finas</b> (meio grosso)</td><td><b>Grossas</b> (meio fino)</td></tr>
+    <tr><td>O que faz</td><td>Junta os raios</td><td>Espalha os raios</td></tr>
+    <tr><td>Foco</td><td><b>Real</b> · f &gt; 0</td><td><b>Virtual</b> · f &lt; 0</td></tr>
+    <tr><td>Exemplos</td><td>Lupa, câmera, projetor, olho</td><td>Óculos de míope, olho mágico</td></tr>
+  </table>
+  ${W('Pegadinha', '<p>“Bordas finas = convergente” só vale se a lente for <b>mais refringente que o meio</b> (vidro no ar). Se a lente estiver num meio com n <b>maior</b> que o dela, o comportamento <b>inverte</b>!</p>')}
+</div>
+<div class="card">
+  <h3>✨ Os 3 raios notáveis</h3>
+  <ol>
+    <li><b>Chega paralelo ao eixo</b> → sai passando pelo <b>foco</b> (na divergente, o <i>prolongamento</i> passa pelo foco).</li>
+    <li><b>Chega passando pelo foco</b> (ou mirando nele) → sai <b>paralelo</b> ao eixo.</li>
+    <li><b>Passa pelo centro óptico</b> → <b>não desvia</b>.</li>
+  </ol>
+  <p>Basta cruzar <b>2 raios</b> para achar a imagem. Se os raios de verdade se cruzam → imagem <b>real</b>. Se só os <i>prolongamentos</i> (tracejados) se cruzam → imagem <b>virtual</b>.</p>
+  ${TIP('Na aba 🎮 Simulação você vê os 3 raios mudando ao vivo enquanto arrasta o objeto!')}
+</div>
+<div class="card">
+  <h3>🧮 Equação de Gauss e aumento</h3>
+  ${F(`${fr('1', 'f')} = ${fr('1', 'p')} + ${fr('1', "p'")}`, "f = distância focal · p = distância do objeto · p' = distância da imagem")}
+  ${F(`A = ${fr('i', 'o')} = −${fr("p'", 'p')}`, 'i = altura da imagem · o = altura do objeto')}
+  <h4>📌 Convenção de sinais (decore!)</h4>
+  <table class="t">
+    <tr><th>Sinal</th><th>Significado</th></tr>
+    <tr><td>f &gt; 0</td><td>Lente convergente</td></tr>
+    <tr><td>f &lt; 0</td><td>Lente divergente</td></tr>
+    <tr><td>p' &gt; 0</td><td>Imagem <b>real</b> (do outro lado da lente)</td></tr>
+    <tr><td>p' &lt; 0</td><td>Imagem <b>virtual</b> (do mesmo lado do objeto)</td></tr>
+    <tr><td>A &gt; 0</td><td>Imagem <b>direita</b> (para cima)</td></tr>
+    <tr><td>A &lt; 0</td><td>Imagem <b>invertida</b></td></tr>
+    <tr><td>|A| &gt; 1 / &lt; 1</td><td>Imagem maior / menor</td></tr>
+  </table>
+  ${TIP('Truque rápido: <b>real ↔ invertida</b> e <b>virtual ↔ direita</b> (para objeto real numa lente só).')}
+</div>
+<div class="card">
+  <h3>📸 Casos da lente convergente</h3>
+  <div class="tablewrap"><table class="t">
+    <tr><th>Objeto</th><th>Imagem</th><th>Uso</th></tr>
+    <tr><td>Além de 2F (p &gt; 2f)</td><td>Real, invertida, <b>menor</b></td><td>Câmera, olho</td></tr>
+    <tr><td>Em 2F (p = 2f)</td><td>Real, invertida, <b>igual</b></td><td>—</td></tr>
+    <tr><td>Entre F e 2F</td><td>Real, invertida, <b>maior</b></td><td>Projetor, cinema</td></tr>
+    <tr><td>No foco (p = f)</td><td><b>Imprópria</b> (no infinito)</td><td>Holofote</td></tr>
+    <tr><td>Entre F e a lente</td><td><b>Virtual, direita, maior</b></td><td><b>Lupa</b> 🔍</td></tr>
+  </table></div>
+  <p><b>Divergente:</b> para objeto real, a imagem é <b>sempre virtual, direita e menor</b>. Fácil!</p>
+</div>
+<div class="card">
+  <h3>👓 Vergência (o “grau”)</h3>
+  ${F(`V = ${fr('1', 'f')}`, 'f em METROS → V em dioptrias (di), o famoso “grau”')}
+  <ul>
+    <li>Convergente → V positivo (+). Divergente → V negativo (−).</li>
+    <li>Lentes encostadas (justapostas): V<sub>total</sub> = V₁ + V₂.</li>
+  </ul>
+  ${W('Pegadinhas', `<ul>
+    <li>Na vergência, f <b>tem que estar em metros</b>! f = 20 cm → V = 1/0,2 = 5 di.</li>
+    <li>Na lente divergente, coloque f <b>negativo</b> na equação de Gauss.</li>
+    <li>p' negativo <b>não é erro</b>: significa imagem virtual.</li>
+  </ul>`)}
+</div>`,
+  simIntro: 'Arraste o <b>objeto</b> (a seta rosa) para frente e para trás. Veja quando a imagem vira real, virtual, maior ou menor!',
+  examples: [
+    {
+      q: 'Um objeto de 4 cm está a 30 cm de uma lente convergente de distância focal 20 cm. Encontre a posição, o tamanho e as características da imagem.',
+      steps: [
+        "Gauss: 1/f = 1/p + 1/p' → 1/20 = 1/30 + 1/p'",
+        "1/p' = 1/20 − 1/30 = (3 − 2)/60 = 1/60 → <b>p' = 60 cm</b> (positivo → real)",
+        "Aumento: A = −p'/p = −60/30 = <b>−2</b> (negativo → invertida; |A| = 2 → 2× maior)",
+        'Tamanho: i = A · o = −2 · 4 = <b>−8 cm</b>',
+        'Confere com a tabela: objeto entre F (20) e 2F (40) → real, invertida e maior (projetor) ✔',
+      ],
+      ans: "p' = 60 cm · i = −8 cm · imagem real, invertida e 2× maior",
+    },
+    {
+      q: 'Um objeto está a 15 cm de uma lente divergente de distância focal 10 cm. Ache a imagem e a vergência da lente.',
+      steps: [
+        'Divergente → f = <b>−10 cm</b> (não esqueça o sinal!)',
+        "1/p' = 1/f − 1/p = −1/10 − 1/15 = (−3 − 2)/30 = −5/30 = −1/6 → <b>p' = −6 cm</b> (virtual)",
+        "A = −p'/p = −(−6)/15 = <b>+0,4</b> → direita e menor",
+        'Vergência: f = −0,1 m → V = 1/(−0,1) = <b>−10 di</b>',
+      ],
+      ans: "p' = −6 cm (virtual, direita, menor, A = 0,4) e V = −10 di",
+    },
+  ],
+  quiz: [
+    { q: 'Uma lente convergente tem distância focal de 50 cm. Sua vergência é:', o: ['+0,5 di', '+2 di', '−2 di', '+50 di'], a: 1, e: 'f = 0,5 m → V = 1/0,5 = +2 di (positivo porque é convergente).' },
+    { q: 'A imagem de um objeto real formada por uma lente divergente é sempre:', o: ['Real, invertida e menor', 'Virtual, direita e maior', 'Virtual, direita e menor', 'Real, direita e menor'], a: 2, e: 'Divergente com objeto real: sempre virtual, direita e menor.' },
+    { q: 'Para usar uma lente convergente como lupa, o objeto deve ficar:', o: ['Além de 2F', 'Exatamente em 2F', 'Entre F e 2F', 'Entre o foco e a lente'], a: 3, e: 'Objeto entre F e a lente → imagem virtual, direita e maior: a lupa!' },
+    { q: 'Objeto a 30 cm de uma lente convergente com f = 10 cm. A imagem está a:', o: ['15 cm, real e invertida', '15 cm, virtual e direita', '20 cm, real e invertida', '7,5 cm, virtual'], a: 0, e: "1/p' = 1/10 − 1/30 = 2/30 → p' = 15 cm > 0 → real e invertida (A = −0,5, menor)." },
+    { q: 'Um raio de luz que passa pelo centro óptico de uma lente delgada:', o: ['Sai paralelo ao eixo', 'Passa pelo foco', 'Não sofre desvio', 'Sofre reflexão total'], a: 2, e: 'É o 3º raio notável: pelo centro óptico, passa direto sem desviar.' },
+    { q: "Na equação de Gauss, encontrar p' negativo significa que:", o: ['Errei a conta', 'A imagem é virtual', 'A imagem é real', 'A lente é divergente, com certeza'], a: 1, e: "p' < 0 → imagem virtual (fica do mesmo lado do objeto). Pode acontecer em convergente (lupa) e em divergente." },
+    { q: 'Uma lente de vidro de bordas finas é mergulhada num líquido com índice de refração MAIOR que o do vidro. Ela passa a ser:', o: ['Convergente', 'Divergente', 'Plana, sem efeito', 'Depende da cor'], a: 1, e: 'Se n_lente < n_meio, o comportamento inverte: bordas finas viram divergente.' },
+    { q: 'Num projetor de cinema, a imagem na tela é:', o: ['Virtual, direita e maior', 'Real, invertida e maior', 'Real, direita e menor', 'Virtual, invertida e maior'], a: 1, e: 'Objeto (filme) entre F e 2F → imagem real (projetada!), invertida e maior. Por isso o filme entra de cabeça para baixo.' },
+  ],
+};
+
+/* ================= LIÇÃO 3 — VISÃO ================= */
+LESSONS[3] = {
+  id: 3, world: 1, emoji: '👁️', title: 'Óptica da Visão',
+  sub: 'Olho normal, miopia, hipermetropia e presbiopia',
+  theory: `
+<div class="card">
+  <h3>👁️ O olho é uma câmera</h3>
+  <ul>
+    <li><b>Córnea + cristalino</b> funcionam como uma <b>lente convergente</b>.</li>
+    <li><b>Retina</b> é a “tela” onde a imagem precisa se formar.</li>
+    <li><b>Pupila/íris</b> controlam a quantidade de luz.</li>
+  </ul>
+  <p>A imagem na retina é <b>real, invertida e menor</b> (o cérebro desvira 🧠).</p>
+  <h4>Acomodação visual</h4>
+  <p>Os <b>músculos ciliares</b> mudam a curvatura do cristalino, mudando a distância focal para focar perto ou longe.</p>
+  <ul>
+    <li><b>Ponto remoto (PR)</b>: o mais longe que se vê nítido. Olho normal: <b>infinito</b>.</li>
+    <li><b>Ponto próximo (PP)</b>: o mais perto que se vê nítido. Olho normal: cerca de <b>25 cm</b>.</li>
+  </ul>
+</div>
+<div class="card">
+  <h3>🤓 Os defeitos da visão</h3>
+  <div class="tablewrap"><table class="t">
+    <tr><th>Defeito</th><th>Causa</th><th>Imagem</th><th>Enxerga mal</th><th>Correção</th></tr>
+    <tr><td><b>Miopia</b></td><td>Olho alongado (ou muito convergente)</td><td><b>Antes</b> da retina</td><td>De <b>longe</b></td><td>Lente <b>divergente</b> (−)</td></tr>
+    <tr><td><b>Hipermetropia</b></td><td>Olho curto (ou pouco convergente)</td><td><b>Depois</b> da retina</td><td>De <b>perto</b></td><td>Lente <b>convergente</b> (+)</td></tr>
+    <tr><td><b>Presbiopia</b> (vista cansada)</td><td>Cristalino endurece com a idade → perde acomodação</td><td>Depois da retina (para objetos perto)</td><td>De <b>perto</b></td><td>Lente <b>convergente</b> (+), bifocal ou multifocal</td></tr>
+    <tr><td><b>Astigmatismo</b></td><td>Córnea irregular</td><td>Imagem distorcida</td><td>Perto e longe</td><td>Lente <b>cilíndrica</b></td></tr>
+  </table></div>
+  ${TIP('Míope = <b>M</b>enos (lente negativa, divergente). Vê bem de perto, mal de longe.')}
+</div>
+<div class="card">
+  <h3>🧮 Calculando o grau dos óculos</h3>
+  <h4>Miopia</h4>
+  <p>A lente divergente pega um objeto no infinito e faz a imagem no ponto remoto. Então:</p>
+  ${F(`f = −PR &nbsp;&nbsp;→&nbsp;&nbsp; V = −${fr('1', 'PR')}`, 'PR em metros')}
+  <h4>Hipermetropia (e presbiopia)</h4>
+  <p>A lente convergente pega um objeto a 25 cm e faz a imagem <b>virtual</b> no ponto próximo da pessoa (p' = −PP):</p>
+  ${F(`V = ${fr('1', 'f')} = ${fr('1', '0,25')} − ${fr('1', 'PP')}`, 'PP em metros')}
+  ${W('Pegadinhas', `<ul>
+    <li>Míope <b>vê bem de perto</b>! O problema é de longe.</li>
+    <li>Presbiopia <b>não é</b> por causa do tamanho do olho, é por <b>perda de acomodação</b> (idade).</li>
+    <li>Hipermetropia e presbiopia: mesma lente (convergente), causas <b>diferentes</b>.</li>
+    <li>No cálculo do grau, converta tudo para <b>metros</b>.</li>
+  </ul>`)}
+</div>`,
+  simIntro: 'Escolha o tipo de olho e onde está o objeto. Veja onde a imagem se forma — e coloque os óculos certos para consertar! 🤓',
+  examples: [
+    {
+      q: 'Uma pessoa míope tem ponto remoto a 50 cm. Qual a vergência (o “grau”) da lente que ela deve usar?',
+      steps: [
+        'Miopia → lente divergente com f = −PR',
+        'PR = 50 cm = 0,5 m → f = −0,5 m',
+        'V = 1/f = 1/(−0,5) = <b>−2 di</b>',
+      ],
+      ans: 'V = −2 di (lente divergente, “2 graus de miopia”)',
+    },
+    {
+      q: 'Um hipermetrope tem ponto próximo a 1 m e quer ler um livro a 25 cm. Qual a vergência dos óculos?',
+      steps: [
+        'Objeto (livro) em p = 0,25 m; a lente deve formar a imagem virtual no PP: p\' = −1 m',
+        "Gauss: 1/f = 1/p + 1/p' = 1/0,25 + 1/(−1)",
+        '1/f = 4 − 1 = <b>3 di</b>',
+        'Positivo → lente convergente, f = 1/3 m ≈ 33 cm ✔',
+      ],
+      ans: 'V = +3 di (lente convergente)',
+    },
+  ],
+  quiz: [
+    { q: 'No olho míope, a imagem de um objeto distante se forma:', o: ['Sobre a retina', 'Antes da retina', 'Depois da retina', 'No cristalino'], a: 1, e: 'O olho míope é alongado (ou muito convergente): a imagem fica antes da retina.' },
+    { q: 'A miopia é corrigida com lente:', o: ['Convergente', 'Divergente', 'Cilíndrica', 'Bifocal convergente'], a: 1, e: 'Divergente (grau negativo): “abre” os raios para a imagem ir para a retina.' },
+    { q: 'Sobre a hipermetropia, é correto:', o: ['A imagem se forma antes da retina', 'Corrige-se com lente divergente', 'A pessoa tem dificuldade para ver de perto e corrige com lente convergente', 'É causada pelo envelhecimento do cristalino'], a: 2, e: 'Hipermetropia: olho curto, imagem depois da retina, dificuldade de perto → lente convergente. Envelhecimento é presbiopia.' },
+    { q: 'A presbiopia (vista cansada) é causada por:', o: ['Olho muito alongado', 'Córnea irregular', 'Perda da capacidade de acomodação do cristalino com a idade', 'Excesso de luz'], a: 2, e: 'Com a idade, o cristalino endurece e os músculos ciliares não conseguem mais acomodar para perto.' },
+    { q: 'A imagem formada na retina de um olho normal é:', o: ['Virtual, direita e menor', 'Real, invertida e menor', 'Real, direita e maior', 'Virtual, invertida e menor'], a: 1, e: 'O olho é uma lente convergente com objeto além de 2F: imagem real, invertida e menor (como uma câmera).' },
+    { q: 'Um míope tem ponto remoto a 2 m. A vergência da lente corretora é:', o: ['+2 di', '−2 di', '+0,5 di', '−0,5 di'], a: 3, e: 'f = −PR = −2 m → V = 1/(−2) = −0,5 di.' },
+    { q: 'O ponto próximo de um olho normal (adulto jovem) fica a cerca de:', o: ['2,5 cm', '25 cm', '2,5 m', 'No infinito'], a: 1, e: 'PP ≈ 25 cm. O ponto remoto do olho normal é que fica no infinito.' },
+    { q: 'Uma receita de óculos com grau POSITIVO indica lente:', o: ['Divergente, para miopia', 'Convergente, para hipermetropia ou presbiopia', 'Divergente, para presbiopia', 'Cilíndrica'], a: 1, e: 'V > 0 → convergente → hipermetropia ou presbiopia.' },
+  ],
+};
+
+/* ================= LIÇÃO 4 — MCU ================= */
+LESSONS[4] = {
+  id: 4, world: 2, emoji: '🎠', title: 'Movimento Circular Uniforme',
+  sub: 'Período, frequência, velocidade angular e linear, aceleração centrípeta',
+  theory: `
+<div class="card">
+  <h3>🎠 O que é MCU?</h3>
+  <p>É quando algo gira em uma <b>circunferência</b> com <b>velocidade de módulo constante</b> (sempre o mesmo “velocímetro”). Ex.: ponteiro de relógio, roda-gigante, ventilador ligado.</p>
+  <h4>⏱️ Período e frequência</h4>
+  ${F(`f = ${fr('1', 'T')}`, 'T = tempo de 1 volta (s) · f = voltas por segundo (Hz)')}
+  <ul>
+    <li><b>Hz</b> = voltas por segundo. <b>rpm</b> = voltas por minuto.</li>
+    <li>rpm → Hz: <b>divide por 60</b>. Ex.: 120 rpm = 2 Hz.</li>
+  </ul>
+</div>
+<div class="card">
+  <h3>🌀 Velocidade angular (ω)</h3>
+  <p>Quanto <b>ângulo</b> o corpo varre por segundo (em radianos). Uma volta = 2π rad.</p>
+  ${F(`ω = ${fr('Δφ', 'Δt')} = ${fr('2π', 'T')} = 2πf`, 'unidade: rad/s')}
+  <h3 style="margin-top:16px">🏃 Velocidade linear (v)</h3>
+  <p>A velocidade “de verdade” do corpo, sempre <b>tangente</b> à circunferência.</p>
+  ${F(`v = ${fr('2πR', 'T')} = ω · R`, 'unidade: m/s')}
+  <svg class="mini-svg" viewBox="0 0 220 180" width="220" aria-label="Vetor velocidade tangente e aceleração centrípeta apontando para o centro">
+    <circle cx="100" cy="95" r="65" fill="none" stroke="currentColor" stroke-width="2" opacity=".6"/>
+    <circle cx="100" cy="95" r="3" fill="currentColor"/>
+    <circle cx="165" cy="95" r="8" fill="#ec4899"/>
+    <line x1="165" y1="95" x2="165" y2="30" stroke="#3b82f6" stroke-width="3"/>
+    <polygon points="165,22 159,34 171,34" fill="#3b82f6"/>
+    <line x1="165" y1="95" x2="118" y2="95" stroke="#16a34a" stroke-width="3"/>
+    <polygon points="110,95 122,89 122,101" fill="#16a34a"/>
+    <text x="172" y="45" font-size="13" fill="#3b82f6" font-weight="bold">v</text>
+    <text x="120" y="88" font-size="13" fill="#16a34a" font-weight="bold">a꜀ₚ</text>
+    <text x="70" y="90" font-size="12" fill="currentColor">R</text>
+  </svg>
+</div>
+<div class="card">
+  <h3>🎯 Aceleração centrípeta</h3>
+  <p>Mesmo com velocidade de módulo constante, a <b>direção</b> da velocidade muda o tempo todo. Quem faz isso é a <b>aceleração centrípeta</b>, que aponta sempre <b>para o centro</b>.</p>
+  ${F(`a<sub>cp</sub> = ${fr('v²', 'R')} = ω² · R`, 'unidade: m/s²')}
+  ${W('Pegadinhas', `<ul>
+    <li>MCU <b>tem aceleração</b> (a centrípeta)! O movimento é “uniforme” só no módulo da velocidade. A velocidade (vetor) <b>não</b> é constante.</li>
+    <li>Num mesmo disco, <b>todos os pontos têm o mesmo ω, T e f</b>, mas quem está mais longe do centro tem <b>v maior</b> (v = ωR).</li>
+    <li>Cuidado com rpm: <b>sempre converta para Hz</b> antes de usar ω = 2πf.</li>
+    <li>Dobrou v (mesmo R)? a<sub>cp</sub> fica <b>4 vezes</b> maior (v ao quadrado!).</li>
+  </ul>`)}
+</div>`,
+  simIntro: 'Mexa no raio e na frequência. Repare: a velocidade (azul) é sempre tangente e a aceleração (verde) sempre aponta para o centro!',
+  examples: [
+    {
+      q: 'Uma roda de raio 0,5 m gira a 120 rpm. Calcule f, T, ω, v de um ponto da borda e a aceleração centrípeta. (use π ≈ 3,14)',
+      steps: [
+        'f = 120 rpm ÷ 60 = <b>2 Hz</b> · T = 1/f = <b>0,5 s</b>',
+        'ω = 2πf = 2π · 2 = <b>4π rad/s ≈ 12,6 rad/s</b>',
+        'v = ωR = 4π · 0,5 = <b>2π m/s ≈ 6,28 m/s</b>',
+        'a<sub>cp</sub> = ω²R = (4π)² · 0,5 = 8π² ≈ <b>79 m/s²</b>',
+      ],
+      ans: 'f = 2 Hz · T = 0,5 s · ω = 4π rad/s · v ≈ 6,28 m/s · a꜀ₚ ≈ 79 m/s²',
+    },
+    {
+      q: 'O ponteiro dos segundos de um relógio tem 10 cm. Qual a velocidade angular e a velocidade da ponta?',
+      steps: [
+        'Ele dá 1 volta por minuto: T = 60 s',
+        'ω = 2π/T = 2π/60 = <b>π/30 rad/s ≈ 0,105 rad/s</b>',
+        'R = 10 cm = 0,1 m → v = ωR = (π/30) · 0,1 = π/300 ≈ <b>0,0105 m/s</b> (≈ 1 cm/s)',
+      ],
+      ans: 'ω = π/30 rad/s · v ≈ 1 cm/s',
+    },
+  ],
+  quiz: [
+    { q: 'Um corpo em MCU tem:', o: ['Velocidade vetorial constante e aceleração nula', 'Velocidade de módulo constante e aceleração centrípeta não nula', 'Aceleração tangencial constante', 'Velocidade crescente'], a: 1, e: 'O módulo de v é constante, mas a direção muda → existe aceleração centrípeta.' },
+    { q: '300 rpm correspondem a:', o: ['5 Hz', '50 Hz', '18 000 Hz', '0,2 Hz'], a: 0, e: '300 ÷ 60 = 5 Hz.' },
+    { q: 'Um corpo dá uma volta a cada 0,2 s. Sua frequência é:', o: ['0,2 Hz', '2 Hz', '5 Hz', '20 Hz'], a: 2, e: 'f = 1/T = 1/0,2 = 5 Hz.' },
+    { q: 'Num disco girando, o ponto A está a uma distância R do centro e o ponto B a 2R. Então:', o: ['ωB = 2ωA e vB = vA', 'ωA = ωB e vB = 2vA', 'ωA = ωB e vA = vB', 'ωB = ωA/2 e vB = vA'], a: 1, e: 'Mesmo corpo rígido → mesmo ω. Como v = ωR, quem tem o dobro do raio tem o dobro de v.' },
+    { q: 'Um carrinho faz uma curva circular de raio 5 m a 10 m/s. Sua aceleração centrípeta é:', o: ['2 m/s²', '20 m/s²', '50 m/s²', '500 m/s²'], a: 1, e: 'a = v²/R = 100/5 = 20 m/s².' },
+    { q: 'No MCU, a velocidade linear é sempre:', o: ['Apontada para o centro', 'Tangente à trajetória', 'Nula', 'Apontada para fora'], a: 1, e: 'A velocidade é tangente; a aceleração centrípeta é que aponta para o centro.' },
+    { q: 'Mantendo o raio, se a velocidade linear dobrar, a aceleração centrípeta:', o: ['Dobra', 'Fica igual', 'Quadruplica', 'Cai pela metade'], a: 2, e: 'a = v²/R: (2v)² = 4v² → 4 vezes maior.' },
+    { q: 'Um ventilador gira a 2 Hz. Sua velocidade angular é:', o: ['2 rad/s', 'π rad/s', '2π rad/s', '4π rad/s'], a: 3, e: 'ω = 2πf = 2π · 2 = 4π rad/s.' },
+  ],
+};
+
+/* ================= LIÇÃO 5 — TRANSMISSÃO ================= */
+LESSONS[5] = {
+  id: 5, world: 2, emoji: '⚙️', title: 'Transmissão de MCU',
+  sub: 'Polias, correias, engrenagens e bicicleta',
+  theory: `
+<div class="card">
+  <h3>⚙️ Duas regras para tudo</h3>
+  <h4>1) Mesmo eixo (coaxiais)</h4>
+  <p>Polias presas no <b>mesmo eixo</b> giram juntas:</p>
+  ${F(`ω<sub>A</sub> = ω<sub>B</sub> &nbsp;·&nbsp; f<sub>A</sub> = f<sub>B</sub> &nbsp;·&nbsp; T<sub>A</sub> = T<sub>B</sub>`, 'a velocidade linear é diferente: v = ωR (raio maior → v maior)')}
+  <h4>2) Correia, corrente ou contato (engrenagens)</h4>
+  <p>Os pontos da borda andam juntos, então têm a <b>mesma velocidade linear</b>:</p>
+  ${F(`v<sub>A</sub> = v<sub>B</sub> &nbsp;→&nbsp; ω<sub>A</sub>R<sub>A</sub> = ω<sub>B</sub>R<sub>B</sub> &nbsp;→&nbsp; f<sub>A</sub>R<sub>A</sub> = f<sub>B</sub>R<sub>B</sub>`)}
+  <p>Com engrenagens dá pra usar o <b>número de dentes (N)</b> no lugar do raio: f<sub>A</sub>N<sub>A</sub> = f<sub>B</sub>N<sub>B</sub>.</p>
+  ${TIP('Na correia: <b>a polia menor gira mais rápido</b> (f maior). f e R são inversamente proporcionais.')}
+</div>
+<div class="card">
+  <h3>🔄 Sentido de rotação</h3>
+  <table class="t">
+    <tr><th>Ligação</th><th>Sentido</th></tr>
+    <tr><td>Mesmo eixo</td><td>Mesmo sentido</td></tr>
+    <tr><td>Correia aberta (normal)</td><td>Mesmo sentido</td></tr>
+    <tr><td>Correia cruzada (em X)</td><td><b>Sentidos opostos</b></td></tr>
+    <tr><td>Contato / engrenagens</td><td><b>Sentidos opostos</b></td></tr>
+  </table>
+</div>
+<div class="card">
+  <h3>🚲 A bicicleta</h3>
+  <ol>
+    <li><b>Pedal + coroa</b> (engrenagem da frente): mesmo eixo → mesma f.</li>
+    <li><b>Coroa → catraca</b> (engrenagem de trás) pela corrente → mesma v: f<sub>coroa</sub>·N<sub>coroa</sub> = f<sub>catraca</sub>·N<sub>catraca</sub>.</li>
+    <li><b>Catraca + roda traseira</b>: mesmo eixo → mesma f.</li>
+    <li>Velocidade da bicicleta = velocidade da borda da roda: v = 2π·R<sub>roda</sub>·f<sub>roda</sub>.</li>
+  </ol>
+  ${F(`f<sub>roda</sub> = f<sub>pedal</sub> · ${fr('N<sub>coroa</sub>', 'N<sub>catraca</sub>')}`)}
+  ${TIP('Para ir <b>mais rápido</b> com a mesma pedalada: <b>coroa grande e catraca pequena</b>. Para subir ladeira (mais leve): coroa pequena e catraca grande.')}
+  ${W('Pegadinhas', `<ul>
+    <li>Não misture as regras: <b>eixo → mesmo ω</b>; <b>correia/contato → mesma v</b>.</li>
+    <li>Use as mesmas unidades dos dois lados (pode deixar raio em cm e f em rpm, desde que iguais nos dois lados).</li>
+    <li>Engrenagens em contato giram em <b>sentidos opostos</b>.</li>
+  </ul>`)}
+</div>`,
+  simIntro: 'Escolha o tipo de ligação e mexa nos raios. Veja qual roda gira mais rápido e em que sentido! Teste também a bicicleta 🚲',
+  examples: [
+    {
+      q: 'A polia A (raio 10 cm) gira a 30 rpm e está ligada por uma correia à polia B (raio 5 cm). Qual a frequência de B?',
+      steps: [
+        'Correia → mesma velocidade linear: f<sub>A</sub>·R<sub>A</sub> = f<sub>B</sub>·R<sub>B</sub>',
+        '30 · 10 = f<sub>B</sub> · 5',
+        'f<sub>B</sub> = 300/5 = <b>60 rpm</b> (= 1 Hz)',
+        'Faz sentido: B é a menor, então gira mais rápido. Correia aberta → mesmo sentido.',
+      ],
+      ans: 'f<sub>B</sub> = 60 rpm, mesmo sentido de A',
+    },
+    {
+      q: 'Uma bicicleta tem coroa de 48 dentes, catraca de 16 dentes e roda de raio 0,35 m. A ciclista pedala 1 volta por segundo. Qual a velocidade da bicicleta? (π ≈ 3,14)',
+      steps: [
+        'Pedal e coroa no mesmo eixo: f<sub>coroa</sub> = 1 Hz',
+        'Corrente: f<sub>coroa</sub>·N<sub>coroa</sub> = f<sub>catraca</sub>·N<sub>catraca</sub> → 1 · 48 = f · 16 → <b>f<sub>catraca</sub> = 3 Hz</b>',
+        'Catraca e roda no mesmo eixo: f<sub>roda</sub> = 3 Hz',
+        'v = 2πRf = 2 · 3,14 · 0,35 · 3 ≈ <b>6,6 m/s</b> (≈ 24 km/h)',
+      ],
+      ans: 'v ≈ 6,6 m/s ≈ 24 km/h',
+    },
+  ],
+  quiz: [
+    { q: 'Duas polias presas no mesmo eixo (coaxiais) têm sempre igual:', o: ['Velocidade linear', 'Raio', 'Velocidade angular', 'Aceleração centrípeta'], a: 2, e: 'Mesmo eixo → mesmo ω (e mesma f e T).' },
+    { q: 'Duas polias ligadas por uma correia (sem deslizar) têm igual:', o: ['Velocidade angular', 'Frequência', 'Velocidade linear na borda', 'Período'], a: 2, e: 'A correia leva as bordas juntas: mesma velocidade linear v.' },
+    { q: 'A engrenagem A (20 dentes) gira a 60 rpm e está engrenada com B (60 dentes). B gira a:', o: ['180 rpm, mesmo sentido', '20 rpm, sentido oposto', '20 rpm, mesmo sentido', '60 rpm, sentido oposto'], a: 1, e: 'f_A·N_A = f_B·N_B → 60·20 = f_B·60 → f_B = 20 rpm. Contato → sentidos opostos.' },
+    { q: 'Duas polias ligadas por uma correia CRUZADA giram:', o: ['No mesmo sentido', 'Em sentidos opostos', 'Com a mesma frequência sempre', 'Não giram'], a: 1, e: 'Correia cruzada (em X) inverte o sentido.' },
+    { q: 'Para uma bicicleta andar mais rápido com a MESMA pedalada, deve-se usar:', o: ['Coroa pequena e catraca grande', 'Coroa grande e catraca pequena', 'Coroa e catraca iguais', 'Tanto faz'], a: 1, e: 'f_roda = f_pedal · N_coroa/N_catraca: coroa grande e catraca pequena aumentam f da roda.' },
+    { q: 'Numa transmissão por correia, a polia de MENOR raio:', o: ['Gira com frequência menor', 'Gira com frequência maior', 'Tem velocidade linear maior', 'Tem velocidade linear menor'], a: 1, e: 'Mesma v; como v = 2πRf, raio menor → f maior.' },
+    { q: 'Duas polias coaxiais têm raios 10 cm e 30 cm. Um ponto da borda da menor tem v = 2 m/s. Na borda da maior, v vale:', o: ['2 m/s', '6 m/s', '0,67 m/s', '20 m/s'], a: 1, e: 'Mesmo ω → v proporcional ao raio: 2 · (30/10) = 6 m/s.' },
+  ],
+};
+
+/* ================= LIÇÃO 6 — DINÂMICA CURVILÍNEA ================= */
+LESSONS[6] = {
+  id: 6, world: 2, emoji: '🎢', title: 'Dinâmica do Movimento Curvilíneo',
+  sub: 'Força centrípeta: curvas, lombadas, looping e mais',
+  theory: `
+<div class="card">
+  <h3>🎢 Força centrípeta</h3>
+  <p>Para fazer curva, precisa de uma <b>força resultante apontando para o centro</b>. Ela é chamada de <b>resultante centrípeta</b>:</p>
+  ${F(`F<sub>cp</sub> = m · ${fr('v²', 'R')} = m · ω² · R`)}
+  ${W('A pegadinha nº 1', '<p>A força centrípeta <b>NÃO é uma força nova</b>! Ela é a <b>resultante</b> de forças que já existem (atrito, normal, peso, tração…). <b>Nunca</b> desenhe “F<sub>cp</sub>” como mais uma seta no diagrama.</p>')}
+  ${TIP('Receita: (1) desenhe as forças; (2) escolha o sentido <b>para o centro como positivo</b>; (3) some: (forças para o centro) − (forças para fora) = mv²/R.')}
+</div>
+<div class="card">
+  <h3>📚 Os 8 casos clássicos</h3>
+  <div class="tablewrap"><table class="t">
+    <tr><th>Situação</th><th>Equação</th><th>Resultado importante</th></tr>
+    <tr><td>1. <b>Curva plana</b> (carro)</td><td>F<sub>at</sub> = mv²/R</td><td>v<sub>máx</sub> = ${rt('μgR')}</td></tr>
+    <tr><td>2. <b>Curva inclinada</b> (sem atrito)</td><td>tg θ = v²/(Rg)</td><td>v = ${rt('Rg·tg θ')}</td></tr>
+    <tr><td>3. <b>Topo da lombada</b></td><td>P − N = mv²/R</td><td>N &lt; P · perde contato se v ≥ ${rt('gR')}</td></tr>
+    <tr><td>4. <b>Fundo da depressão</b></td><td>N − P = mv²/R</td><td>N &gt; P (sente-se mais “pesado”)</td></tr>
+    <tr><td>5. <b>Topo do looping</b> (por dentro)</td><td>N + P = mv²/R</td><td>v<sub>mín</sub> = ${rt('gR')} (quando N = 0)</td></tr>
+    <tr><td>6. <b>Fio na vertical</b> (pedra girando)</td><td>Embaixo: T − P = mv²/R<br>Em cima: T + P = mv²/R</td><td>Tração máxima no ponto mais baixo</td></tr>
+    <tr><td>7. <b>Rotor</b> (parede giratória)</td><td>N = mv²/R e F<sub>at</sub> = P</td><td>μ<sub>mín</sub> = gR/v²</td></tr>
+    <tr><td>8. <b>Pêndulo cônico</b></td><td>tg θ = v²/(Rg)</td><td>T = P / cos θ</td></tr>
+  </table></div>
+  ${TIP('Massa some em vários casos! Em v<sub>máx</sub> = √(μgR) e v<sub>mín</sub> = √(gR), <b>não depende da massa</b>.')}
+</div>
+<div class="card">
+  <h3>🤔 Entendendo cada caso</h3>
+  <h4>🚗 Curva plana</h4>
+  <p>Quem segura o carro na curva é o <b>atrito</b> (lateral, para o centro). Se v passar de √(μgR), o atrito não dá conta → <b>derrapa</b> (pista molhada = μ menor = v<sub>máx</sub> menor).</p>
+  <h4>🛣️ Curva inclinada (compensada)</h4>
+  <p>A <b>componente horizontal da normal</b> faz o papel de centrípeta. Por isso estradas e pistas de corrida são inclinadas nas curvas.</p>
+  <h4>⛰️ Lombada × 🕳️ Depressão</h4>
+  <p>No topo da lombada o centro está <b>embaixo</b>: o peso “ajuda”, N diminui (frio na barriga 😆). No fundo da depressão o centro está <b>em cima</b>: N aumenta.</p>
+  <h4>🎢 Looping / globo da morte</h4>
+  <p>No topo, peso e normal apontam para baixo (para o centro). Velocidade mínima quando N = 0: só o peso faz a curva → mg = mv²/R → v = √(gR).</p>
+  <h4>🌀 Rotor</h4>
+  <p>A parede empurra a pessoa para o centro (normal = centrípeta) e o <b>atrito</b> segura o peso para ela não escorregar.</p>
+  ${W('Pegadinhas', `<ul>
+    <li>Não existe “força centrífuga” no referencial de quem está de fora (inercial). O que sentimos é a <b>inércia</b>.</li>
+    <li>Use <b>v em m/s</b>! Divida km/h por 3,6.</li>
+    <li>Topo da lombada: <b>P − N</b>. Fundo: <b>N − P</b>. A força que aponta para o centro vem primeiro.</li>
+  </ul>`)}
+</div>`,
+  simIntro: 'Escolha a situação, mexa na velocidade e no raio, e veja as forças mudando. Tente fazer o carro derrapar ou voar da lombada! 🚗💨',
+  examples: [
+    {
+      q: 'Um carro de 1000 kg passa pelo topo de uma lombada de raio 40 m a 10 m/s. (a) Qual a normal? (b) Qual a velocidade máxima para não perder contato? (g = 10 m/s²)',
+      steps: [
+        'No topo, o centro está embaixo: P − N = mv²/R',
+        'N = m(g − v²/R) = 1000 · (10 − 100/40) = 1000 · 7,5 = <b>7 500 N</b> (menor que P = 10 000 N)',
+        '(b) Perde contato quando N = 0: mg = mv²/R → v = √(gR) = √(10·40) = √400 = <b>20 m/s</b> (72 km/h)',
+      ],
+      ans: 'N = 7 500 N · v<sub>máx</sub> = 20 m/s',
+    },
+    {
+      q: 'Uma curva plana tem raio 50 m e coeficiente de atrito 0,5. Qual a velocidade máxima para o carro não derrapar? (g = 10 m/s²)',
+      steps: [
+        'O atrito é a resultante centrípeta: μmg = mv²/R',
+        'A massa cancela: v² = μgR = 0,5 · 10 · 50 = 250',
+        'v = √250 ≈ <b>15,8 m/s</b> ≈ 57 km/h',
+      ],
+      ans: 'v<sub>máx</sub> ≈ 15,8 m/s ≈ 57 km/h',
+    },
+    {
+      q: 'Num globo da morte de raio 3,6 m, qual a menor velocidade que a moto deve ter no ponto mais alto? (g = 10 m/s²)',
+      steps: [
+        'No topo: N + P = mv²/R. A velocidade mínima é quando N = 0',
+        'mg = mv²/R → v = √(gR) = √(10 · 3,6) = √36',
+        'v<sub>mín</sub> = <b>6 m/s</b> (≈ 21,6 km/h)',
+      ],
+      ans: 'v<sub>mín</sub> = 6 m/s',
+    },
+  ],
+  quiz: [
+    { q: 'A força centrípeta é:', o: ['Uma força a mais que surge em toda curva', 'A resultante das forças na direção do centro', 'A força que empurra o corpo para fora', 'Sempre igual ao peso'], a: 1, e: 'Não é força nova: é a resultante (soma) das forças reais na direção radial.' },
+    { q: 'No topo de uma lombada, a força normal sobre o carro é:', o: ['Maior que o peso', 'Igual ao peso', 'Menor que o peso', 'Sempre zero'], a: 2, e: 'P − N = mv²/R > 0 → N < P.' },
+    { q: 'No fundo de uma depressão (valeta), a força normal é:', o: ['Maior que o peso', 'Igual ao peso', 'Menor que o peso', 'Zero'], a: 0, e: 'N − P = mv²/R → N = P + mv²/R > P.' },
+    { q: 'A velocidade mínima no topo de um looping de raio 2,5 m é: (g = 10 m/s²)', o: ['2,5 m/s', '5 m/s', '25 m/s', '10 m/s'], a: 1, e: 'v = √(gR) = √25 = 5 m/s.' },
+    { q: 'Numa curva plana e horizontal, a força que faz o papel de resultante centrípeta sobre o carro é:', o: ['O peso', 'A normal', 'O atrito', 'A força centrífuga'], a: 2, e: 'O atrito lateral entre pneus e pista aponta para o centro da curva.' },
+    { q: 'Velocidade máxima numa curva plana de raio 80 m com μ = 0,5: (g = 10 m/s²)', o: ['20 m/s', '40 m/s', '400 m/s', '10 m/s'], a: 0, e: 'v = √(μgR) = √(0,5·10·80) = √400 = 20 m/s.' },
+    { q: 'Um carro de 800 kg faz uma curva de raio 100 m a 20 m/s. A resultante centrípeta vale:', o: ['160 N', '1 600 N', '3 200 N', '16 000 N'], a: 2, e: 'F = mv²/R = 800 · 400/100 = 3 200 N.' },
+    { q: 'Uma pedra presa a um fio gira num plano vertical. No ponto MAIS BAIXO:', o: ['T = P', 'T < P', 'T − P = mv²/R, então T > P', 'T + P = mv²/R'], a: 2, e: 'No ponto mais baixo o centro está acima: T − P = mv²/R → T > P. É onde o fio mais corre risco de arrebentar.' },
+  ],
+};
+
+/* ================= FLASHCARDS ================= */
+const FLASHCARDS = [
+  { t: 'Refração', f: 'Índice de refração', b: `n = ${fr('c', 'v')}<br><small>c = 3×10⁸ m/s · n ≥ 1 · sem unidade</small>` },
+  { t: 'Refração', f: 'Lei de Snell', b: 'n₁ · sen θ₁ = n₂ · sen θ₂<br><small>ângulos medidos com a NORMAL</small>' },
+  { t: 'Refração', f: 'Indo para meio MAIS refringente, o raio…', b: '…se <b>aproxima</b> da normal<br><small>(n maior ↔ ângulo menor)</small>' },
+  { t: 'Refração', f: 'O que NÃO muda na refração?', b: 'A <b>frequência</b> (e a cor)<br><small>v e λ mudam juntos</small>' },
+  { t: 'Refração', f: 'Ângulo limite', b: `sen L = ${fr('n<sub>menor</sub>', 'n<sub>maior</sub>')}` },
+  { t: 'Refração', f: 'Condições da reflexão total', b: '1) do meio MAIS → MENOS refringente<br>2) θ₁ &gt; L' },
+  { t: 'Refração', f: 'Cor que mais desvia no prisma', b: '<b>Violeta</b> (maior n, mais lenta no vidro)<br><small>vermelho desvia menos</small>' },
+  { t: 'Lentes', f: 'Equação de Gauss', b: `${fr('1', 'f')} = ${fr('1', 'p')} + ${fr('1', "p'")}` },
+  { t: 'Lentes', f: 'Aumento linear', b: `A = ${fr('i', 'o')} = −${fr("p'", 'p')}` },
+  { t: 'Lentes', f: 'Sinais: f, p\' e A', b: "f&gt;0 convergente · f&lt;0 divergente<br>p'&gt;0 real · p'&lt;0 virtual<br>A&gt;0 direita · A&lt;0 invertida" },
+  { t: 'Lentes', f: 'Vergência', b: `V = ${fr('1', 'f')}<br><small>f em METROS → V em dioptrias (di)</small>` },
+  { t: 'Lentes', f: 'Imagem na lente divergente', b: 'Sempre <b>virtual, direita e menor</b>' },
+  { t: 'Lentes', f: 'Lupa: onde fica o objeto?', b: 'Entre o <b>foco e a lente</b> (convergente)<br><small>imagem virtual, direita, maior</small>' },
+  { t: 'Visão', f: 'Miopia', b: 'Imagem <b>antes</b> da retina · vê mal de <b>longe</b><br>Lente <b>divergente</b> · V = −1/PR' },
+  { t: 'Visão', f: 'Hipermetropia', b: 'Imagem <b>depois</b> da retina · vê mal de <b>perto</b><br>Lente <b>convergente</b> · V = 1/0,25 − 1/PP' },
+  { t: 'Visão', f: 'Presbiopia', b: 'Perda de <b>acomodação</b> (idade)<br>Vê mal de perto · lente <b>convergente</b>' },
+  { t: 'MCU', f: 'Período e frequência', b: `f = ${fr('1', 'T')}<br><small>rpm ÷ 60 = Hz</small>` },
+  { t: 'MCU', f: 'Velocidade angular', b: `ω = ${fr('2π', 'T')} = 2πf<br><small>rad/s</small>` },
+  { t: 'MCU', f: 'Velocidade linear', b: `v = ωR = ${fr('2πR', 'T')}` },
+  { t: 'MCU', f: 'Aceleração centrípeta', b: `a<sub>cp</sub> = ${fr('v²', 'R')} = ω²R<br><small>sempre para o centro</small>` },
+  { t: 'Transmissão', f: 'Polias no mesmo eixo', b: 'Mesmo <b>ω</b> (e mesma f, T)<br><small>v diferente: v = ωR</small>' },
+  { t: 'Transmissão', f: 'Correia / engrenagem', b: 'Mesma <b>v</b>: f<sub>A</sub>R<sub>A</sub> = f<sub>B</sub>R<sub>B</sub><br><small>ou f·N (dentes)</small>' },
+  { t: 'Transmissão', f: 'Sentido de rotação', b: 'Eixo e correia aberta: <b>mesmo</b><br>Correia cruzada e engrenagens: <b>oposto</b>' },
+  { t: 'Dinâmica', f: 'Resultante centrípeta', b: `F<sub>cp</sub> = m${fr('v²', 'R')}<br><small>não é força nova — é a RESULTANTE</small>` },
+  { t: 'Dinâmica', f: 'Curva plana: v máxima', b: `v<sub>máx</sub> = ${rt('μgR')}` },
+  { t: 'Dinâmica', f: 'Topo da lombada', b: `P − N = m${fr('v²', 'R')}<br><small>perde contato se v ≥ √(gR)</small>` },
+  { t: 'Dinâmica', f: 'Fundo da depressão', b: `N − P = m${fr('v²', 'R')}<br><small>N &gt; P</small>` },
+  { t: 'Dinâmica', f: 'Looping: v mínima no topo', b: `v<sub>mín</sub> = ${rt('gR')}<br><small>(N = 0, só o peso faz a curva)</small>` },
+];
+
+/* ================= RESUMÃO ================= */
+const RESUMO = `
+<div class="card rs">
+  <h3>🌈 Refração</h3>
+  ${F(`n = ${fr('c', 'v')} &nbsp;&nbsp;|&nbsp;&nbsp; n₁ sen θ₁ = n₂ sen θ₂ &nbsp;&nbsp;|&nbsp;&nbsp; sen L = ${fr('n<sub>menor</sub>', 'n<sub>maior</sub>')}`)}
+  <ul>
+    <li>n maior → luz mais lenta → raio mais perto da normal.</li>
+    <li>Frequência <b>não muda</b>; v e λ mudam.</li>
+    <li>Reflexão total: mais → menos refringente <b>e</b> θ₁ &gt; L (fibra óptica, diamante).</li>
+    <li>Dispersão: violeta desvia mais, vermelho menos.</li>
+    <li>Dioptro: h'/h = n<sub>obs</sub>/n<sub>obj</sub> → piscina parece mais rasa.</li>
+  </ul>
+</div>
+<div class="card rs">
+  <h3>🔍 Lentes</h3>
+  ${F(`${fr('1', 'f')} = ${fr('1', 'p')} + ${fr('1', "p'")} &nbsp;&nbsp;|&nbsp;&nbsp; A = ${fr('i', 'o')} = −${fr("p'", 'p')} &nbsp;&nbsp;|&nbsp;&nbsp; V = ${fr('1', 'f (m)')}`)}
+  <table class="t">
+    <tr><td><b>+</b></td><td>f: convergente · p': real · A: direita</td></tr>
+    <tr><td><b>−</b></td><td>f: divergente · p': virtual · A: invertida</td></tr>
+  </table>
+  <ul>
+    <li>Raios notáveis: paralelo → foco · foco → paralelo · centro → reto.</li>
+    <li>Convergente: p &gt; 2f câmera (menor) · entre f e 2f projetor (maior) · p &lt; f lupa (virtual).</li>
+    <li>Divergente: sempre virtual, direita, menor.</li>
+  </ul>
+</div>
+<div class="card rs">
+  <h3>👁️ Visão</h3>
+  <table class="t">
+    <tr><th>Defeito</th><th>Imagem</th><th>Lente</th><th>Grau</th></tr>
+    <tr><td>Miopia</td><td>antes da retina</td><td>divergente</td><td>V = −1/PR</td></tr>
+    <tr><td>Hipermetropia</td><td>depois da retina</td><td>convergente</td><td>V = 1/0,25 − 1/PP</td></tr>
+    <tr><td>Presbiopia</td><td>perde acomodação</td><td>convergente</td><td>idem hiper.</td></tr>
+    <tr><td>Astigmatismo</td><td>córnea irregular</td><td>cilíndrica</td><td>—</td></tr>
+  </table>
+  <p>Olho normal: PP ≈ 25 cm, PR = ∞. Imagem na retina: real, invertida, menor.</p>
+</div>
+<div class="card rs">
+  <h3>🎠 MCU</h3>
+  ${F(`f = ${fr('1', 'T')} &nbsp;|&nbsp; ω = ${fr('2π', 'T')} = 2πf &nbsp;|&nbsp; v = ωR &nbsp;|&nbsp; a<sub>cp</sub> = ${fr('v²', 'R')} = ω²R`)}
+  <ul>
+    <li>rpm ÷ 60 = Hz.</li>
+    <li>MCU <b>tem aceleração</b> (centrípeta). v tangente, a<sub>cp</sub> para o centro.</li>
+    <li>Mesmo disco: mesmo ω, v maior quanto maior o raio.</li>
+  </ul>
+</div>
+<div class="card rs">
+  <h3>⚙️ Transmissão</h3>
+  <ul>
+    <li><b>Mesmo eixo</b>: ω<sub>A</sub> = ω<sub>B</sub> (mesmo sentido).</li>
+    <li><b>Correia/contato</b>: v<sub>A</sub> = v<sub>B</sub> → f<sub>A</sub>R<sub>A</sub> = f<sub>B</sub>R<sub>B</sub> (ou dentes).</li>
+    <li>Engrenagem e correia cruzada: sentidos <b>opostos</b>.</li>
+    <li>Bicicleta: f<sub>roda</sub> = f<sub>pedal</sub>·N<sub>coroa</sub>/N<sub>catraca</sub> e v = 2πR<sub>roda</sub>f<sub>roda</sub>.</li>
+  </ul>
+</div>
+<div class="card rs">
+  <h3>🎢 Dinâmica curvilínea</h3>
+  ${F(`F<sub>cp</sub> = m${fr('v²', 'R')} = mω²R`, 'resultante para o centro (para o centro = positivo)')}
+  <div class="tablewrap"><table class="t">
+    <tr><td>Curva plana</td><td>F<sub>at</sub> = mv²/R · v<sub>máx</sub> = √(μgR)</td></tr>
+    <tr><td>Curva inclinada</td><td>tg θ = v²/(Rg)</td></tr>
+    <tr><td>Topo lombada</td><td>P − N = mv²/R · voa se v ≥ √(gR)</td></tr>
+    <tr><td>Fundo depressão</td><td>N − P = mv²/R</td></tr>
+    <tr><td>Topo looping</td><td>N + P = mv²/R · v<sub>mín</sub> = √(gR)</td></tr>
+    <tr><td>Fio vertical</td><td>baixo: T − P · alto: T + P (= mv²/R)</td></tr>
+    <tr><td>Rotor</td><td>N = mv²/R · F<sub>at</sub> = P · μ<sub>mín</sub> = gR/v²</td></tr>
+    <tr><td>Pêndulo cônico</td><td>tg θ = v²/(Rg) · T = P/cos θ</td></tr>
+  </table></div>
+  <p>⚠️ km/h ÷ 3,6 = m/s · centrípeta não é força nova!</p>
+</div>`;
+
+/* ================= SIMULADO (15) ================= */
+const SIMULADO = [
+  { q: 'Num certo meio, a luz viaja a 1,5×10⁸ m/s. O índice de refração desse meio é: (c = 3×10⁸ m/s)', o: ['0,5', '1,5', '2', '4,5'], a: 2, e: 'n = c/v = 3/1,5 = 2.' },
+  { q: 'Um raio sai de um vidro (n = 1,5) para o ar com incidência de 30°. O seno do ângulo de refração vale:', o: ['0,33', '0,5', '0,75', '1,5 (reflexão total)'], a: 2, e: '1,5 · sen 30° = 1 · sen θ₂ → sen θ₂ = 1,5 · 0,5 = 0,75 (θ₂ ≈ 48,6°). Como 0,75 < 1, há refração.' },
+  { q: 'O funcionamento da fibra óptica se baseia em:', o: ['Dispersão', 'Reflexão total', 'Difração', 'Refração com incidência normal'], a: 1, e: 'A luz fica “presa” no núcleo por sucessivas reflexões totais.' },
+  { q: 'Um objeto é colocado exatamente no foco de uma lente convergente. A imagem é:', o: ['Real e igual', 'Virtual e maior', 'Imprópria (no infinito)', 'Real e menor'], a: 2, e: "1/p' = 1/f − 1/f = 0 → p' → ∞: imagem imprópria. Os raios saem paralelos." },
+  { q: 'Uma lente tem vergência de −4 di. Ela é:', o: ['Convergente com f = 25 cm', 'Divergente com f = −25 cm', 'Divergente com f = −4 m', 'Convergente com f = 4 cm'], a: 1, e: 'V negativo → divergente. f = 1/V = −0,25 m = −25 cm.' },
+  { q: 'A imagem formada pela lente de uma câmera fotográfica é:', o: ['Real, invertida e menor', 'Virtual, direita e menor', 'Real, direita e maior', 'Virtual, invertida e maior'], a: 0, e: 'Objeto distante (além de 2F) → real, invertida e menor no sensor.' },
+  { q: 'Um objeto está a 10 cm de uma lente convergente de f = 15 cm. A imagem é:', o: ['Real, a 30 cm, invertida', 'Virtual, a 30 cm, direita e 3× maior', 'Virtual, a 6 cm, direita e menor', 'Real, a 6 cm, invertida'], a: 1, e: "1/p' = 1/15 − 1/10 = −1/30 → p' = −30 cm (virtual). A = −(−30)/10 = 3 → direita e 3× maior (lupa!)." },
+  { q: 'Um míope tem ponto remoto a 40 cm. A vergência da lente corretora é:', o: ['+2,5 di', '−2,5 di', '−0,4 di', '−40 di'], a: 1, e: 'f = −0,4 m → V = 1/(−0,4) = −2,5 di.' },
+  { q: 'A presbiopia é corrigida com lente:', o: ['Divergente', 'Convergente', 'Cilíndrica', 'Plana'], a: 1, e: 'A dificuldade é de perto (perda de acomodação) → convergente.' },
+  { q: 'A hélice de um ventilador gira a 1 200 rpm. Seu período é:', o: ['20 s', '0,05 s', '0,5 s', '1 200 s'], a: 1, e: 'f = 1200/60 = 20 Hz → T = 1/20 = 0,05 s.' },
+  { q: 'Um corpo em MCU de raio 2 m tem período π s. Sua aceleração centrípeta vale:', o: ['2 m/s²', '4 m/s²', '8 m/s²', '16 m/s²'], a: 2, e: 'v = 2πR/T = 2π·2/π = 4 m/s → a = v²/R = 16/2 = 8 m/s².' },
+  { q: 'A engrenagem A (raio 6 cm) gira a 40 rpm e aciona B (raio 12 cm) por contato. B gira a:', o: ['80 rpm, mesmo sentido', '20 rpm, sentido oposto', '20 rpm, mesmo sentido', '80 rpm, sentido oposto'], a: 1, e: 'f_A R_A = f_B R_B → 40·6 = f_B·12 → f_B = 20 rpm. Contato → sentidos opostos.' },
+  { q: 'Na bicicleta, o pedal e a coroa têm a mesma:', o: ['Velocidade linear', 'Velocidade angular', 'Quantidade de dentes', 'Velocidade da corrente'], a: 1, e: 'Estão no mesmo eixo → mesma velocidade angular.' },
+  { q: 'Num looping de raio 3,6 m, a velocidade mínima no topo é: (g = 10 m/s²)', o: ['3,6 m/s', '6 m/s', '36 m/s', '12 m/s'], a: 1, e: 'v = √(gR) = √36 = 6 m/s.' },
+  { q: 'Um carro de 1 200 kg passa a 10 m/s pelo fundo de uma depressão de raio 50 m. A normal vale: (g = 10 m/s²)', o: ['9 600 N', '12 000 N', '14 400 N', '2 400 N'], a: 2, e: 'N − P = mv²/R → N = 12 000 + 1200·100/50 = 12 000 + 2 400 = 14 400 N.' },
+];
+
+/* ================= CHECKLIST ================= */
+const CHECKLIST_DEFAULT = [
+  { id: 'd1', g: 'Prof. Luiz — Óptica', t: 'Reler a teoria do livro: Refração (Snell, ângulo limite, dispersão)' },
+  { id: 'd2', g: 'Prof. Luiz — Óptica', t: 'Fazer as questões do livro de Refração' },
+  { id: 'd3', g: 'Prof. Luiz — Óptica', t: 'Reler a teoria do livro: Lentes (raios notáveis, Gauss, vergência)' },
+  { id: 'd4', g: 'Prof. Luiz — Óptica', t: 'Fazer as questões do livro de Lentes' },
+  { id: 'd5', g: 'Prof. Luiz — Óptica', t: 'Reler a teoria do livro: Óptica da Visão' },
+  { id: 'd6', g: 'Prof. Luiz — Óptica', t: 'Fazer as questões do livro de Visão' },
+  { id: 'd7', g: 'Prof. Héric — Movimento Circular', t: 'Reler a teoria do livro: MCU' },
+  { id: 'd8', g: 'Prof. Héric — Movimento Circular', t: 'Fazer as questões do livro de MCU' },
+  { id: 'd9', g: 'Prof. Héric — Movimento Circular', t: 'Reler a teoria do livro: Transmissão de MCU' },
+  { id: 'd10', g: 'Prof. Héric — Movimento Circular', t: 'Fazer as questões do livro de Transmissão' },
+  { id: 'd11', g: 'Prof. Héric — Movimento Circular', t: 'Reler a teoria do livro: Dinâmica do movimento curvilíneo' },
+  { id: 'd12', g: 'Prof. Héric — Movimento Circular', t: 'Fazer as questões do livro de Dinâmica curvilínea' },
+  { id: 'd13', g: 'Reta final', t: 'Revisar o Resumão de última hora 📝' },
+  { id: 'd14', g: 'Reta final', t: 'Fazer o Simulado final 🏆' },
+  { id: 'd15', g: 'Reta final', t: 'Separar caneta, lápis, borracha e calculadora (se permitida) ✏️' },
+  { id: 'd16', g: 'Reta final', t: 'Dormir cedo — cérebro descansado rende muito mais 😴' },
+];
+
+/* ================= MENSAGENS ================= */
+const MSG_OK = [
+  'Isso aí, princesinha! 👑✨', 'Arrasou! 💖', 'Mandou muito bem, princesinha! 🌟', 'Certíssimo! Tá voando! 🚀',
+  'Que orgulho! 🥰', 'Física quem? Você domina! 💪', 'Perfeita! 💅', 'Acertou de novo! 🎉',
+];
+const MSG_ERR = [
+  'Quase, princesinha! Lê a explicação que agora vai 💕', 'Errar faz parte — melhor aqui do que na prova 😉',
+  'Tranquila! Essa é pegadinha clássica 💡', 'Respira e bora pra próxima, você consegue! 🌸',
+];
+const MSG_HOME = [
+  'Você é mais capaz do que imagina 💖', 'Um passinho de cada vez e a prova vai ser tranquila ✨',
+  'Estudar com carinho rende mais 🌷', 'Amanhã você vai arrasar! 👑', 'Cada lição concluída é uma estrela a mais ⭐',
+];
+
+/* ================= ESTADO (localStorage) ================= */
+const STORE_KEY = 'fisica-princesinha-v1';
+const DEFAULT_STATE = () => ({ steps: {}, quiz: {}, simulado: null, theme: null, checklist: { done: {}, custom: [] } });
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return DEFAULT_STATE();
+    const s = Object.assign(DEFAULT_STATE(), JSON.parse(raw));
+    s.checklist = Object.assign({ done: {}, custom: [] }, s.checklist || {});
+    return s;
+  } catch (e) { return DEFAULT_STATE(); }
+}
+let S = loadState();
+function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) { /* sem storage: segue sem salvar */ } }
+
+const STEP_KEYS = ['teoria', 'sim', 'exemplos'];
+function stepDone(id, k) { return !!(S.steps[id] && S.steps[id][k]); }
+function markStep(id, k) {
+  if (stepDone(id, k)) return false;
+  S.steps[id] = S.steps[id] || {};
+  S.steps[id][k] = true;
+  save(); updateTop();
+  return true;
+}
+function quizStars(id) {
+  const q = S.quiz[id];
+  if (!q) return 0;
+  const r = q.best / q.total;
+  return r >= 0.9 ? 3 : r >= 0.7 ? 2 : r >= 0.5 ? 1 : 0;
+}
+function lessonProgress(id) {
+  let n = STEP_KEYS.filter(k => stepDone(id, k)).length;
+  if (S.quiz[id]) n++;
+  return n / 4;
+}
+function totalXP() {
+  let xp = 0;
+  for (const id in LESSONS) {
+    xp += STEP_KEYS.filter(k => stepDone(id, k)).length * 20;
+    if (S.quiz[id]) xp += S.quiz[id].best * 10;
+  }
+  if (S.simulado) xp += S.simulado.best * 10;
+  xp += Object.values(S.checklist.done).filter(Boolean).length * 5;
+  return xp;
+}
+function totalStars() { return Object.keys(LESSONS).reduce((a, id) => a + quizStars(id), 0); }
+function overallProgress() {
+  const ids = Object.keys(LESSONS);
+  return ids.reduce((a, id) => a + lessonProgress(id), 0) / ids.length;
+}
+
+/* ================= UTILIDADES ================= */
+const $ = (sel, root = document) => root.querySelector(sel);
+const app = $('#app');
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const starStr = n => '⭐'.repeat(n) + '☆'.repeat(3 - n);
+const fmt = (x, d = 2) => (Math.round(x * 10 ** d) / 10 ** d).toLocaleString('pt-BR', { maximumFractionDigits: d });
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+let toastTimer;
+function toast(msg, ms = 2400) {
+  const t = $('#toast');
+  t.innerHTML = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), ms);
+}
+
+/* confete */
+const confettiCv = $('#confetti');
+let confettiParts = [], confettiRAF = null;
+function confetti(n = 120) {
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const dpr = window.devicePixelRatio || 1;
+  confettiCv.width = innerWidth * dpr; confettiCv.height = innerHeight * dpr;
+  confettiCv.style.width = innerWidth + 'px'; confettiCv.style.height = innerHeight + 'px';
+  const colors = ['#ec4899', '#8b5cf6', '#f9a8d4', '#facc15', '#60a5fa', '#34d399', '#fb923c'];
+  for (let i = 0; i < n; i++) {
+    confettiParts.push({
+      x: innerWidth / 2 + (Math.random() - 0.5) * innerWidth * 0.4, y: innerHeight * 0.35,
+      vx: (Math.random() - 0.5) * 12, vy: -Math.random() * 13 - 4, r: Math.random() * 6 + 4,
+      c: pick(colors), a: Math.random() * 6, va: (Math.random() - 0.5) * 0.3, heart: Math.random() < 0.18, life: 0,
+    });
+  }
+  if (!confettiRAF) confettiRAF = requestAnimationFrame(confettiStep);
+}
+function confettiStep() {
+  const ctx = confettiCv.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  confettiParts.forEach(p => {
+    p.vy += 0.32; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.a += p.va; p.life++;
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = p.c;
+    if (p.heart) { ctx.font = `${p.r * 3}px sans-serif`; ctx.fillText('💖', -p.r, p.r); }
+    else ctx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2);
+    ctx.restore();
+  });
+  confettiParts = confettiParts.filter(p => p.y < innerHeight + 40 && p.life < 400);
+  if (confettiParts.length) confettiRAF = requestAnimationFrame(confettiStep);
+  else { ctx.clearRect(0, 0, innerWidth, innerHeight); confettiRAF = null; }
+}
+
+/* tema */
+function applyTheme() {
+  if (S.theme) document.documentElement.setAttribute('data-theme', S.theme);
+  else document.documentElement.removeAttribute('data-theme');
+  $('#themeBtn').textContent = isDark() ? '☀️' : '🌙';
+}
+function isDark() {
+  if (S.theme) return S.theme === 'dark';
+  return !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+}
+$('#themeBtn').addEventListener('click', () => {
+  S.theme = isDark() ? 'light' : 'dark';
+  save(); applyTheme();
+  if (activeSim && activeSim.redraw) activeSim.redraw();
+});
+
+function updateTop() { $('#xpPill').textContent = `⭐ ${totalXP()} XP`; }
+
+/* ================= ROTEAMENTO ================= */
+let activeSim = null;
+function cleanupSim() { if (activeSim && activeSim.stop) activeSim.stop(); activeSim = null; }
+function go(hash) { if (location.hash === hash) route(); else location.hash = hash; }
+
+function route() {
+  cleanupSim();
+  const parts = location.hash.replace(/^#\/?/, '').split('/');
+  const back = $('#backBtn');
+  back.style.visibility = parts[0] ? 'visible' : 'hidden';
+  if (parts[0] === 'licao' && LESSONS[parts[1]]) renderLesson(+parts[1], parts[2] || 'teoria');
+  else if (parts[0] === 'flashcards') renderFlashcards();
+  else if (parts[0] === 'resumo') renderResumo();
+  else if (parts[0] === 'simulado') renderSimulado();
+  else if (parts[0] === 'checklist') renderChecklist();
+  else renderHome();
+  updateTop();
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route);
+$('#backBtn').addEventListener('click', () => go('#/'));
+
+/* ================= HOME ================= */
+function renderHome() {
+  $('#topTitle').textContent = 'Física da Princesinha 👑';
+  const pct = Math.round(overallProgress() * 100);
+  const done = Object.keys(LESSONS).filter(id => lessonProgress(id) === 1).length;
+  const worlds = WORLDS.map(w => `
+    <section class="world" style="--wc:${w.color}">
+      <div class="world-h"><div class="em">${w.emoji}</div><div><h2>Mundo ${w.id} — ${w.name}</h2><small>${w.prof}</small></div></div>
+      ${w.lessons.map(id => {
+        const L = LESSONS[id], p = lessonProgress(id);
+        return `<button class="lesson-item" data-go="#/licao/${id}">
+          <div class="n">${L.emoji}</div>
+          <div class="t"><b>${id}. ${L.title}</b><small>${L.sub}</small><div class="minibar"><i style="width:${p * 100}%"></i></div></div>
+          <div class="s" aria-label="${quizStars(id)} estrelas">${p === 1 ? '✅' : ''}<br>${starStr(quizStars(id))}</div>
+        </button>`;
+      }).join('')}
+    </section>`).join('');
+  app.innerHTML = `
+    <div class="hero">
+      <div class="crown">👑</div>
+      <h1>Oi, princesinha! 💖</h1>
+      <p>Bora revisar Óptica e Movimento Circular juntinhos? ${pick(MSG_HOME)}</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${totalXP()}</b><span>XP</span></div>
+      <div class="stat"><b>${totalStars()}/18</b><span>estrelas ⭐</span></div>
+      <div class="stat"><b>${done}/6</b><span>lições ✅</span></div>
+    </div>
+    <div class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+    <p style="text-align:center;font-weight:800;color:var(--muted);margin:6px 0 0">${pct}% da jornada concluída ${pct === 100 ? '🏆' : pct >= 50 ? '🔥' : '🌱'}</p>
+    <div class="section-title">🗺️ Seus mundos</div>
+    ${worlds}
+    <div class="section-title">🎁 Extras</div>
+    <div class="extras">
+      <button class="extra" data-go="#/flashcards"><div class="e">🃏</div><b>Flashcards</b><small>Fórmulas para decorar</small></button>
+      <button class="extra" data-go="#/resumo"><div class="e">📝</div><b>Resumão</b><small>A cola de última hora</small></button>
+      <button class="extra" data-go="#/simulado"><div class="e">🏆</div><b>Simulado</b><small>15 questões${S.simulado ? ` · recorde ${S.simulado.best}/15` : ''}</small></button>
+      <button class="extra" data-go="#/checklist"><div class="e">✅</div><b>Checklist</b><small>Livro e reta final</small></button>
+    </div>
+    <p class="footer">Feito com 💖 só pra você. Seu progresso fica salvo neste aparelho.</p>`;
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-go]');
+  if (b) go(b.dataset.go);
+});
+
+/* ================= LIÇÃO ================= */
+const TABS = [
+  { k: 'teoria', ic: '📖', l: 'Explica' },
+  { k: 'sim', ic: '🎮', l: 'Simulação' },
+  { k: 'exemplos', ic: '✍️', l: 'Exemplos' },
+  { k: 'quiz', ic: '🧠', l: 'Quiz' },
+];
+function renderLesson(id, tab) {
+  const L = LESSONS[id];
+  if (!TABS.some(t => t.k === tab)) tab = 'teoria';
+  $('#topTitle').textContent = `${L.emoji} ${L.title}`;
+  const w = WORLDS.find(w => w.id === L.world);
+  app.innerHTML = `
+    <div class="lesson-head"><p>Mundo ${w.id} · ${w.name} · Lição ${id}</p><h1>${L.emoji} ${L.title}</h1></div>
+    <nav class="tabs">${TABS.map(t => {
+      const d = t.k === 'quiz' ? !!S.quiz[id] : stepDone(id, t.k);
+      return `<button class="tab ${t.k === tab ? 'on' : ''}" data-go="#/licao/${id}/${t.k}"><span class="ic">${t.ic}</span>${t.l}${d ? '<span class="dn">✔</span>' : ''}</button>`;
+    }).join('')}</nav>
+    <div id="tabc"></div>`;
+  const c = $('#tabc');
+  const idx = TABS.findIndex(t => t.k === tab);
+  const next = TABS[idx + 1];
+  const nextBtn = label => next
+    ? `<button class="btn block" data-go="#/licao/${id}/${next.k}">${label || `Próximo: ${next.ic} ${next.l} →`}</button>`
+    : (LESSONS[id + 1] ? `<button class="btn block" data-go="#/licao/${id + 1}">Próxima lição: ${LESSONS[id + 1].emoji} ${LESSONS[id + 1].title} →</button>`
+      : `<button class="btn block" data-go="#/simulado">Bora pro Simulado final! 🏆</button>`);
+
+  if (tab === 'teoria') {
+    c.innerHTML = L.theory + `<div class="done-box"><button class="btn ok block" id="doneBtn">Entendi tudo! ✔</button></div>`;
+    $('#doneBtn').onclick = () => {
+      if (markStep(id, 'teoria')) { toast(`+20 XP · ${pick(MSG_OK)}`); confetti(60); }
+      go(`#/licao/${id}/sim`);
+    };
+  } else if (tab === 'sim') {
+    c.innerHTML = `<div class="tip">🎮 ${L.simIntro}</div><div id="simbox"></div>
+      <div class="done-box"><button class="btn ok block" id="doneBtn">Já brinquei bastante! ✔</button></div>`;
+    activeSim = SIMS[id]($('#simbox'));
+    $('#doneBtn').onclick = () => {
+      if (markStep(id, 'sim')) { toast(`+20 XP · ${pick(MSG_OK)}`); confetti(60); }
+      go(`#/licao/${id}/exemplos`);
+    };
+  } else if (tab === 'exemplos') {
+    renderExamples(c, L, nextBtn());
+  } else {
+    c.innerHTML = '<div id="quizbox"></div>';
+    runQuiz($('#quizbox'), L.quiz, {
+      onFinish(score, total) {
+        const prev = S.quiz[id];
+        if (!prev || score > prev.best) S.quiz[id] = { best: score, total };
+        save(); updateTop();
+      },
+      endExtra: () => nextBtn(),
+      retryHash: `#/licao/${id}/quiz`,
+    });
+  }
+  if (tab !== 'quiz' && tab !== 'exemplos') c.insertAdjacentHTML('beforeend', `<div style="margin-top:4px">${nextBtn()}</div>`);
+}
+
+function renderExamples(c, L, nextHTML) {
+  const id = L.id;
+  c.innerHTML = L.examples.map((ex, i) => `
+    <div class="card" data-ex="${i}">
+      <h3>✍️ Exemplo ${i + 1}</h3>
+      <p><b>${ex.q}</b></p>
+      <div class="steps"></div>
+      <button class="btn sec block" data-step="${i}">👉 Mostrar 1º passo</button>
+    </div>`).join('') + `<div class="tip">Tenta resolver sozinha no caderno antes de abrir cada passo! 💪</div>` + nextHTML;
+  const shown = L.examples.map(() => 0);
+  c.querySelectorAll('[data-step]').forEach(btn => {
+    btn.onclick = () => {
+      const i = +btn.dataset.step, ex = L.examples[i];
+      const box = c.querySelector(`[data-ex="${i}"] .steps`);
+      if (shown[i] < ex.steps.length) {
+        box.insertAdjacentHTML('beforeend', `<div class="step"><b>Passo ${shown[i] + 1}:</b> ${ex.steps[shown[i]]}</div>`);
+        shown[i]++;
+        btn.textContent = shown[i] < ex.steps.length ? `👉 Mostrar ${shown[i] + 1}º passo` : '🎯 Mostrar resposta final';
+      } else {
+        box.insertAdjacentHTML('beforeend', `<div class="answer">✅ Resposta: ${ex.ans}</div>`);
+        btn.remove();
+        if (shown.every((s, k) => s >= L.examples[k].steps.length) && !c.querySelector('[data-step]')) {
+          if (markStep(id, 'exemplos')) { toast(`+20 XP · ${pick(MSG_OK)}`); confetti(60); }
+        }
+      }
+    };
+  });
+}
+
+/* ================= QUIZ (lições e simulado) ================= */
+function runQuiz(box, questions, opts) {
+  const qs = questions.map(q => {
+    const order = shuffle(q.o.map((_, i) => i));
+    return { q: q.q, o: order.map(i => q.o[i]), a: order.indexOf(q.a), e: q.e };
+  });
+  let i = 0, score = 0;
+  function show() {
+    const q = qs[i];
+    box.innerHTML = `<div class="card">
+      <div class="qprog"><span>Questão ${i + 1} de ${qs.length}</span><span>✅ ${score}</span></div>
+      <div class="bar"><i style="width:${(i / qs.length) * 100}%"></i></div>
+      <div class="qtext">${q.q}</div>
+      ${q.o.map((o, k) => `<button class="opt" data-k="${k}">${String.fromCharCode(65 + k)}) ${o}</button>`).join('')}
+      <div id="fb"></div>
+    </div>`;
+    box.querySelectorAll('.opt').forEach(b => b.onclick = () => answer(+b.dataset.k));
+  }
+  function answer(k) {
+    const q = qs[i], ok = k === q.a;
+    if (ok) score++;
+    box.querySelectorAll('.opt').forEach(b => {
+      b.disabled = true;
+      const kk = +b.dataset.k;
+      if (kk === q.a) b.classList.add('right');
+      else if (kk === k) b.classList.add('wrong');
+    });
+    $('#fb', box).innerHTML = `<div class="fb ${ok ? 'r' : 'w'}"><b>${ok ? pick(MSG_OK) : pick(MSG_ERR)}</b><br>${q.e}</div>
+      <button class="btn block" style="margin-top:12px" id="nextQ">${i + 1 < qs.length ? 'Próxima →' : 'Ver resultado 🎉'}</button>`;
+    if (ok) confetti(25);
+    $('#nextQ', box).onclick = () => { i++; i < qs.length ? show() : finish(); };
+    $('#nextQ', box).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function finish() {
+    opts.onFinish(score, qs.length);
+    const r = score / qs.length;
+    const stars = r >= 0.9 ? 3 : r >= 0.7 ? 2 : r >= 0.5 ? 1 : 0;
+    const msg = r === 1 ? 'GABARITOU, PRINCESINHA! 👑👑👑 Você é incrível!'
+      : r >= 0.7 ? 'Muito bem! Você tá prontíssima! 💖'
+      : r >= 0.5 ? 'Tá indo bem! Revisa as explicações e tenta de novo pra ganhar mais estrelas 🌟'
+      : 'Sem stress, princesinha! Volta na aba 📖 Explica, dá uma olhadinha nas pegadinhas e tenta de novo. Você consegue! 💕';
+    box.innerHTML = `<div class="card" style="text-align:center">
+      <div class="big-emoji">${r >= 0.7 ? '🏆' : r >= 0.5 ? '🌟' : '🌸'}</div>
+      <h3>${score} de ${qs.length} acertos</h3>
+      <div class="stars">${starStr(stars)}</div>
+      <p>${msg}</p>
+      <div class="row" style="justify-content:center;margin-top:10px">
+        <button class="btn sec" id="retry">🔁 Tentar de novo</button>
+      </div>
+    </div>${opts.endExtra ? opts.endExtra() : ''}`;
+    $('#retry', box).onclick = () => runQuiz(box, questions, opts);
+    if (r >= 0.7) confetti(r === 1 ? 220 : 130);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  show();
+}
+
+/* ================= FLASHCARDS ================= */
+function renderFlashcards() {
+  $('#topTitle').textContent = '🃏 Flashcards';
+  const topics = ['Todos', ...new Set(FLASHCARDS.map(c => c.t))];
+  let topic = 'Todos', deck = FLASHCARDS.slice(), i = 0;
+  app.innerHTML = `
+    <div class="lesson-head"><h1>🃏 Flashcards</h1><p>Toque no cartão para virar. Tente lembrar antes!</p></div>
+    <div class="seg" id="topics" style="margin:12px 0">${topics.map(t => `<button data-t="${t}" class="${t === topic ? 'on' : ''}">${t}</button>`).join('')}</div>
+    <div class="fc-wrap"><div class="fc" id="fc" role="button" tabindex="0" aria-label="Virar cartão"><div class="front"></div><div class="back"></div></div></div>
+    <p style="text-align:center;font-weight:800;color:var(--muted)" id="fcn"></p>
+    <div class="row" style="justify-content:center">
+      <button class="btn sec" id="prev">← Anterior</button>
+      <button class="btn sec" id="shuf">🔀</button>
+      <button class="btn" id="next">Próximo →</button>
+    </div>`;
+  const fc = $('#fc');
+  function draw() {
+    const c = deck[i];
+    const wasFlipped = fc.classList.contains('flip');
+    fc.classList.remove('flip');
+    $('.front', fc).innerHTML = `<div class="tag">${c.t}</div>${c.f}`;
+    // troca o verso só depois de desvirar, para não "spoilar" a resposta
+    setTimeout(() => { $('.back', fc).innerHTML = `<div class="tag">${c.f}</div><div>${c.b}</div>`; }, wasFlipped ? 300 : 0);
+    $('#fcn').textContent = `${i + 1} / ${deck.length}`;
+  }
+  const flip = () => fc.classList.toggle('flip');
+  fc.onclick = flip;
+  fc.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } };
+  $('#prev').onclick = () => { i = (i - 1 + deck.length) % deck.length; draw(); };
+  $('#next').onclick = () => {
+    i = (i + 1) % deck.length;
+    if (i === 0) { toast('Você passou por todos os cartões! 🎉 ' + pick(MSG_OK)); confetti(80); }
+    draw();
+  };
+  $('#shuf').onclick = () => { deck = shuffle(deck); i = 0; draw(); toast('Embaralhado! 🔀', 1200); };
+  $('#topics').onclick = e => {
+    const b = e.target.closest('button'); if (!b) return;
+    topic = b.dataset.t;
+    deck = topic === 'Todos' ? FLASHCARDS.slice() : FLASHCARDS.filter(c => c.t === topic);
+    i = 0;
+    $('#topics').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    draw();
+  };
+  draw();
+}
+
+/* ================= RESUMÃO ================= */
+function renderResumo() {
+  $('#topTitle').textContent = '📝 Resumão';
+  app.innerHTML = `<div class="lesson-head"><h1>📝 Resumão de última hora</h1><p>Tudo o que cai, numa olhada só. Lê com calma antes de dormir 😴</p></div>
+    ${RESUMO}
+    <div class="card" style="text-align:center"><b>Você estudou muito, princesinha. Confia em você! 💖</b></div>`;
+}
+
+/* ================= SIMULADO ================= */
+function renderSimulado() {
+  $('#topTitle').textContent = '🏆 Simulado';
+  app.innerHTML = `<div class="lesson-head"><h1>🏆 Simulado final</h1><p>15 questões misturando tudo. Use g = 10 m/s². Tenha papel e caneta por perto!</p></div>
+    ${S.simulado ? `<div class="tip">Seu recorde: <b>${S.simulado.best}/15</b>. Bora bater? 💪</div>` : ''}
+    <div id="quizbox"></div>`;
+  runQuiz($('#quizbox'), shuffle(SIMULADO), {
+    onFinish(score) {
+      if (!S.simulado || score > S.simulado.best) S.simulado = { best: score };
+      save(); updateTop();
+    },
+    endExtra: () => `<button class="btn sec block" data-go="#/resumo">📝 Revisar o Resumão</button>`,
+  });
+}
+
+/* ================= CHECKLIST ================= */
+function renderChecklist() {
+  $('#topTitle').textContent = '✅ Checklist';
+  const items = [...CHECKLIST_DEFAULT, ...S.checklist.custom];
+  const groups = [...new Set([...CHECKLIST_DEFAULT.map(i => i.g), ...S.checklist.custom.map(i => i.g)])];
+  const doneN = items.filter(i => S.checklist.done[i.id]).length;
+  app.innerHTML = `<div class="lesson-head"><h1>✅ Checklist do livro</h1><p>Marque o que já fez. Adicione as páginas e questões que os professores passaram!</p></div>
+    <div class="bar" style="margin:12px 0"><i style="width:${items.length ? doneN / items.length * 100 : 0}%"></i></div>
+    <p style="text-align:center;font-weight:800;color:var(--muted);margin-top:0">${doneN} de ${items.length} concluídos</p>
+    <div class="card">
+      <h3>➕ Adicionar item</h3>
+      <select class="inp" id="clg" style="margin-bottom:8px">${groups.map(g => `<option>${esc(g)}</option>`).join('')}</select>
+      <input class="inp" id="clt" placeholder="Ex.: Livro pág. 112 — questões 1 a 10" maxlength="140">
+      <button class="btn block" id="cladd" style="margin-top:10px">Adicionar</button>
+    </div>
+    ${groups.map(g => `<div class="card"><h3>${esc(g)}</h3>${items.filter(i => i.g === g).map(i => `
+      <label class="cl-item ${S.checklist.done[i.id] ? 'done' : ''}">
+        <input type="checkbox" data-id="${esc(i.id)}" ${S.checklist.done[i.id] ? 'checked' : ''}>
+        <span>${esc(i.t)}</span>
+        ${i.id.startsWith('c') ? `<button data-del="${esc(i.id)}" aria-label="Remover item">🗑️</button>` : ''}
+      </label>`).join('')}</div>`).join('')}`;
+  app.querySelectorAll('input[type=checkbox][data-id]').forEach(cb => cb.onchange = () => {
+    S.checklist.done[cb.dataset.id] = cb.checked;
+    save();
+    if (cb.checked) { toast(`+5 XP · ${pick(MSG_OK)}`, 1500); confetti(30); }
+    const total = items.length, d = items.filter(i => S.checklist.done[i.id]).length;
+    if (cb.checked && d === total) { toast('Checklist completo! Você está PRONTA 👑🎉', 3500); confetti(250); }
+    renderChecklist(); updateTop();
+  });
+  app.querySelectorAll('[data-del]').forEach(b => b.onclick = e => {
+    e.preventDefault();
+    const id = b.dataset.del;
+    S.checklist.custom = S.checklist.custom.filter(i => i.id !== id);
+    delete S.checklist.done[id];
+    save(); renderChecklist(); updateTop();
+  });
+  const add = () => {
+    const t = $('#clt').value.trim();
+    if (!t) { $('#clt').focus(); return; }
+    S.checklist.custom.push({ id: 'c' + Date.now().toString(36), g: $('#clg').value, t });
+    save(); renderChecklist();
+    toast('Adicionado! 📌', 1200);
+  };
+  $('#cladd').onclick = add;
+  $('#clt').onkeydown = e => { if (e.key === 'Enter') add(); };
+}
+
+/* ================= SIMULAÇÕES — utilidades ================= */
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const DEG = Math.PI / 180;
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+
+function simShell(box, { height, controls }) {
+  box.innerHTML = `<div class="sim"><canvas></canvas><div class="sim-alert"></div><div class="readout"></div><div class="ctrls">${controls}</div></div>`;
+  const cv = $('canvas', box);
+  const sh = { cv, ctx: cv.getContext('2d'), w: 0, h: height, box };
+  sh.fit = () => {
+    const dpr = window.devicePixelRatio || 1;
+    sh.w = cv.clientWidth || box.clientWidth || 320;
+    cv.width = Math.round(sh.w * dpr); cv.height = Math.round(height * dpr);
+    cv.style.height = height + 'px';
+    sh.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  sh.fit();
+  sh.readout = html => { $('.readout', box).innerHTML = html; };
+  let lastAlert = '';
+  sh.alert = (cls, html) => {
+    const key = cls + html;
+    if (key === lastAlert) return;
+    lastAlert = key;
+    $('.sim-alert', box).innerHTML = html ? `<div class="alert ${cls}">${html}</div>` : '';
+  };
+  sh.pos = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  return sh;
+}
+const ro = (label, val) => `<div>${label}<b>${val}</b></div>`;
+const sliderHTML = (id, label, min, max, step, val, unit = '') =>
+  `<div class="ctrl"><label for="${id}">${label} <span id="${id}-v">${val}${unit}</span></label><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}"></div>`;
+const segHTML = (id, items, on) =>
+  `<div class="seg" id="${id}">${items.map(([k, l]) => `<button data-k="${k}" class="${k === on ? 'on' : ''}">${l}</button>`).join('')}</div>`;
+function bindSlider(box, id, unit, fn, fmtFn) {
+  const el = $('#' + id, box), out = $('#' + id + '-v', box);
+  const upd = () => { const v = parseFloat(el.value); out.textContent = (fmtFn ? fmtFn(v) : fmt(v)) + unit; fn(v); };
+  el.addEventListener('input', upd);
+  return { el, set(v) { el.value = v; out.textContent = (fmtFn ? fmtFn(+el.value) : fmt(+el.value)) + unit; } };
+}
+function bindSeg(box, id, fn) {
+  const seg = $('#' + id, box);
+  seg.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    seg.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    fn(b.dataset.k);
+  });
+}
+function arrow(ctx, x1, y1, x2, y2, color, lw = 3, label, labelOff = 8) {
+  const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+  if (len < 2) return;
+  const ux = dx / len, uy = dy / len, hs = Math.min(11, len * 0.45);
+  ctx.save();
+  ctx.strokeStyle = ctx.fillStyle = color; ctx.lineWidth = lw; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * hs * 0.8, y2 - uy * hs * 0.8); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - ux * hs - uy * hs * 0.55, y2 - uy * hs + ux * hs * 0.55);
+  ctx.lineTo(x2 - ux * hs + uy * hs * 0.55, y2 - uy * hs - ux * hs * 0.55);
+  ctx.closePath(); ctx.fill();
+  if (label) {
+    ctx.font = 'bold 13px Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, x2 + ux * (labelOff + 6), y2 + uy * (labelOff + 6));
+  }
+  ctx.restore();
+}
+function text(ctx, s, x, y, color, size = 12, align = 'left', weight = '700') {
+  ctx.save(); ctx.fillStyle = color; ctx.font = `${weight} ${size}px Nunito, sans-serif`; ctx.textAlign = align; ctx.textBaseline = 'middle';
+  ctx.fillText(s, x, y); ctx.restore();
+}
+function line(ctx, x1, y1, x2, y2, color, lw = 2, dash) {
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw; if (dash) ctx.setLineDash(dash);
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.restore();
+}
+/* faz um loop de animação; devolve stop() */
+function loop(fn) {
+  let raf, last = performance.now(), running = true;
+  const step = t => { if (!running) return; const dt = Math.min(0.05, (t - last) / 1000); last = t; fn(dt); raf = requestAnimationFrame(step); };
+  raf = requestAnimationFrame(step);
+  return () => { running = false; cancelAnimationFrame(raf); };
+}
+function onResize(sh, draw) {
+  const h = () => { sh.fit(); draw(); };
+  window.addEventListener('resize', h);
+  return () => window.removeEventListener('resize', h);
+}
+
+const SIMS = {};
+
+/* ---------- SIM 1: REFRAÇÃO ---------- */
+SIMS[1] = function (box) {
+  const MEIOS = [['1.00', 'Ar'], ['1.33', 'Água'], ['1.50', 'Vidro'], ['2.42', 'Diamante']];
+  const st = { t1: 40, n1: 1.00, n2: 1.50, disp: false };
+  const sh = simShell(box, {
+    height: 300,
+    controls: `
+      ${sliderHTML('t1', 'Ângulo de incidência θ₁', 0, 89, 1, st.t1, '°')}
+      <div class="ctrl"><label>Meio 1 (de cima)</label>${segHTML('m1', MEIOS, '1.00')}</div>
+      ${sliderHTML('n1', 'n₁', 1, 2.5, 0.01, '1.00')}
+      <div class="ctrl"><label>Meio 2 (de baixo)</label>${segHTML('m2', MEIOS, '1.50')}</div>
+      ${sliderHTML('n2', 'n₂', 1, 2.5, 0.01, '1.50')}
+      <label class="chk"><input type="checkbox" id="disp"> Luz branca (mostrar dispersão 🌈)</label>`,
+  });
+  const nameOf = n => { const m = MEIOS.find(([k]) => Math.abs(+k - n) < 0.005); return m ? m[1] : 'n = ' + fmt(n); };
+  const sT = bindSlider(box, 't1', '°', v => { st.t1 = v; draw(); }, v => v.toFixed(0));
+  const sN1 = bindSlider(box, 'n1', '', v => { st.n1 = v; syncSeg(); draw(); }, v => v.toFixed(2).replace('.', ','));
+  const sN2 = bindSlider(box, 'n2', '', v => { st.n2 = v; syncSeg(); draw(); }, v => v.toFixed(2).replace('.', ','));
+  sN1.set(1); sN2.set(1.5);
+  function syncSeg() {
+    [['m1', st.n1], ['m2', st.n2]].forEach(([id, n]) => $('#' + id, box).querySelectorAll('button').forEach(b => b.classList.toggle('on', Math.abs(+b.dataset.k - n) < 0.005)));
+  }
+  bindSeg(box, 'm1', k => { st.n1 = +k; sN1.set(+k); draw(); });
+  bindSeg(box, 'm2', k => { st.n2 = +k; sN2.set(+k); draw(); });
+  $('#disp', box).onchange = e => { st.disp = e.target.checked; draw(); };
+
+  function draw() {
+    const { ctx, w, h } = sh, cx = w / 2, cy = h / 2, R = Math.min(w * 0.46, h * 0.47);
+    const txt = cssv('--sim-line');
+    ctx.clearRect(0, 0, w, h);
+    const tone = n => 0.08 + (n - 1) / 1.5 * 0.42;
+    ctx.fillStyle = `rgba(147,197,253,${tone(st.n1)})`; ctx.fillRect(0, 0, w, cy);
+    ctx.fillStyle = `rgba(167,139,250,${tone(st.n2)})`; ctx.fillRect(0, cy, w, h - cy);
+    line(ctx, 0, cy, w, cy, txt, 2);
+    line(ctx, cx, 8, cx, h - 8, txt, 1.5, [6, 5]);
+    text(ctx, 'normal', cx + 6, 14, txt, 11);
+    text(ctx, `${nameOf(st.n1)} (n₁ = ${fmt(st.n1)})`, 10, 16, txt, 12);
+    text(ctx, `${nameOf(st.n2)} (n₂ = ${fmt(st.n2)})`, 10, h - 14, txt, 12);
+
+    const t1 = st.t1 * DEG;
+    const sinT2 = st.n1 * Math.sin(t1) / st.n2;
+    const tir = sinT2 > 1;
+    const L = st.n1 > st.n2 ? Math.asin(st.n2 / st.n1) / DEG : null;
+    const ix = cx - R * Math.sin(t1), iy = cy - R * Math.cos(t1);
+    // incidente
+    line(ctx, ix, iy, cx, cy, '#facc15', 4);
+    arrow(ctx, ix, iy, (ix + cx) / 2, (iy + cy) / 2, '#facc15', 4);
+    // refletido
+    const rx = cx + R * Math.sin(t1), ry = cy - R * Math.cos(t1);
+    ctx.globalAlpha = tir ? 1 : 0.3;
+    arrow(ctx, cx, cy, rx, ry, '#facc15', tir ? 4 : 2.5);
+    ctx.globalAlpha = 1;
+    // refratado
+    if (!tir) {
+      if (st.disp) {
+        const cores = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6'];
+        cores.forEach((c, k) => {
+          const n2c = st.n2 + (k - 2.5) * 0.014;
+          const s = st.n1 * Math.sin(t1) / n2c;
+          if (s <= 1) { const a = Math.asin(s); arrow(ctx, cx, cy, cx + R * Math.sin(a), cy + R * Math.cos(a), c, 2.5); }
+        });
+        text(ctx, 'violeta desvia mais!', cx + 8, cy + R * 0.95, '#8b5cf6', 11);
+      } else {
+        const t2 = Math.asin(sinT2);
+        arrow(ctx, cx, cy, cx + R * Math.sin(t2), cy + R * Math.cos(t2), '#ec4899', 4);
+      }
+    }
+    // arcos dos ângulos
+    ctx.strokeStyle = txt; ctx.lineWidth = 1.5;
+    if (st.t1 > 0) {
+      ctx.beginPath(); ctx.arc(cx, cy, 34, -Math.PI / 2 - t1, -Math.PI / 2); ctx.stroke();
+      text(ctx, `θ₁=${st.t1}°`, cx - 44 * Math.sin(t1 / 2) - 4, cy - 50 * Math.cos(t1 / 2), txt, 12, 'right');
+    }
+    let t2deg = null;
+    if (!tir) {
+      const t2 = Math.asin(sinT2); t2deg = t2 / DEG;
+      if (t2 > 0.01 && !st.disp) {
+        ctx.beginPath(); ctx.arc(cx, cy, 40, Math.PI / 2 - t2, Math.PI / 2); ctx.stroke();
+        text(ctx, `θ₂=${fmt(t2deg, 1)}°`, cx + 50 * Math.sin(t2 / 2) + 4, cy + 56 * Math.cos(t2 / 2), txt, 12, 'left');
+      }
+    }
+    sh.readout(
+      ro('θ₂ (refração)', tir ? '— (não há)' : fmt(t2deg, 1) + '°') +
+      ro('v no meio 1', fmt(3 / st.n1, 2) + '×10⁸ m/s') +
+      ro('v no meio 2', fmt(3 / st.n2, 2) + '×10⁸ m/s') +
+      ro('Ângulo limite L', L === null ? 'não existe (n₁ ≤ n₂)' : fmt(L, 1) + '°')
+    );
+    if (tir) sh.alert('bad', `💥 REFLEXÃO TOTAL! θ₁ = ${st.t1}° &gt; L = ${fmt(L, 1)}°. A luz não sai: volta toda para o meio 1.`);
+    else if (Math.abs(st.n1 - st.n2) < 0.005) sh.alert('info', 'Mesmo índice: a luz passa reto, sem desviar.');
+    else if (st.n2 > st.n1) sh.alert('ok', '⬇️ Indo para meio MAIS refringente: o raio se APROXIMA da normal (θ₂ &lt; θ₁).');
+    else sh.alert('info', `⬆️ Indo para meio MENOS refringente: o raio se AFASTA da normal. Passe de L = ${fmt(L, 1)}° para ver a reflexão total!`);
+  }
+  // arrastar o raio incidente
+  let drag = false;
+  const setFromPointer = e => {
+    const p = sh.pos(e), cx = sh.w / 2, cy = sh.h / 2;
+    if (p.y >= cy) return;
+    st.t1 = clamp(Math.round(Math.atan2(Math.abs(p.x - cx), cy - p.y) / DEG), 0, 89);
+    sT.set(st.t1); draw();
+  };
+  sh.cv.addEventListener('pointerdown', e => { drag = true; sh.cv.setPointerCapture(e.pointerId); setFromPointer(e); });
+  sh.cv.addEventListener('pointermove', e => { if (drag) setFromPointer(e); });
+  sh.cv.addEventListener('pointerup', () => { drag = false; });
+  draw();
+  const off = onResize(sh, draw);
+  return { stop: off, redraw: draw };
+};
+
+/* ---------- SIM 2: LENTES ---------- */
+SIMS[2] = function (box) {
+  const st = { type: 'conv', f: 12, p: 30, ho: 6 };
+  const sh = simShell(box, {
+    height: 320,
+    controls: `
+      <div class="ctrl"><label>Tipo de lente</label>${segHTML('lt', [['conv', '🔍 Convergente'], ['div', '👓 Divergente']], 'conv')}</div>
+      ${sliderHTML('lp', 'Distância do objeto p', 2, 38, 0.5, st.p, ' cm')}
+      ${sliderHTML('lf', 'Distância focal |f|', 6, 18, 0.5, st.f, ' cm')}
+      <div class="row">${[['Câmera', 3], ['Em 2F', 2], ['Projetor', 1.5], ['No foco', 1], ['Lupa', 0.6]].map(([l, k]) => `<button class="btn sec" style="padding:7px 10px;font-size:.85rem" data-pre="${k}">${l}</button>`).join('')}</div>`,
+  });
+  const sP = bindSlider(box, 'lp', ' cm', v => { st.p = v; draw(); });
+  bindSlider(box, 'lf', ' cm', v => { st.f = v; draw(); });
+  bindSeg(box, 'lt', k => { st.type = k; draw(); });
+  box.querySelectorAll('[data-pre]').forEach(b => b.onclick = () => {
+    if (st.type !== 'conv') { st.type = 'conv'; $('#lt', box).querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.k === 'conv')); }
+    st.p = clamp(Math.round(st.f * +b.dataset.pre * 2) / 2, 2, 38); sP.set(st.p); draw();
+  });
+  const SPAN = 80;
+  function draw() {
+    const { ctx, w, h } = sh, cx = w / 2, cy = h / 2, s = w / SPAN;
+    const X = x => cx + x * s, Y = y => cy - y * s;
+    const txt = cssv('--sim-line');
+    ctx.clearRect(0, 0, w, h);
+    const f = st.type === 'conv' ? st.f : -st.f, p = st.p, ho = st.ho;
+    // eixo e marcas
+    line(ctx, 0, cy, w, cy, txt, 1.5);
+    [[-2 * st.f, '2F'], [-st.f, 'F'], [st.f, "F'"], [2 * st.f, "2F'"]].forEach(([x, l]) => {
+      if (Math.abs(x) > SPAN / 2) return;
+      line(ctx, X(x), cy - 5, X(x), cy + 5, txt, 2);
+      text(ctx, l, X(x), cy + 16, txt, 12, 'center');
+    });
+    // lente
+    const lh = Math.min(h * 0.44, 150);
+    ctx.save(); ctx.strokeStyle = '#60a5fa'; ctx.fillStyle = 'rgba(96,165,250,.18)'; ctx.lineWidth = 3;
+    ctx.beginPath();
+    if (st.type === 'conv') { ctx.ellipse(cx, cy, 9, lh, 0, 0, Math.PI * 2); }
+    else { ctx.moveTo(cx - 12, cy - lh); ctx.quadraticCurveTo(cx - 2, cy, cx - 12, cy + lh); ctx.lineTo(cx + 12, cy + lh); ctx.quadraticCurveTo(cx + 2, cy, cx + 12, cy - lh); ctx.closePath(); }
+    ctx.fill(); ctx.stroke(); ctx.restore();
+
+    const improper = st.type === 'conv' && Math.abs(p - f) < 0.25;
+    const pi = improper ? Infinity : 1 / (1 / f - 1 / p);
+    const A = improper ? Infinity : -pi / p;
+    const hi = A * ho;
+    const virtual = pi < 0;
+    const RIGHT = SPAN / 2 + 5;
+    const toEdge = (x0, y0, dx, dy) => { const t = (RIGHT - x0) / dx; return [x0 + dx * t, y0 + dy * t]; };
+    const C1 = '#f97316', C2 = '#3b82f6', C3 = '#16a34a';
+    const ray = (pts, c, dash) => { ctx.save(); ctx.strokeStyle = c; ctx.lineWidth = 2.2; if (dash) ctx.setLineDash([6, 5]); ctx.beginPath(); pts.forEach(([x, y], k) => k ? ctx.lineTo(X(x), Y(y)) : ctx.moveTo(X(x), Y(y))); ctx.stroke(); ctx.restore(); };
+    // raio 1: paralelo
+    const d1 = f > 0 ? [f, -ho] : [-f, ho];
+    ray([[-p, ho], [0, ho], toEdge(0, ho, d1[0], d1[1])], C1);
+    // raio 2: centro
+    ray([[-p, ho], [0, 0], toEdge(0, 0, p, -ho)], C2);
+    // raio 3: pelo foco (ou mirando nele) → sai paralelo
+    let y3 = null;
+    if (!improper) { y3 = -ho * f / (p - f); if (Math.abs(y3) < 60) ray([[-p, ho], [0, y3], [RIGHT, y3]], C3); else y3 = null; }
+    // prolongamentos (imagem virtual)
+    if (virtual && isFinite(pi)) {
+      ray([[0, ho], [pi, hi]], C1, true);
+      ray([[0, 0], [pi, hi]], C2, true);
+      if (y3 !== null) ray([[0, y3], [pi, hi]], C3, true);
+    }
+    // objeto
+    arrow(ctx, X(-p), cy, X(-p), Y(ho), '#ec4899', 5);
+    text(ctx, 'objeto', X(-p), Y(ho) - 12, '#ec4899', 12, 'center');
+    // imagem
+    if (isFinite(pi) && Math.abs(pi) < SPAN && Math.abs(hi) < 40) {
+      ctx.save(); if (virtual) ctx.setLineDash([5, 4]);
+      arrow(ctx, X(pi), cy, X(pi), Y(hi), '#8b5cf6', 5);
+      ctx.restore();
+      text(ctx, virtual ? 'imagem (virtual)' : 'imagem (real)', X(pi), Y(hi) + (hi > 0 ? -12 : 14), '#8b5cf6', 12, 'center');
+    }
+    // dica de arraste
+    text(ctx, '↔ arraste o objeto', 8, 14, txt, 11);
+
+    let nat, caso;
+    if (improper) { nat = 'Imprópria (no infinito)'; caso = 'Objeto NO FOCO: os raios saem paralelos e não formam imagem. 🔦'; }
+    else {
+      nat = `${virtual ? 'Virtual' : 'Real'}, ${A > 0 ? 'direita' : 'invertida'}, ${Math.abs(Math.abs(A) - 1) < 0.03 ? 'mesmo tamanho' : Math.abs(A) > 1 ? 'maior' : 'menor'}`;
+      if (st.type === 'div') caso = 'Lente divergente: SEMPRE virtual, direita e menor. 👓';
+      else if (Math.abs(p - 2 * f) < 0.25) caso = 'Objeto em 2F: imagem real, invertida e do mesmo tamanho.';
+      else if (p > 2 * f) caso = 'Objeto além de 2F: real, invertida e menor — como na câmera e no olho 📸';
+      else if (p > f) caso = 'Objeto entre F e 2F: real, invertida e maior — como no projetor 📽️';
+      else caso = 'Objeto entre F e a lente: virtual, direita e maior — é a LUPA! 🔍';
+    }
+    sh.readout(
+      ro('p', fmt(p, 1) + ' cm') + ro('f', fmt(f, 1) + ' cm') +
+      ro("p'", isFinite(pi) ? fmt(pi, 1) + ' cm' : '∞') + ro('A', isFinite(A) ? fmt(A, 2) : '∞') +
+      `<div style="grid-column:1/-1">Imagem<b>${nat}</b></div>`
+    );
+    sh.alert(virtual || improper ? 'info' : 'ok', caso);
+  }
+  let drag = false;
+  sh.cv.addEventListener('pointerdown', e => {
+    const p = sh.pos(e), s = sh.w / SPAN;
+    if (p.x < sh.w / 2 - 4 && Math.abs(p.x - (sh.w / 2 - st.p * s)) < 40) { drag = true; sh.cv.setPointerCapture(e.pointerId); move(e); }
+  });
+  const move = e => {
+    const p = sh.pos(e), s = sh.w / SPAN;
+    st.p = clamp(Math.round((sh.w / 2 - p.x) / s * 2) / 2, 2, 38);
+    st.ho = clamp((sh.h / 2 - p.y) / s, 3, 12);
+    sP.set(st.p); draw();
+  };
+  sh.cv.addEventListener('pointermove', e => { if (drag) move(e); });
+  sh.cv.addEventListener('pointerup', () => { drag = false; });
+  draw();
+  const off = onResize(sh, draw);
+  return { stop: off, redraw: draw };
+};
+
+/* ---------- SIM 3: OLHO ---------- */
+SIMS[3] = function (box) {
+  const st = { eye: 'normal', obj: 'longe', glasses: false };
+  const sh = simShell(box, {
+    height: 260,
+    controls: `
+      <div class="ctrl"><label>Tipo de olho</label>${segHTML('ey', [['normal', '😊 Normal'], ['miopia', '🤓 Miopia'], ['hiper', '🧐 Hipermetropia'], ['presbiopia', '👵 Presbiopia']], 'normal')}</div>
+      <div class="ctrl"><label>Onde está o objeto?</label>${segHTML('ob', [['longe', '🏔️ Longe'], ['perto', '📖 Perto']], 'longe')}</div>
+      <label class="chk"><input type="checkbox" id="gl"> Colocar óculos corretivos 👓</label>`,
+  });
+  const gl = $('#gl', box);
+  bindSeg(box, 'ey', k => { st.eye = k; draw(); });
+  bindSeg(box, 'ob', k => { st.obj = k; draw(); });
+  gl.onchange = () => { st.glasses = gl.checked; draw(); };
+  const INFO = {
+    normal: 'Olho normal: acomoda sozinho e forma a imagem sempre na retina. ✔',
+    miopia: 'Miopia: olho alongado → imagem de objetos distantes ANTES da retina. Corrige com lente DIVERGENTE (−).',
+    hiper: 'Hipermetropia: olho curto → imagem DEPOIS da retina (pior de perto). Corrige com lente CONVERGENTE (+).',
+    presbiopia: 'Presbiopia: o cristalino perde a acomodação com a idade → não foca de perto. Corrige com lente CONVERGENTE (+).',
+  };
+  function draw() {
+    const { ctx, w, h } = sh, txt = cssv('--sim-line');
+    ctx.clearRect(0, 0, w, h);
+    const ey = h / 2, ry = h * 0.36;
+    const base = Math.min(w * 0.24, 170);
+    const factor = st.eye === 'miopia' ? 1.15 : st.eye === 'hiper' ? 0.85 : 1;
+    const lensX = w * 0.5;
+    const Dn = base * 1.6;
+    const retinaD = Dn * factor, retinaX = lensX + retinaD;
+    const ex = lensX + retinaD / 2 - 6, rx = retinaD / 2 + 14;
+    const fixedEye = st.eye === 'normal' || st.glasses;
+    let focusD;
+    if (fixedEye) focusD = retinaD;
+    else if (st.eye === 'miopia') focusD = st.obj === 'longe' ? Dn : retinaD;
+    else if (st.eye === 'hiper') focusD = st.obj === 'longe' ? Dn : Dn * 1.12;
+    else focusD = st.obj === 'longe' ? retinaD : retinaD * 1.18;
+    const fx = lensX + focusD;
+    // globo ocular
+    ctx.save();
+    ctx.fillStyle = cssv('--bg2'); ctx.strokeStyle = txt; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.ellipse(ex, ey, rx, ry, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // retina
+    ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.ellipse(ex, ey, rx, ry, 0, -0.9, 0.9); ctx.stroke();
+    // cristalino
+    ctx.fillStyle = 'rgba(96,165,250,.55)'; ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.ellipse(lensX, ey, 9, ry * 0.55, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.restore();
+    text(ctx, 'cristalino', lensX, ey + ry * 0.55 + 14, '#3b82f6', 11, 'center');
+    text(ctx, 'retina', retinaX - 4, ey - ry * 0.85, '#ef4444', 11, 'center');
+    // óculos
+    const gx = lensX - 45;
+    const gtype = st.eye === 'miopia' ? 'div' : 'conv';
+    if (st.glasses && st.eye !== 'normal') {
+      ctx.save(); ctx.strokeStyle = '#8b5cf6'; ctx.fillStyle = 'rgba(139,92,246,.2)'; ctx.lineWidth = 2.5;
+      const gh = ry * 0.75;
+      ctx.beginPath();
+      if (gtype === 'conv') ctx.ellipse(gx, ey, 7, gh, 0, 0, Math.PI * 2);
+      else { ctx.moveTo(gx - 9, ey - gh); ctx.quadraticCurveTo(gx, ey, gx - 9, ey + gh); ctx.lineTo(gx + 9, ey + gh); ctx.quadraticCurveTo(gx, ey, gx + 9, ey - gh); ctx.closePath(); }
+      ctx.fill(); ctx.stroke(); ctx.restore();
+      text(ctx, gtype === 'conv' ? 'lente +' : 'lente −', gx, ey - gh - 10, '#8b5cf6', 11, 'center');
+    }
+    // objeto
+    const srcX = 22;
+    text(ctx, st.obj === 'longe' ? '🏔️' : '📖', srcX - 6, st.obj === 'longe' ? 22 : ey, txt, 22, 'center', '400');
+    // raios
+    const a = ry * 0.45;
+    const useG = st.glasses && st.eye !== 'normal';
+    const k = gtype === 'div' ? 0.75 : 1.3;
+    let hits = [];
+    [-a, 0, a].forEach(yk => {
+      const yl = ey + yk;
+      const pts = [];
+      if (st.obj === 'longe') {
+        const y0 = ey + (useG ? yk * k : yk);
+        pts.push([0, y0]);
+        if (useG) pts.push([gx, y0]);
+      } else {
+        pts.push([srcX + 12, ey]);
+        if (useG) pts.push([gx, ey + yk * (gx - srcX - 12) / (lensX - srcX - 12) * (gtype === 'conv' ? 1.25 : 0.8)]);
+      }
+      pts.push([lensX, yl]);
+      const m = (ey - yl) / (fx - lensX);
+      const yRet = yl + m * (retinaX - lensX);
+      ctx.save(); ctx.strokeStyle = '#facc15'; ctx.lineWidth = 2.5; ctx.beginPath();
+      pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+      ctx.lineTo(retinaX, yRet); ctx.stroke();
+      if (fx > retinaX + 1) { ctx.setLineDash([4, 4]); ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.moveTo(retinaX, yRet); ctx.lineTo(fx, ey); ctx.stroke(); }
+      ctx.restore();
+      hits.push(yRet);
+    });
+    const spread = Math.max(...hits) - Math.min(...hits);
+    const sharp = spread < 3;
+    ctx.save();
+    if (sharp) { ctx.fillStyle = '#16a34a'; ctx.beginPath(); ctx.arc(retinaX, ey, 6, 0, Math.PI * 2); ctx.fill(); }
+    else { ctx.fillStyle = 'rgba(220,38,38,.35)'; ctx.beginPath(); ctx.ellipse(retinaX, ey, 6, spread / 2 + 4, 0, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+    if (Math.abs(fx - retinaX) > 2) {
+      ctx.fillStyle = '#ec4899'; ctx.beginPath(); ctx.arc(fx, ey, 4, 0, Math.PI * 2); ctx.fill();
+      text(ctx, 'foco', fx, ey + 14, '#ec4899', 11, 'center');
+    }
+    let msg;
+    if (sharp) msg = st.glasses && st.eye !== 'normal' ? `Com os óculos certos, a imagem caiu na retina! Nítido 🤩` : 'Imagem na retina: visão nítida! ✔';
+    else msg = (fx < retinaX ? 'Imagem ANTES da retina' : 'Imagem DEPOIS da retina') + ' → visão embaçada 😵‍💫 Tente os óculos!';
+    sh.alert(sharp ? 'ok' : 'bad', msg);
+    sh.readout(`<div style="grid-column:1/-1">${INFO[st.eye]}</div>` +
+      ro('Lente corretora', st.eye === 'normal' ? 'não precisa 😊' : gtype === 'div' ? 'Divergente (grau −)' : 'Convergente (grau +)') +
+      ro('Enxerga mal', { normal: '—', miopia: 'de longe', hiper: 'de perto', presbiopia: 'de perto' }[st.eye]));
+    gl.disabled = st.eye === 'normal';
+  }
+  draw();
+  const off = onResize(sh, draw);
+  return { stop: off, redraw: draw };
+};
+
+/* ---------- SIM 4: MCU ---------- */
+SIMS[4] = function (box) {
+  const st = { R: 2, f: 0.5, phi: 0, vec: true, inner: false, paused: false, laps: 0, trail: [] };
+  const sh = simShell(box, {
+    height: 300,
+    controls: `
+      ${sliderHTML('mr', 'Raio R', 0.5, 3, 0.1, '2', ' m')}
+      ${sliderHTML('mf', 'Frequência f', 0.1, 2, 0.05, '0,5', ' Hz')}
+      <label class="chk"><input type="checkbox" id="mv" checked> Mostrar vetores (v e a꜀ₚ)</label>
+      <label class="chk"><input type="checkbox" id="mi"> Mostrar ponto no meio do raio (R/2)</label>
+      <button class="btn sec" id="mp">⏸️ Pausar</button>`,
+  });
+  bindSlider(box, 'mr', ' m', v => { st.R = v; st.trail = []; draw(); });
+  bindSlider(box, 'mf', ' Hz', v => { st.f = v; draw(); });
+  $('#mv', box).onchange = e => { st.vec = e.target.checked; draw(); };
+  $('#mi', box).onchange = e => { st.inner = e.target.checked; draw(); };
+  $('#mp', box).onclick = e => { st.paused = !st.paused; e.target.textContent = st.paused ? '▶️ Continuar' : '⏸️ Pausar'; };
+  function draw() {
+    const { ctx, w, h } = sh, cx = w / 2, cy = h / 2, txt = cssv('--sim-line');
+    const maxR = Math.min(w, h) / 2 - 40, r = st.R / 3 * maxR;
+    const T = 1 / st.f, om = 2 * Math.PI * st.f, v = om * st.R, a = om * om * st.R;
+    ctx.clearRect(0, 0, w, h);
+    ctx.save(); ctx.strokeStyle = txt; ctx.globalAlpha = 0.35; ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+    ctx.fillStyle = txt; ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI * 2); ctx.fill();
+    const px = cx + r * Math.cos(st.phi), py = cy - r * Math.sin(st.phi);
+    line(ctx, cx, cy, px, py, txt, 1.5, [3, 3]);
+    text(ctx, 'R', (cx + px) / 2 + 6, (cy + py) / 2 - 8, txt, 12);
+    // rastro
+    st.trail.push([px, py]); if (st.trail.length > 30) st.trail.shift();
+    st.trail.forEach(([x, y], i) => { ctx.fillStyle = `rgba(236,72,153,${i / 60})`; ctx.beginPath(); ctx.arc(x, y, 6 * i / 30, 0, Math.PI * 2); ctx.fill(); });
+    if (st.vec) {
+      const vl = 22 + v / (4 * Math.PI * 3) * 70;
+      const al = 16 + Math.sqrt(a / (16 * Math.PI * Math.PI * 3)) * 60;
+      const tx = -Math.sin(st.phi), ty = -Math.cos(st.phi);
+      arrow(ctx, px, py, px + tx * vl, py + ty * vl, '#3b82f6', 3.5, 'v');
+      const ux = (cx - px) / r, uy = (cy - py) / r;
+      arrow(ctx, px, py, px + ux * Math.min(al, r - 6), py + uy * Math.min(al, r - 6), '#16a34a', 3.5, 'a');
+    }
+    if (st.inner) {
+      const ix = cx + r / 2 * Math.cos(st.phi), iy = cy - r / 2 * Math.sin(st.phi);
+      ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.arc(ix, iy, 7, 0, Math.PI * 2); ctx.fill();
+      if (st.vec) arrow(ctx, ix, iy, ix - Math.sin(st.phi) * (11 + v / 2 / (4 * Math.PI * 3) * 70), iy - Math.cos(st.phi) * (11 + v / 2 / (4 * Math.PI * 3) * 70), '#f97316', 3);
+    }
+    ctx.fillStyle = '#ec4899'; ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI * 2); ctx.fill();
+    text(ctx, `voltas: ${st.laps}`, 10, 16, txt, 12);
+    sh.readout(
+      ro('Período T', fmt(T, 2) + ' s') + ro('Frequência f', fmt(st.f, 2) + ' Hz = ' + fmt(st.f * 60, 0) + ' rpm') +
+      ro('Vel. angular ω', fmt(om, 2) + ' rad/s') + ro('Vel. linear v', fmt(v, 2) + ' m/s') +
+      ro('a꜀ₚ = v²/R', fmt(a, 2) + ' m/s²') +
+      (st.inner ? ro('Ponto do meio (laranja)', `mesmo ω · v = ${fmt(v / 2, 2)} m/s`) : '')
+    );
+  }
+  sh.alert('info', '🔵 v é sempre TANGENTE · 🟢 a꜀ₚ sempre aponta para o CENTRO. Dobre o raio e veja v dobrar!');
+  const stopLoop = loop(dt => {
+    if (!st.paused) {
+      const before = Math.floor(st.phi / (2 * Math.PI));
+      st.phi += 2 * Math.PI * st.f * dt;
+      if (Math.floor(st.phi / (2 * Math.PI)) > before) st.laps++;
+    }
+    draw();
+  });
+  const off = onResize(sh, draw);
+  return { stop() { stopLoop(); off(); }, redraw: draw };
+};
+
+/* ---------- SIM 5: TRANSMISSÃO ---------- */
+SIMS[5] = function (box) {
+  const st = { mode: 'correia', RA: 8, RB: 4, fA: 30, ncor: 48, ncat: 16, fp: 60, phA: 0, phB: 0, belt: 0 };
+  const sh = simShell(box, {
+    height: 280,
+    controls: `
+      <div class="ctrl"><label>Tipo de ligação</label>${segHTML('tm', [['correia', '➰ Correia'], ['cruzada', '❎ Correia cruzada'], ['engrenagem', '⚙️ Engrenagens'], ['coaxial', '🎯 Mesmo eixo'], ['bike', '🚲 Bicicleta']], 'correia')}</div>
+      <div id="tc"></div>`,
+  });
+  const tc = $('#tc', box);
+  function controls() {
+    if (st.mode === 'bike') {
+      tc.innerHTML = `<div class="ctrls">${sliderHTML('bc', 'Dentes da coroa (frente)', 22, 52, 1, st.ncor)}${sliderHTML('bk', 'Dentes da catraca (trás)', 11, 34, 1, st.ncat)}${sliderHTML('bp', 'Pedalada', 20, 120, 5, st.fp, ' rpm')}</div>`;
+      bindSlider(box, 'bc', '', v => { st.ncor = v; }, v => v.toFixed(0));
+      bindSlider(box, 'bk', '', v => { st.ncat = v; }, v => v.toFixed(0));
+      bindSlider(box, 'bp', ' rpm', v => { st.fp = v; }, v => v.toFixed(0));
+    } else {
+      tc.innerHTML = `<div class="ctrls">${sliderHTML('ra', 'Raio da roda A (motora, rosa)', 2, 10, 0.5, st.RA, ' cm')}${sliderHTML('rb', 'Raio da roda B (roxa)', 2, 10, 0.5, st.RB, ' cm')}${sliderHTML('fa', 'Frequência de A', 10, 120, 5, st.fA, ' rpm')}</div>`;
+      bindSlider(box, 'ra', ' cm', v => { st.RA = v; });
+      bindSlider(box, 'rb', ' cm', v => { st.RB = v; });
+      bindSlider(box, 'fa', ' rpm', v => { st.fA = v; }, v => v.toFixed(0));
+    }
+  }
+  bindSeg(box, 'tm', k => { st.mode = k; st.phA = st.phB = 0; controls(); });
+  controls();
+
+  function wheel(ctx, x, y, r, ph, color, gearN) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(-ph);
+    ctx.fillStyle = color + '33'; ctx.strokeStyle = color; ctx.lineWidth = 3;
+    if (gearN) {
+      ctx.beginPath();
+      for (let i = 0; i < gearN; i++) {
+        const a0 = i / gearN * 2 * Math.PI, da = Math.PI / gearN;
+        ctx.lineTo(Math.cos(a0 - da / 2) * r, Math.sin(a0 - da / 2) * r);
+        ctx.lineTo(Math.cos(a0 - da / 4) * (r + 7), Math.sin(a0 - da / 4) * (r + 7));
+        ctx.lineTo(Math.cos(a0 + da / 4) * (r + 7), Math.sin(a0 + da / 4) * (r + 7));
+        ctx.lineTo(Math.cos(a0 + da / 2) * r, Math.sin(a0 + da / 2) * r);
+        ctx.lineTo(Math.cos(a0 + da * 1.5) * r, Math.sin(a0 + da * 1.5) * r);
+      }
+      ctx.closePath();
+    } else { ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); }
+    ctx.fill(); ctx.stroke();
+    for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2; line(ctx, 0, 0, Math.cos(a) * r * 0.85, Math.sin(a) * r * 0.85, color, 2); }
+    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(r * 0.7, 0, Math.max(3, r * 0.12), 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
+  }
+  function beltPath(ctx, xa, ra, xb, rb, y, crossed, off) {
+    ctx.save(); ctx.strokeStyle = '#64748b'; ctx.lineWidth = 3; ctx.setLineDash([10, 6]); ctx.lineDashOffset = off;
+    ctx.beginPath();
+    if (!crossed) { ctx.moveTo(xa, y - ra - 2); ctx.lineTo(xb, y - rb - 2); ctx.moveTo(xb, y + rb + 2); ctx.lineTo(xa, y + ra + 2); }
+    else { ctx.moveTo(xa, y - ra - 2); ctx.lineTo(xb, y + rb + 2); ctx.moveTo(xb, y - rb - 2); ctx.lineTo(xa, y + ra + 2); }
+    ctx.stroke(); ctx.restore();
+  }
+  function drawGears(dt) {
+    const { ctx, w, h } = sh, cy = h / 2, txt = cssv('--sim-line');
+    const k = Math.min(w * 0.2, h * 0.38) / 10;
+    const rA = st.RA * k, rB = st.RB * k;
+    const fA = st.fA / 60;
+    const fB = st.mode === 'coaxial' ? fA : fA * st.RA / st.RB;
+    const opposite = st.mode === 'cruzada' || st.mode === 'engrenagem';
+    const vis = Math.min(1, 1.6 / Math.max(fA, fB));
+    st.phA += 2 * Math.PI * fA * vis * dt;
+    st.phB = st.mode === 'coaxial' ? st.phA : (opposite ? -1 : 1) * st.phA * st.RA / st.RB;
+    ctx.clearRect(0, 0, w, h);
+    let xA, xB;
+    if (st.mode === 'coaxial') {
+      xA = xB = w / 2;
+      const order = rA >= rB ? [['A', rA], ['B', rB]] : [['B', rB], ['A', rA]];
+      order.forEach(([n, r]) => wheel(ctx, xA, cy, r, st.phA, n === 'A' ? '#ec4899' : '#8b5cf6'));
+    } else if (st.mode === 'engrenagem') {
+      const d = rA + rB + 7;
+      xA = w / 2 - d / 2; xB = w / 2 + d / 2;
+      const nA = Math.max(6, Math.round(st.RA * 2.4)), nB = Math.max(6, Math.round(st.RB * 2.4));
+      wheel(ctx, xA, cy, rA, st.phA, '#ec4899', nA);
+      wheel(ctx, xB, cy, rB, -st.phA * nA / nB + Math.PI + Math.PI / nB, '#8b5cf6', nB);
+    } else {
+      xA = w * 0.27; xB = w * 0.73;
+      st.belt += 2 * Math.PI * st.RA * k * fA * vis * dt;
+      beltPath(ctx, xA, rA, xB, rB, cy, st.mode === 'cruzada', st.belt);
+      wheel(ctx, xA, cy, rA, st.phA, '#ec4899');
+      wheel(ctx, xB, cy, rB, st.phB, '#8b5cf6');
+    }
+    if (st.mode !== 'coaxial') {
+      text(ctx, 'A', xA, cy - rA - 18, '#ec4899', 14, 'center', '900');
+      text(ctx, 'B', xB, cy - rB - 18, '#8b5cf6', 14, 'center', '900');
+    } else text(ctx, 'A (rosa) e B (roxa) no mesmo eixo', w / 2, 16, txt, 12, 'center');
+    if (vis < 1) text(ctx, '(animação em câmera lenta)', w - 8, h - 12, txt, 11, 'right');
+    const vA = 2 * Math.PI * st.RA / 100 * fA, vB = 2 * Math.PI * st.RB / 100 * fB;
+    sh.readout(
+      ro('f<sub>A</sub>', fmt(st.fA, 0) + ' rpm') + ro('f<sub>B</sub>', fmt(fB * 60, 1) + ' rpm') +
+      ro('v<sub>A</sub> (borda)', fmt(vA, 3) + ' m/s') + ro('v<sub>B</sub> (borda)', fmt(vB, 3) + ' m/s') +
+      ro('ω<sub>A</sub>', fmt(2 * Math.PI * fA, 2) + ' rad/s') + ro('ω<sub>B</sub>', fmt(2 * Math.PI * fB, 2) + ' rad/s')
+    );
+    const rule = st.mode === 'coaxial'
+      ? '🎯 Mesmo eixo → mesmo ω e mesma f. Quem tem raio maior tem v maior.'
+      : `🔗 ${st.mode === 'engrenagem' ? 'Contato' : 'Correia'} → mesma v na borda: f<sub>A</sub>·R<sub>A</sub> = f<sub>B</sub>·R<sub>B</sub>. ${st.RB < st.RA ? 'B é menor, então gira mais rápido!' : st.RB > st.RA ? 'B é maior, então gira mais devagar.' : 'Raios iguais → mesma f.'}`;
+    sh.alert('info', `${rule}<br>Sentido: <b>${opposite ? 'OPOSTO 🔄' : 'o MESMO ↻↻'}</b>`);
+  }
+  function drawBike(dt) {
+    const { ctx, w, h } = sh, cy = h / 2 + 10, txt = cssv('--sim-line');
+    const fP = st.fp / 60, fR = fP * st.ncor / st.ncat;
+    const v = 2 * Math.PI * 0.35 * fR;
+    const vis = Math.min(1, 1.6 / fR);
+    st.phA += 2 * Math.PI * fP * vis * dt;
+    st.phB = st.phA * st.ncor / st.ncat;
+    st.belt += dt * vis * fP * st.ncor * 6;
+    ctx.clearRect(0, 0, w, h);
+    const rw = Math.min(h * 0.4, w * 0.25), xw = w * 0.3;
+    const kk = rw * 0.0115;
+    const rcat = st.ncat * kk, rcor = st.ncor * kk, xc = w * 0.77;
+    // roda traseira
+    ctx.save(); ctx.translate(xw, cy); ctx.rotate(-st.phB);
+    ctx.strokeStyle = txt; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(0, 0, rw, 0, Math.PI * 2); ctx.stroke();
+    ctx.lineWidth = 1; ctx.globalAlpha = 0.5;
+    for (let i = 0; i < 12; i++) { const a = i * Math.PI / 6; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * rw, Math.sin(a) * rw); ctx.stroke(); }
+    ctx.globalAlpha = 1; ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.arc(rw, 0, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    beltPath(ctx, xw, rcat, xc, rcor, cy, false, -st.belt);
+    wheel(ctx, xw, cy, rcat, st.phB, '#8b5cf6', st.ncat);
+    wheel(ctx, xc, cy, rcor, st.phA, '#ec4899', st.ncor);
+    // pedal
+    const pl = rcor + 16, pxp = xc + Math.cos(-st.phA + Math.PI) * pl, pyp = cy + Math.sin(-st.phA + Math.PI) * pl;
+    line(ctx, xc, cy, pxp, pyp, txt, 4); ctx.fillStyle = txt; ctx.fillRect(pxp - 9, pyp - 3, 18, 6);
+    text(ctx, 'catraca', xw, cy + rcat + 20, '#8b5cf6', 12, 'center');
+    text(ctx, 'coroa + pedal', xc, cy + rcor + 26, '#ec4899', 12, 'center');
+    if (vis < 1) text(ctx, '(câmera lenta)', w - 8, 14, txt, 11, 'right');
+    sh.readout(
+      ro('f do pedal = f da coroa', fmt(fP, 2) + ' Hz') + ro('f catraca = f roda', fmt(fR, 2) + ' Hz') +
+      ro('Velocidade', `${fmt(v, 1)} m/s = ${fmt(v * 3.6, 1)} km/h`) + ro('Relação', fmt(st.ncor / st.ncat, 2) + ' voltas da roda por pedalada')
+    );
+    sh.alert(st.ncor / st.ncat >= 2.5 ? 'ok' : 'info', st.ncor / st.ncat >= 2.5
+      ? '🚀 Marcha “pesada”: coroa grande + catraca pequena = muito rápido (mas pesado pra subir ladeira)!'
+      : '⛰️ Marcha “leve”: fica fácil pedalar, mas a bike anda menos por pedalada.');
+  }
+  const stopLoop = loop(dt => (st.mode === 'bike' ? drawBike(dt) : drawGears(dt)));
+  const redraw = () => (st.mode === 'bike' ? drawBike(0) : drawGears(0));
+  const off = onResize(sh, redraw);
+  return { stop() { stopLoop(); off(); }, redraw };
+};
+
+/* ---------- SIM 6: DINÂMICA ---------- */
+SIMS[6] = function (box) {
+  const CASES = {
+    plana: { l: '🚗 Curva plana', v: 15, R: 50, m: 1000, mu: 0.5 },
+    inclinada: { l: '🛣️ Curva inclinada', v: 15, R: 50, m: 1000, th: 25 },
+    lombada: { l: '⛰️ Lombada', v: 10, R: 40, m: 1000 },
+    depressao: { l: '🕳️ Depressão', v: 10, R: 50, m: 1000 },
+    looping: { l: '🎢 Looping', v: 8, R: 5, m: 500 },
+    fio: { l: '🪢 Pedra no fio', v: 5, R: 1, m: 2 },
+    rotor: { l: '🌀 Rotor', v: 8, R: 3, m: 60, mu: 0.5 },
+    conico: { l: '🎯 Pêndulo cônico', v: 3, R: 1, m: 2 },
+  };
+  const st = { c: 'plana', ...CASES.plana };
+  const sh = simShell(box, {
+    height: 290,
+    controls: `<div class="ctrl"><label>Situação</label>${segHTML('dc', Object.entries(CASES).map(([k, c]) => [k, c.l]), 'plana')}</div><div id="dctrl"></div>`,
+  });
+  const dctrl = $('#dctrl', box);
+  const g = 10;
+  function controls() {
+    const c = CASES[st.c];
+    dctrl.innerHTML = `<div class="ctrls">
+      ${sliderHTML('dv', 'Velocidade v', 0, 40, 0.5, st.v, ' m/s')}
+      ${sliderHTML('dr', 'Raio R', 1, 100, 0.5, st.R, ' m')}
+      ${sliderHTML('dm', 'Massa m', 1, 2000, 1, st.m, ' kg')}
+      ${c.mu !== undefined ? sliderHTML('dmu', 'Coef. de atrito μ', 0.1, 1, 0.05, st.mu) : ''}
+      ${c.th !== undefined ? sliderHTML('dth', 'Inclinação θ', 5, 45, 1, st.th, '°') : ''}</div>`;
+    const vtxt = v => `${fmt(v, 1)} m/s (${fmt(v * 3.6, 0)} km/h)`;
+    bindSlider(box, 'dv', '', v => { st.v = v; draw(); }, vtxt);
+    $('#dv-v', box).textContent = vtxt(st.v);
+    bindSlider(box, 'dr', ' m', v => { st.R = v; draw(); });
+    bindSlider(box, 'dm', ' kg', v => { st.m = v; draw(); }, v => v.toFixed(0));
+    if (c.mu !== undefined) bindSlider(box, 'dmu', '', v => { st.mu = v; draw(); });
+    if (c.th !== undefined) bindSlider(box, 'dth', '°', v => { st.th = v; draw(); }, v => v.toFixed(0));
+  }
+  bindSeg(box, 'dc', k => { Object.assign(st, { mu: undefined, th: undefined }, CASES[k], { c: k }); controls(); draw(); });
+  controls();
+  const N = x => `${fmt(x, 0)} N`;
+  function car(ctx, x, y, ang, color = '#ec4899') {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+    ctx.fillStyle = color; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-20, -18, 40, 14, 5) : ctx.rect(-20, -18, 40, 14); ctx.fill();
+    ctx.fillRect(-11, -26, 22, 9);
+    ctx.fillStyle = '#334155'; ctx.beginPath(); ctx.arc(-12, -4, 5, 0, Math.PI * 2); ctx.arc(12, -4, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+  function draw() {
+    const { ctx, w, h } = sh, txt = cssv('--sim-line');
+    ctx.clearRect(0, 0, w, h);
+    const { v, R, m } = st, P = m * g, Fcp = m * v * v / R;
+    const sc = F => clamp(F / Math.max(P, 1) * 55, 0, 110);
+    const PC = '#ef4444', NC = '#3b82f6', AC = '#16a34a', TC = '#f97316';
+    const cx = w / 2;
+    let rd = '', al = ['ok', ''];
+    switch (st.c) {
+      case 'plana': {
+        const vmax = Math.sqrt(st.mu * g * R), skid = v > vmax;
+        const rr = Math.min(w * 0.36, h * 0.38), cyc = h / 2 + 10;
+        ctx.save(); ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 26; ctx.globalAlpha = 0.5; ctx.beginPath(); ctx.arc(cx, cyc, rr, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+        text(ctx, 'vista de cima', 8, 14, txt, 11);
+        ctx.fillStyle = txt; ctx.beginPath(); ctx.arc(cx, cyc, 3, 0, Math.PI * 2); ctx.fill(); text(ctx, 'centro', cx, cyc + 14, txt, 11, 'center');
+        if (skid) { line(ctx, cx, cyc - rr, cx + rr * 1.2, cyc - rr - 10, PC, 2, [6, 5]); text(ctx, 'derrapa! 💨', cx + rr * 0.8, cyc - rr - 26, PC, 13, 'center', '900'); }
+        car(ctx, cx, cyc - rr + 10, 0);
+        arrow(ctx, cx, cyc - rr, cx, cyc - rr + Math.min(sc(Math.min(Fcp, st.mu * P)), rr - 10), AC, 4, 'Fat');
+        arrow(ctx, cx + 24, cyc - rr - 8, cx + 70, cyc - rr - 8, NC, 3, 'v');
+        rd = ro('F꜀ₚ necessária = mv²/R', N(Fcp)) + ro('Atrito máximo = μmg', N(st.mu * P)) + ro('v máxima = √(μgR)', `${fmt(vmax, 1)} m/s (${fmt(vmax * 3.6, 0)} km/h)`);
+        al = skid ? ['bad', `🚗💨 DERRAPOU! Precisa de ${N(Fcp)}, mas o atrito só dá ${N(st.mu * P)}.`] : ['ok', '✔ O atrito segura o carro na curva. (Diminua μ para simular pista molhada!)'];
+        break;
+      }
+      case 'inclinada': {
+        const th = st.th * DEG, vi = Math.sqrt(R * g * Math.tan(th));
+        const L = Math.min(w * 0.7, 360), x0 = cx - L / 2, y0 = h * 0.78;
+        const x1 = x0 + L * Math.cos(th), y1 = y0 - L * Math.sin(th);
+        ctx.fillStyle = 'rgba(148,163,184,.4)'; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.lineTo(x1, y0); ctx.closePath(); ctx.fill();
+        line(ctx, x0, y0, x1, y1, txt, 3);
+        const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+        car(ctx, mx, my, -th);
+        const Nn = P / Math.cos(th), ox = mx, oy = my - 14;
+        arrow(ctx, ox, oy, ox, oy + sc(P), PC, 4, 'P');
+        arrow(ctx, ox, oy, ox - Math.sin(th) * sc(Nn), oy - Math.cos(th) * sc(Nn), NC, 4, 'N');
+        arrow(ctx, ox, oy + 26, ox - Math.sin(th) * sc(Nn), oy + 26, AC, 2.5, 'N·sen θ', 22);
+        text(ctx, '← centro da curva', x0 + 4, y0 + 16, txt, 12);
+        text(ctx, `θ = ${st.th}°`, x1 - 50, y0 - 10, txt, 12);
+        rd = ro('v ideal = √(Rg·tg θ)', `${fmt(vi, 1)} m/s (${fmt(vi * 3.6, 0)} km/h)`) + ro('N = P/cos θ', N(Nn)) + ro('F꜀ₚ = N·sen θ', N(Nn * Math.sin(th)));
+        const tol = 0.06 * vi + 0.3;
+        al = Math.abs(v - vi) <= tol ? ['ok', '✔ Velocidade ideal: a componente horizontal da normal faz a curva sozinha, sem precisar de atrito!']
+          : v > vi ? ['bad', '⬆️ Rápido demais para essa inclinação: sem atrito, o carro escapa para FORA da curva.']
+            : ['info', '⬇️ Devagar demais: sem atrito, o carro escorrega para DENTRO (para baixo).'];
+        break;
+      }
+      case 'lombada': case 'depressao': {
+        const top = st.c === 'lombada';
+        const Nv = top ? m * (g - v * v / R) : m * (g + v * v / R);
+        const rr = Math.min(w * 0.55, 260), yc = top ? h * 0.42 + rr : h * 0.6 - rr;
+        ctx.save(); ctx.strokeStyle = txt; ctx.lineWidth = 3; ctx.beginPath();
+        if (top) ctx.arc(cx, yc, rr, Math.PI * 1.2, Math.PI * 1.8); else ctx.arc(cx, yc, rr, Math.PI * 0.2, Math.PI * 0.8);
+        ctx.stroke(); ctx.restore();
+        const sy = top ? yc - rr : yc + rr;
+        const flying = top && Nv < 0;
+        car(ctx, cx, sy - (flying ? 20 : 0), 0);
+        const oy = sy - (flying ? 32 : 12);
+        arrow(ctx, cx, oy, cx, oy + sc(P), PC, 4, 'P');
+        if (!flying) arrow(ctx, cx + 26, sy, cx + 26, sy - sc(Math.max(Nv, 0)), NC, 4, 'N');
+        text(ctx, top ? 'centro da curva ↓ (embaixo)' : 'centro da curva ↑ (em cima)', 8, 14, txt, 11);
+        rd = ro(top ? 'N = m(g − v²/R)' : 'N = m(g + v²/R)', N(Math.max(Nv, 0))) + ro('Peso P', N(P)) + ro('N/P (“peso que você sente”)', fmt(Math.max(Nv, 0) / P, 2) + '×') +
+          (top ? ro('v máx sem voar = √(gR)', `${fmt(Math.sqrt(g * R), 1)} m/s (${fmt(Math.sqrt(g * R) * 3.6, 0)} km/h)`) : '');
+        al = top ? (flying ? ['bad', '🚀 PERDEU CONTATO! v > √(gR): o peso não dá conta de fazer a curva e o carro “voa”.'] : ['ok', `✔ No topo P − N = mv²/R → N < P (frio na barriga 😆). Você se sente ${fmt(Nv / P, 2)}× o seu peso.`])
+          : ['info', `⬇️ No fundo N − P = mv²/R → N > P. Você se sente ${fmt(Nv / P, 2)}× mais pesada!`];
+        break;
+      }
+      case 'looping': case 'fio': {
+        const loopC = st.c === 'looping';
+        const rr = Math.min(h * 0.38, w * 0.3), cyc = h / 2;
+        ctx.save(); ctx.strokeStyle = txt; ctx.lineWidth = loopC ? 5 : 1.5; if (!loopC) ctx.setLineDash([5, 5]); ctx.globalAlpha = loopC ? 1 : 0.5;
+        ctx.beginPath(); ctx.arc(cx, cyc, rr, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+        const vmin = Math.sqrt(g * R);
+        const Ftop = m * (v * v / R - g);
+        if (loopC) {
+          const fall = Ftop < 0;
+          car(ctx, cx, cyc - rr + (fall ? 30 : 4), Math.PI);
+          arrow(ctx, cx - 30, cyc - rr + 8, cx - 30, cyc - rr + 8 + sc(P), PC, 4, 'P');
+          if (!fall) arrow(ctx, cx + 30, cyc - rr + 8, cx + 30, cyc - rr + 8 + sc(Ftop), NC, 4, 'N');
+          rd = ro('No topo: N + P = mv²/R → N', N(Math.max(Ftop, 0))) + ro('v mínima = √(gR)', `${fmt(vmin, 2)} m/s`) + ro('F꜀ₚ = mv²/R', N(Fcp));
+          al = fall ? ['bad', '😱 Velocidade insuficiente! v < √(gR): o carrinho cai do looping.'] : Math.abs(Ftop) < P * 0.05 ? ['info', '🎯 Quase no limite: N ≈ 0 e só o peso faz a curva (v = √(gR)).'] : ['ok', '✔ Passou pelo topo! Peso + normal fazem a resultante centrípeta.'];
+        } else {
+          const Tb = m * (g + v * v / R);
+          line(ctx, cx, cyc, cx, cyc + rr, TC, 2); line(ctx, cx, cyc, cx, cyc - rr, TC, 2, Ftop < 0 ? [3, 4] : null);
+          ctx.fillStyle = '#64748b'; [cyc + rr, cyc - rr].forEach(y => { ctx.beginPath(); ctx.arc(cx, y, 10, 0, Math.PI * 2); ctx.fill(); });
+          const sx = Math.min(sc(P), rr - 14) / sc(P) || 1; // encolhe as setas se o círculo for pequeno
+          arrow(ctx, cx + 16, cyc + rr, cx + 16, cyc + rr + Math.min(sc(P), h - (cyc + rr) - 4), PC, 4, 'P');
+          arrow(ctx, cx - 16, cyc + rr, cx - 16, cyc + rr - Math.min(sc(Tb), rr * 0.45), TC, 4, 'T');
+          arrow(ctx, cx + 16, cyc - rr, cx + 16, cyc - rr + sc(P) * sx, PC, 3, 'P');
+          if (Ftop > 0) arrow(ctx, cx - 16, cyc - rr, cx - 16, cyc - rr + Math.min(sc(Ftop), rr * 0.45), TC, 3, 'T');
+          text(ctx, 'ponto mais baixo', cx + 30, cyc + rr - 14, txt, 11);
+          text(ctx, 'ponto mais alto', cx + 30, cyc - rr - 4, txt, 11);
+          rd = ro('Embaixo: T = m(g + v²/R)', N(Tb)) + ro('Em cima: T = m(v²/R − g)', Ftop < 0 ? 'fio afrouxa!' : N(Ftop)) + ro('Peso', N(P));
+          al = Ftop < 0 ? ['bad', `🪢 No topo o fio AFROUXA: v < √(gR) = ${fmt(vmin, 2)} m/s.`] : ['ok', '✔ Tração máxima no ponto mais BAIXO (T − P = mv²/R): é ali que o fio pode arrebentar!'];
+        }
+        break;
+      }
+      case 'rotor': {
+        const Nn = Fcp, mumin = v > 0 ? g * R / (v * v) : Infinity, ok = st.mu >= mumin;
+        const ww = Math.min(w * 0.6, 280), x0 = cx - ww / 2, x1 = cx + ww / 2, y0 = 20, y1 = h - 20;
+        ctx.save(); ctx.strokeStyle = txt; ctx.lineWidth = 4; line(ctx, x0, y0, x0, y1, txt, 5); line(ctx, x1, y0, x1, y1, txt, 5);
+        ctx.setLineDash([4, 4]); line(ctx, cx, y0, cx, y1, txt, 1.5); ctx.restore();
+        text(ctx, 'eixo', cx + 4, y0 + 6, txt, 11);
+        const py = ok ? h * 0.42 : h * 0.62;
+        ctx.font = '30px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('🧍', x0 + 18, py);
+        arrow(ctx, x0 + 10, py, x0 + 10 + sc(Nn), py, NC, 4, 'N');
+        arrow(ctx, x0 + 34, py, x0 + 34, py + sc(P), PC, 4, 'P');
+        arrow(ctx, x0 + 34, py, x0 + 34, py - sc(Math.min(P, st.mu * Nn)), AC, 4, 'Fat');
+        if (!ok) text(ctx, '⬇️ escorregando', x0 + 50, py + 40, PC, 13, 'left', '900');
+        rd = ro('N = mv²/R', N(Nn)) + ro('Atrito máx = μN', N(st.mu * Nn)) + ro('Peso', N(P)) + ro('μ mínimo = gR/v²', isFinite(mumin) ? fmt(mumin, 2) : '∞');
+        al = ok ? ['ok', '✔ A normal (da parede) é a centrípeta e o atrito segura o peso: fica “grudada” na parede!'] : ['bad', '⬇️ Escorrega! μN < P. Aumente v ou μ.'];
+        break;
+      }
+      case 'conico': {
+        const th = Math.atan(v * v / (R * g)), T = P / Math.cos(th);
+        const Lp = Math.min(h * 0.75, 200), px = cx, py = 18;
+        const bx = px + Lp * Math.sin(th), by = py + Lp * Math.cos(th);
+        ctx.save(); ctx.strokeStyle = txt; ctx.globalAlpha = 0.4; ctx.setLineDash([5, 4]);
+        ctx.beginPath(); ctx.ellipse(px, by, Math.max(2, bx - px), Math.max(2, (bx - px) * 0.25), 0, 0, Math.PI * 2); ctx.stroke();
+        line(ctx, px, py, px, by, txt, 1.5, [3, 3]); ctx.restore();
+        line(ctx, px - 30, py, px + 30, py, txt, 4);
+        line(ctx, px, py, bx, by, TC, 2.5);
+        ctx.fillStyle = '#64748b'; ctx.beginPath(); ctx.arc(bx, by, 11, 0, Math.PI * 2); ctx.fill();
+        arrow(ctx, bx, by, bx, by + sc(P), PC, 4, 'P');
+        arrow(ctx, bx, by, bx - Math.sin(th) * sc(T), by - Math.cos(th) * sc(T), TC, 4, 'T');
+        arrow(ctx, bx, by + 18, bx - Math.sin(th) * sc(T), by + 18, AC, 2.5, 'F꜀ₚ');
+        text(ctx, `θ = ${fmt(th / DEG, 1)}°`, px + 8, py + 34, txt, 12);
+        rd = ro('tg θ = v²/(Rg)', `θ = ${fmt(th / DEG, 1)}°`) + ro('T = P/cos θ', N(T)) + ro('F꜀ₚ = T·sen θ', N(T * Math.sin(th)));
+        al = ['info', '🎯 A componente horizontal da tração é a centrípeta. Mais rápido → o fio abre mais (θ maior).'];
+        break;
+      }
+    }
+    sh.readout(rd + ro('F꜀ₚ = mv²/R', N(Fcp)));
+    sh.alert(al[0], al[1]);
+  }
+  draw();
+  const off = onResize(sh, draw);
+  return { stop: off, redraw: draw };
+};
+
+/* ================= INÍCIO ================= */
+applyTheme();
+if (window.matchMedia) {
+  const mq = matchMedia('(prefers-color-scheme: dark)');
+  const onChange = () => { if (!S.theme) { applyTheme(); if (activeSim && activeSim.redraw) activeSim.redraw(); } };
+  mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
+}
+route();
+</script>
+</body>
+</html>
